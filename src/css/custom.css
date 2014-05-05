@@ -1,0 +1,9 @@
+/* this is my custom css stylesheet */
+
+footer {
+	padding-top: 20px;
+	margin-top: 20px;
+	border-top: 1px solid #ddd;
+	color: #999;
+}
+

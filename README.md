@@ -1,7 +1,10 @@
 # javascript #
 
 ## Overview ##
-	The purpose of this project is to develop a range of javascript classes and store them within their testing environments for further development as classes and not as part of larger projects.
+	The purpose of this project is to develop a 
+	range of javascript classes and store them within
+	their testing environments for further development
+	as classes and not as part of larger projects.
 
 
 ## /docs ##
@@ -10,7 +13,8 @@
 
 ## /src ##
 	All the source code
-	This folder should hold the html files which provide the testing environments for the different classes
+	This folder should hold the html files which provide
+	the testing environments for the different classes
 
 ## /src/css ##
 	css files as used by html test pages

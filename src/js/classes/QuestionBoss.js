@@ -1,6 +1,10 @@
 
 /* QuestionBoss.js */
 
-test( "hello test", function() {
-  ok( 1 == "1", "Passed!" );
-});
+var QB = function(){
+
+	this.TestFunction = function(a,b,c){
+		return a+b+c;
+	}
+
+};

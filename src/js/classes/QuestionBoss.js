@@ -7,7 +7,36 @@ var QB = function(){
 		return a+b+c;
 	}
 
+	/* Core functions */
+	this.Activity_Anagrams = function(source){
 
+	};
+
+	this.Activity_MissingLetters = function(source){
+
+	};
+
+	this.Activity_MatchDefinitions = function(source){
+
+	};
+
+	this.Activity_ScrambleSentences = function(source){
+
+	};
+
+
+
+	/* Get results functions */
+	this.Questions = function(){
+		return this._questions;
+	};
+
+	this.Answers = function(){
+		return this._answers;
+	};
+
+
+	/* Core internal functions */
 	this.ScrambleLetters = function(text) {
         var newWords = '';
         var words = text.split(' ');

@@ -1,43 +1,44 @@
 
 /* QuestionBoss.js */
 
-var QB = function(){
+var QB = {
 
-	this.TestFunction = function(a,b,c){
+	TestFunction:function(a,b,c){
 		return a+b+c;
-	}
-
+	},
 	/* Core functions */
-	this.Activity_Anagrams = function(source){
+	Activity_Anagrams:function(source){
 
-	};
+	},
 
-	this.Activity_MissingLetters = function(source){
+	Activity_MissingLetters:function(source){
 
-	};
+	},
 
-	this.Activity_MatchDefinitions = function(source){
+	Activity_MatchDefinitions:function(source){
 
-	};
+	},
 
-	this.Activity_ScrambleSentences = function(source){
+	Activity_ScrambleSentences:function(source){
 
-	};
+	},
 
 
+	ResetObject:function(){
+		this.QuestionsAsArray = new Array();
+		this.AnswersAsArray = new Array();
+	},
 
-	/* Get results functions */
-	this.Questions = function(){
-		return this._questions;
-	};
 
-	this.Answers = function(){
-		return this._answers;
-	};
+	/* Functions for accessing the output */
+	QuestionsAsTable:function(){},
+	AnswersAsTable:function(){},
+	QuestionsAsArray:new Array(),
+	AnswersAsArray:new Array(),
 
 
 	/* Core internal functions */
-	this.ScrambleLetters = function(text) {
+	ScrambleLetters:function(text) {
         var newWords = '';
         var words = text.split(' ');
         for (var i = 0; i < words.length; i++) {
@@ -54,17 +55,17 @@ var QB = function(){
             newWords += newWord + ' ';
         }
         return newWords;
-    };
+    },
 
-    this.CheckAnswer = function(iVal, myArray) {
+    CheckAnswer:function(iVal, myArray) {
         for (var i = 0; i < myArray.length; i++) {
             if (iVal == myArray[i][0]) {
                 return String.fromCharCode(97 + i);
             }
         }
-    };
+    },
 
-    this.ShuffleArray = function(array) {
+    ShuffleArray:function(array) {
         for (var i = array.length - 1; i > 0;  ) {
             var j = Math.floor(Math.random() * (i + 1));
             var temp = array[i];
@@ -73,7 +74,5 @@ var QB = function(){
             i = i - 1;
         }
         return array;
-    };
-
-
+    }
 };

@@ -10,9 +10,10 @@ var QB = {
     Activity_MultipleChoice:function(source){
 
     },
-    Activity_Anagrams:function(source){
-            var rawData = $('#txtListData').val();
+    Activity_Anagrams:function(sourceData, questionElement, answersElement){
+            var rawData = sourceData;
             var aValues = rawData.split('\n');
+
             var sourceArray = new Array();
             var questionArray = new Array();
 
@@ -24,7 +25,7 @@ var QB = {
             }
 
             for (var i = 0; i < sourceArray.length; i++) {
-                questionArray.push(scrambleLetters(sourceArray[i][0]));
+                questionArray.push(this.ScrambleLetters(sourceArray[i][0]));
             }
 
 
@@ -46,15 +47,12 @@ var QB = {
             sQuestion += '</table>';
             sAnswers += '</table>';
 
-            $('#question').html(sQuestion);
-            $('#answers').html(sAnswers);
-
-            $('#questionPanel').show();
-            $('#answersPanel').show();
+            $('#' + questionElement).html(sQuestion);
+            $('#' + answersElement).html(sAnswers);
 
             //console.log(questionArray);
             $('html, body').animate({
-                    scrollTop: $("#questionPanel").offset().top
+                    scrollTop: $("#" + questionElement).offset().top
                 }, 1000);
 
 	},
@@ -97,9 +95,6 @@ var QB = {
 
             $('#question').html(sQuestion);
             $('#answers').html(sAnswers);
-
-            $('#questionPanel').show();
-            $('#answersPanel').show();
 
             //console.log(questionArray);
             $('html, body').animate({
@@ -166,8 +161,6 @@ var QB = {
 
             $('#question').html(sQuestion);
             $('#answers').html(sAnswers);
-            $('#questionPanel').show();
-            $('#answersPanel').show();
 
             $('html, body').animate({
                     scrollTop: $("#questionPanel").offset().top
@@ -204,9 +197,6 @@ var QB = {
             $('#question').html(sQuestion);
             $('#answers').html(sAnswers);
 
-            $('#questionPanel').show();
-            $('#answersPanel').show();
-
             //console.log(questionArray);
             $('html, body').animate({
                     scrollTop: $("#questionPanel").offset().top
@@ -239,7 +229,7 @@ var QB = {
             for (var j = 0; j < currentWord.length; j++) {
                 newWordArray.push(currentWord.substr(j, 1));
             }
-            newWordArray = shuffleArray(newWordArray);
+            newWordArray = this.ShuffleArray(newWordArray);
             for (var j = 0; j < newWordArray.length; j++) {
                 newWord += newWordArray[j];
             }

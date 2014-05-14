@@ -20,7 +20,9 @@
     <!-- JAVASCRIPT EVENTS HANDLING -->
     <script>
 	    function runTest(){
-	    	alert('test running:' + QB.TestFunction(1,2,3).toString() );
+	    	//alert('test running:' + QB.TestFunction(1,2,3).toString() );
+
+        QB.Activity_Anagrams($('#txtInput').val(),"question","answers");
 		}
 	</script>
 
@@ -40,8 +42,8 @@
 			<input type="button" onclick="runTest()" value="RUN" />
   		</div>
   		<div id="outputDiv" class="">
-  			<div id="outputQuestion" class=""></div>
-  			<div id="outputAnswer" class=""></div>
+  			<div id="question" class=""></div>
+  			<div id="answers" class=""></div>
   		</div>
   		<div>
   			Options

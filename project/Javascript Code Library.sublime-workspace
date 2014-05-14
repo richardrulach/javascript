@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"Ques",
+				"QuestionsAsTable"
+			],
+			[
+				"s",
+				"script"
+			],
+			[
 				"margin",
 				"margin-right"
 			],
@@ -28,50 +36,18 @@
 	"buffers":
 	[
 		{
-			"file": "/C/GitHub/javascript/src/FlashCardBuilder.htm",
-			"settings":
-			{
-				"buffer_size": 145,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/GitHub/javascript/src/HTML5Template.htm",
-			"settings":
-			{
-				"buffer_size": 145,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "/C/GitHub/javascript/src/QuestionBoss.htm",
 			"settings":
 			{
-				"buffer_size": 145,
+				"buffer_size": 2042,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/GitHub/javascript/src/qunitDemo.htm",
+			"file": "/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
 			"settings":
 			{
-				"buffer_size": 341,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/GitHub/javascript/src/SQLBoss.htm",
-			"settings":
-			{
-				"buffer_size": 145,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/GitHub/javascript/src/WireframeBuilder.htm",
-			"settings":
-			{
-				"buffer_size": 145,
+				"buffer_size": 1778,
 				"line_ending": "Windows"
 			}
 		}
@@ -100,9 +76,12 @@
 	},
 	"file_history":
 	[
-		"/C/GitHub/javascript/src/css/custom.css",
-		"/C/GitHub/javascript/src/qunitDemo.htm",
 		"/C/GitHub/javascript/src/FlashCardBuilder.htm",
+		"/C/GitHub/javascript/src/HTML5Template.htm",
+		"/C/GitHub/javascript/src/WireframeBuilder.htm",
+		"/C/GitHub/javascript/src/SQLBoss.htm",
+		"/C/GitHub/javascript/src/qunitDemo.htm",
+		"/C/GitHub/javascript/src/css/custom.css",
 		"/C/GitHub/javascript/src/js/classes/FlashCardBuilder.js",
 		"/C/GitHub/javascript/src/js/d3/d3.js",
 		"/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
@@ -154,7 +133,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 90.0,
+		"height": 0.0,
 		"where_history":
 		[
 		]
@@ -186,18 +165,18 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/C/GitHub/javascript/src/FlashCardBuilder.htm",
+					"file": "/C/GitHub/javascript/src/QuestionBoss.htm",
 					"settings":
 					{
-						"buffer_size": 145,
+						"buffer_size": 2042,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								979,
+								979
 							]
 						],
 						"settings":
@@ -205,134 +184,30 @@
 							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 360.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/C/GitHub/javascript/src/HTML5Template.htm",
+					"file": "/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
 					"settings":
 					{
-						"buffer_size": 145,
+						"buffer_size": 1778,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								609,
+								609
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/C/GitHub/javascript/src/QuestionBoss.htm",
-					"settings":
-					{
-						"buffer_size": 145,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/C/GitHub/javascript/src/qunitDemo.htm",
-					"settings":
-					{
-						"buffer_size": 341,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/C/GitHub/javascript/src/SQLBoss.htm",
-					"settings":
-					{
-						"buffer_size": 145,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/C/GitHub/javascript/src/WireframeBuilder.htm",
-					"settings":
-					{
-						"buffer_size": 145,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

@@ -168,13 +168,12 @@ var QB = {
 
 	},
 
-	Activity_ScrambleSentences:function(source){
-            var rawData = $('#txtListData').val();
-            var sourceArray = rawData.split('\n');
+	Activity_ScrambleSentences:function(sourceData, questionElement, answersElement){
+            var sourceArray = sourceData.split('\n');
             var questionArray = new Array();
 
             for (var i = 0; i < sourceArray.length; i++) {
-                questionArray.push(scrambleSentence(sourceArray[i]));
+                questionArray.push(this.ScrambleSentence(sourceArray[i]));
             }
 
 
@@ -194,12 +193,12 @@ var QB = {
             sQuestion += '</table>';
             sAnswers += '</table>';
 
-            $('#question').html(sQuestion);
-            $('#answers').html(sAnswers);
+            $('#' + questionElement).html(sQuestion);
+            $('#' + answersElement).html(sAnswers);
 
             //console.log(questionArray);
             $('html, body').animate({
-                    scrollTop: $("#questionPanel").offset().top
+                    scrollTop: $("#" + questionElement).offset().top
                 }, 1000);
 
 	},
@@ -219,6 +218,18 @@ var QB = {
 
 
 	/* Core internal functions */
+    ScrambleSentence: function(text) {
+        var newWords = '';
+        var words = text.split(' ');
+        words = this.ShuffleArray(words);
+        for (var i = 0; i < words.length; i++) {
+            newWords += words[i];
+            if (i != words.length - 1) {
+                newWords += ' / ';
+            }
+        }
+        return newWords;
+    },
 
     GetGappedLetters: function(text) {
         var newWords = '';

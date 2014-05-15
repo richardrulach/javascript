@@ -57,8 +57,8 @@ var QB = {
 
 	},
 
-	Activity_MissingLetters:function(source){
-            var rawData = $('#txtListData').val();
+	Activity_MissingLetters:function(sourceData, questionElement, answersElement){
+            var rawData = sourceData;
             var aValues = rawData.split('\n');
             var sourceArray = new Array();
             var questionArray = new Array();
@@ -71,7 +71,7 @@ var QB = {
             }
 
             for (var i = 0; i < sourceArray.length; i++) {
-                questionArray.push(getGappedLetters(sourceArray[i][0]));
+                questionArray.push(this.GetGappedLetters(sourceArray[i][0]));
             }
 
 
@@ -93,18 +93,18 @@ var QB = {
             sQuestion += '</table>';
             sAnswers += '</table>';
 
-            $('#question').html(sQuestion);
-            $('#answers').html(sAnswers);
+            $('#' + questionElement).html(sQuestion);
+            $('#' + answersElement).html(sAnswers);
 
             //console.log(questionArray);
             $('html, body').animate({
-                    scrollTop: $("#questionPanel").offset().top
+                    scrollTop: $("#" + questionElement).offset().top
                 }, 1000);
 
 	},
 
-	Activity_MatchDefinitions:function(source){
-            var rawData = $('#txtListData').val();
+	Activity_MatchDefinitions:function(sourceData, questionElement, answersElement){
+            var rawData = sourceData;
             var aValues = rawData.split('\n');
             var sourceArray = new Array();
             var questionArray = new Array();
@@ -129,7 +129,7 @@ var QB = {
             }
 
             // SHUFFLE THE ANSWER ARRAY
-            answerArray = shuffleArray(answerArray);
+            answerArray = this.ShuffleArray(answerArray);
 
             for (var i = 0; i < sourceArray.length; i++) {
                 var qNumber = i + 1;
@@ -140,7 +140,7 @@ var QB = {
                                 ));
                 answerTable.push(
                                 qNumber.toString() + ' - ' +
-                                checkAnswer(questionArray[i][0], answerArray)
+                                this.CheckAnswer(questionArray[i][0], answerArray)
                                 );
             }
 
@@ -159,11 +159,11 @@ var QB = {
             sQuestion += '</table>';
             sAnswers += '</div>';
 
-            $('#question').html(sQuestion);
-            $('#answers').html(sAnswers);
+            $('#' + questionElement).html(sQuestion);
+            $('#' + answersElement).html(sAnswers);
 
             $('html, body').animate({
-                    scrollTop: $("#questionPanel").offset().top
+                    scrollTop: $("#" + questionElement).offset().top
                 }, 1000);
 
 	},
@@ -219,6 +219,58 @@ var QB = {
 
 
 	/* Core internal functions */
+
+    GetGappedLetters: function(text) {
+        var newWords = '';
+        var words = text.split(' ');
+        for (var i = 0; i < words.length; i++) {
+            var currentWord = words[i];
+            if (currentWord.length < 2) {
+                if (newWords.length > 0) newWords += ' ';
+                newWords += currentWord;
+            } else if (currentWord.length < 5) {
+                if (newWords.length > 0) newWords += ' ';
+                for (var j = 0; j < currentWord.length; j++) {
+                    if ((j == 0) || (j == currentWord.length - 1)) {
+                        newWords += currentWord.substr(j, 1);
+                    } else {
+                        newWords += "_";
+                    }
+                }
+            } else if (currentWord.length < 8) {
+                if (newWords.length > 0) newWords += ' ';
+                for (var j = 0; j < currentWord.length; j++) {
+                    if ((j == 0) || (j == currentWord.length - 1) || (currentWord.charCodeAt(j) < 97) || (currentWord.charCodeAt(j) > 122)) {
+                        newWords += currentWord.substr(j, 1)
+                    } else if (j == 1) {
+                        newWords += "_";
+                    } else {
+                        if (Math.random() < 0.75) {
+                            newWords += currentWord.substr(j, 1);
+                        } else {
+                            newWords += "_";
+                        }
+                    }
+                }
+            } else {
+                if (newWords.length > 0) newWords += ' ';
+                for (var j = 0; j < currentWord.length; j++) {
+                    if ((j == 0) || (j == currentWord.length - 1) || (currentWord.charCodeAt(j) < 97) || (currentWord.charCodeAt(j) > 122)) {
+                        newWords += currentWord.substr(j, 1)
+                    } else {
+                        if (Math.random() < 0.5) {
+                            newWords += currentWord.substr(j, 1);
+                        } else {
+                            newWords += "_";
+                        }
+                    }
+                }
+            }
+        }
+        return newWords;
+    },
+
+
 	ScrambleLetters:function(text) {
         var newWords = '';
         var words = text.split(' ');

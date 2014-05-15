@@ -7,9 +7,6 @@ var QB = {
 		return a+b+c;
 	},
 	/* Core functions */
-    Activity_MultipleChoice:function(source){
-
-    },
     Activity_Anagrams:function(sourceData, questionElement, answersElement){
             var rawData = sourceData;
             var aValues = rawData.split('\n');

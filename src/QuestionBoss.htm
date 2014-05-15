@@ -20,9 +20,24 @@
     <!-- JAVASCRIPT EVENTS HANDLING -->
     <script>
 	    function runTest(){
-	    	//alert('test running:' + QB.TestFunction(1,2,3).toString() );
+        switch ($('input[name=questionType]:radio:checked').val()){
 
-        QB.Activity_MultipleChoice($('#txtInput').val(),"question","answers");
+          case 'anagrams':
+              QB.Activity_Anagrams($('#txtInput').val(),"question","answers");
+              break;
+          case 'missingLetters':
+              QB.Activity_MissingLetters($('#txtInput').val(),"question","answers");
+              break;
+          case 'matching':
+              QB.Activity_MatchDefinitions($('#txtInput').val(),"question","answers");
+              break;
+          case 'scrambledSentences':
+              QB.Activity_ScrambleSentences($('#txtInput').val(),"question","answers");
+              break;
+          case 'multipleChoice':
+              QB.Activity_MultipleChoice($('#txtInput').val(),"question","answers");
+              break;
+        }
 		}
 	</script>
 
@@ -38,19 +53,25 @@
   		<div>
 			<textarea id="txtInput"></textarea>
   		</div>
+      <div>Select Question Type</div>
+      <div>
+          <input id="qtAnagrams" type="radio" name="questionType" value="anagrams">
+          <label for="qtAnagrams">Anagrams</label><br>
+          <input id="qtMissingLetters" type="radio" name="questionType" value="missingLetters">
+          <label for="qtMissingLetters">Missing Letters</label><br>
+          <input id="qtMatching" type="radio" name="questionType" value="matching">
+          <label for="qtMatching">Matching definitions</label><br>
+          <input id="qtScrambledSentences" type="radio" name="questionType" value="scrambledSentences">
+          <label for="qtScrambledSentences">Scrambled Sentences</label><br>
+          <input id="qtMultipleChoice" type="radio" name="questionType" value="multipleChoice">
+          <label for="qtMultipleChoice">MultipleChoice</label><br>
+      </div>
   		<div>
 			<input type="button" onclick="runTest()" value="RUN" />
   		</div>
   		<div id="outputDiv" class="">
   			<div id="question" class=""></div>
   			<div id="answers" class=""></div>
-  		</div>
-  		<div>
-  			Options
-
-  			<div onClick="this.contentEditable='true';">
-			    lorem ipsum dolor lorem ipsum dolorlorem ipsum dolor
-			</div>
   		</div>
   	</section>
   	<footer class="row">

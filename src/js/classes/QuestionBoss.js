@@ -168,7 +168,7 @@ var QB = {
 
 	},
 
-	Activity_ScrambleSentences:function(sourceData, questionElement, answersElement){
+    Activity_ScrambleSentences:function(sourceData, questionElement, answersElement){
             var sourceArray = sourceData.split('\n');
             var questionArray = new Array();
 
@@ -201,7 +201,45 @@ var QB = {
                     scrollTop: $("#" + questionElement).offset().top
                 }, 1000);
 
-	},
+    },
+
+
+    Activity_MultipleChoice:function(sourceData, questionElement, answersElement){
+            var sourceArray = sourceData.split('\n');
+            var questionArray = new Array();
+
+            for (var i = 0; i < sourceArray.length; i++) {
+                if (sourceArray[i].length > 0){
+                    questionArray.push(this.ParseMultipleChoiceQuestion(sourceArray[i]));
+                }
+            }
+
+
+            var sQuestion = '<table>';
+            var sAnswers = '<table>';
+            for (var i = 0; i < questionArray.length; i++) {
+                var sNumber = i + 1;
+                sQuestion += '<tr><td>';
+                sQuestion += sNumber.toString() + '. ' +
+                                questionArray[i].questionText;
+                sQuestion += '</td></tr>';
+
+                sAnswers += '<tr><td style="padding-left:10px">';
+                sAnswers += sNumber.toString() + '. ' + questionArray[i].answerText;
+                sAnswers += '</td></tr>';
+            }
+            sQuestion += '</table>';
+            sAnswers += '</table>';
+
+            $('#' + questionElement).html(sQuestion);
+            $('#' + answersElement).html(sAnswers);
+
+            //console.log(questionArray);
+            $('html, body').animate({
+                    scrollTop: $("#" + questionElement).offset().top
+                }, 1000);
+
+    },
 
 
 	ResetObject:function(){
@@ -218,6 +256,51 @@ var QB = {
 
 
 	/* Core internal functions */
+    ParseMultipleChoiceQuestion:function(text){
+
+        var MCQuestion = new Object();
+        MCQuestion.success = false;
+        MCQuestion.questionText = '';
+        MCQuestion.answerText = '';
+        MCQuestion.optionsArray = null;
+
+        var patt = /\{[^\}]*\}/i;
+        var choicesArray = null;
+
+        if ((match = patt.exec( text )) != null)
+        {
+            var m = match.toString()
+            choicesArray = m.substr(1,m.length-2).split(',');
+            MCQuestion.questionText = text.replace(patt,'_______________');
+
+            MCQuestion.answerText = choicesArray[0];
+
+            if (choicesArray.length > 0){
+                if (choicesArray.length > 1){
+                    choicesArray = this.ShuffleArray(choicesArray);
+                    this.PreviousMultipleChoiceArray = choicesArray;
+                } else if (choicesArray.length == 1){
+                    choicesArray = this.PreviousMultipleChoiceArray;
+                }
+
+                MCQuestion.questionText += '<br />';
+                for (var i = 0; i < choicesArray.length; i++){
+                    MCQuestion.questionText += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 
+                        String.fromCharCode(97+i) + '. ' + choicesArray[i];
+                }
+                for (var i = 0; i < choicesArray.length; i++){
+                    if (MCQuestion.answerText.trim() == choicesArray[i].trim()){
+                        MCQuestion.answerText = String.fromCharCode(97+i) + '.' + MCQuestion.answerText;
+                    }
+                }
+                MCQuestion.success = true;
+            }
+        }
+
+        return MCQuestion;
+    },
+    PreviousMultipleChoiceArray:null,
+
     ScrambleSentence: function(text) {
         var newWords = '';
         var words = text.split(' ');
@@ -320,3 +403,13 @@ var QB = {
         return array;
     }
 };
+
+function listProperties(obj) {
+   var propList = "";
+   for(var propName in obj) {
+      if(typeof(obj[propName]) != "undefined") {
+         propList += (propName + ", ");
+      }
+   }
+   console.log(propList);
+}

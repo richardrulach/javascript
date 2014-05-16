@@ -1,4 +1,5 @@
 /* xWords.js */
+/* Dependencies JQuery */
 var xWords = {
 	Clear: function(){
 
@@ -19,6 +20,10 @@ var xWords = {
 
 	},
 	RunDisplayAnimation:function(){
+
+	},
+	SetUserInterface:function(btnAddWord, txtAddWord, elemHorizontal, 
+		elemVertical, elemUnsed, tblContainer, btnGenerate, elemWordList){
 
 	}
 

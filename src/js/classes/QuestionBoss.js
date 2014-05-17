@@ -1,12 +1,22 @@
 
-/* QuestionBoss.js */
-
+/**
+  * Class: QB - QuestionBoss
+  * File: QuestionBoss.js 
+  *
+  * Definition:
+ **/
 var QB = {
+    /* CLASS CONSTANTS */
 
-	TestFunction:function(a,b,c){
-		return a+b+c;
-	},
-	/* Core functions */
+    /* CLASS PROPERTIES */
+    PreviousMultipleChoiceArray:null,
+    SourceData:'',
+    QuestionElement:'',
+    AnswerElement:'',
+    InputPanel1:'',
+    InputPanel2:'',
+
+	/* CORE FUNCTIONS - 1 STEP PROCESS */
     Activity_Anagrams:function(sourceData, questionElement, answersElement){
             var rawData = sourceData;
             var aValues = rawData.split('\n');
@@ -200,7 +210,6 @@ var QB = {
 
     },
 
-
     Activity_MultipleChoice:function(sourceData, questionElement, answersElement){
             var sourceArray = sourceData.split('\n');
             var questionArray = new Array();
@@ -238,21 +247,127 @@ var QB = {
 
     },
 
+    /* CORE FUNCTIONS - 2 STEP PROCESS */
+    Activity_CorrectOrNot:function(sourceData, questionElement, answersElement,
+        inputPanel, inputPanelStage2){
+
+            this.SourceData = sourceData;
+            this.QuestionElement = questionElement;
+            this.AnswerElement = answersElement;
+            this.InputPanel1 = inputPanel;
+            this.InputPanel2 = inputPanelStage2;
+
+            $('#' + questionElement).html('');
+            $('#' + answersElement).html('');
+
+            $('#' + inputPanelStage2).hide();
+
+            $('#' + inputPanel).slideUp(600,function(){
+
+            var sourceArray = sourceData.split('\n');
+            var questionArray = new Array();
+
+            for (var i = 0; i < sourceArray.length; i++) {
+                if (sourceArray[i].length > 0){
+                    questionArray.push(sourceArray[i].trim());
+                }
+            }
+
+            if (questionArray.length > 0){
+                for (var i = 0; i < questionArray.length; i++) {
+                    var div = document.createElement('div');
+                    div.setAttribute('contenteditable','true');
+                    div.innerHTML = questionArray[i];
+                    $('#' + inputPanelStage2).append(div);
+                }
+                QB.QuestionsAsArray = questionArray;
+            }
+            var btn = document.createElement('button');
+            btn.innerHTML = 'Process corrections';
+            QB.InputPanel2 = inputPanelStage2;
+            btn.addEventListener('click', function() {QB.Activity_CorrectOrNotStage2()}); 
+            $('#' + inputPanelStage2).append(btn);
+            $('#' + inputPanelStage2).slideDown(600);
+
+        });
+
+
+
+    },
+
+    Activity_CorrectOrNotStage2:function(){
+        // console.log('input panel stage 2: ' + this.InputPanelStage2);
+        // console.log('len:' + QB.QuestionsAsArray.length);
+
+        var answers = new Array();
+        $('#' + this.InputPanel2 + ' div').each(function(index){
+            console.log( index + ": " + $( this ).text());
+            if (QB.QuestionsAsArray[index] == $( this ).text()){
+                answers.push('&#10004;');
+            } else {
+                answers.push('&#10008;&nbsp;&nbsp;' + $( this ).text());
+            }
+        });
+
+        QB.AnswersAsArray = answers;
+
+        $('#' + QB.InputPanel2).slideUp(600, function(){
+            $('#' + QB.InputPanel1).slideDown(600,function(){
+                QB.OutputStage2();
+            });
+        });
+    },
+
+
+    OutputStage2: function(){
+            var sQuestion = '';
+            var sAnswers = '';
+            for (var i = 0; i < this.QuestionsAsArray.length; i++) {
+                var sNumber = i + 1;
+                sQuestion += '<div>';
+                sQuestion += sNumber.toString() + '. ' +
+                                this.QuestionsAsArray[i];
+                sQuestion += '</div>';
+
+                sAnswers += '<div>';
+                sAnswers += sNumber.toString() + '. ' + this.AnswersAsArray[i];
+                sAnswers += '</div>';
+            }
+
+            $('#' + this.QuestionElement).html(sQuestion);
+            $('#' + this.AnswerElement).html(sAnswers);
+
+            $('html, body').animate({
+                    scrollTop: $("#" + this.QuestionElement).offset().top
+                }, 1000);
+
+            $('#' + this.InputPanel2).html('');
+            this.ResetObject();
+    },
+
 
 	ResetObject:function(){
 		this.QuestionsAsArray = new Array();
 		this.AnswersAsArray = new Array();
+
+        PreviousMultipleChoiceArray = null;
+        SourceData = '';
+        QuestionElement = '';
+        AnswerElement = '';
+        InputPanel1 = ''
+        InputPanel2 = '';
+
 	},
 
 
-	/* Functions for accessing the output */
+	/* ACCESSOR FUNCTIONS */
 	QuestionsAsTable:function(){},
 	AnswersAsTable:function(){},
 	QuestionsAsArray:new Array(),
 	AnswersAsArray:new Array(),
 
 
-	/* Core internal functions */
+	/* INTERNAL FUNCTIONS - SHOULD ONLY BE CALLED FROM INSIDE THE CLASS */
     ParseMultipleChoiceQuestion:function(text){
 
         var MCQuestion = new Object();
@@ -296,7 +411,6 @@ var QB = {
 
         return MCQuestion;
     },
-    PreviousMultipleChoiceArray:null,
 
     ScrambleSentence: function(text) {
         var newWords = '';
@@ -400,7 +514,16 @@ var QB = {
         return array;
     }
 };
+/**
+  * END OF CLASS DEFINITION
+  *
+ **/
 
+
+/**
+  * USEFUL FUNCTION FOR INTROSPECTION
+  *
+ **/
 function listProperties(obj) {
    var propList = "";
    for(var propName in obj) {

@@ -8,6 +8,7 @@
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/js/d3/styles.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,10 +22,12 @@
     <header>
       <div class="row">
         <h1>d3: Demo and Helper</h1>
-    </div>
+      </div>
     </header>
     <section>
       <div class="row">
+        <div id="demoDiv">
+        </div>
       </div>
     </section>
     <footer class="row">
@@ -37,5 +40,44 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/d3/d3.min.js"></script>
+    <script>
+    var data = [10, 15, 30, 50, 80, 65, 55, 30, 20, 10, 8]; // <- A
+
+    function render(data) { // <- B
+        // Enter
+        d3.select("#demoDiv").selectAll("div.h-bar") // <- C
+            .data(data) // <- D
+            .enter() // <- E
+                .append("div") // <- F
+                    .attr("class", "h-bar")
+                .append("span"); // <- G
+
+        // Update
+        d3.select("#demoDiv").selectAll("div.h-bar")
+            .data(data) 
+                .style("width", function (d) { // <- H
+                    return (d * 3) + "px";
+                })
+                .select("span") // <- I
+                    .text(function (d) {
+                        return d;
+                    });
+                
+        // Exit
+        d3.select("#demoDiv").selectAll("div.h-bar")
+            .data(data)
+            .exit() // <- J
+                .remove();        
+    }
+
+    setInterval(function () { // <- K
+        data.shift();
+        data.push(Math.round(Math.random() * 100));
+        render(data);
+    }, 1500);
+
+    render(data);
+    </script>
   </body>
 </html>

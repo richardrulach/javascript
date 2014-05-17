@@ -15,6 +15,7 @@ var QB = {
     AnswerElement:'',
     InputPanel1:'',
     InputPanel2:'',
+    ResultsPanel:'',
 
 	/* CORE FUNCTIONS - 1 STEP PROCESS */
     Activity_Anagrams:function(sourceData, questionElement, answersElement){
@@ -57,7 +58,6 @@ var QB = {
             $('#' + questionElement).html(sQuestion);
             $('#' + answersElement).html(sAnswers);
 
-            //console.log(questionArray);
             $('html, body').animate({
                     scrollTop: $("#" + questionElement).offset().top
                 }, 1000);
@@ -103,7 +103,6 @@ var QB = {
             $('#' + questionElement).html(sQuestion);
             $('#' + answersElement).html(sAnswers);
 
-            //console.log(questionArray);
             $('html, body').animate({
                     scrollTop: $("#" + questionElement).offset().top
                 }, 1000);
@@ -203,7 +202,6 @@ var QB = {
             $('#' + questionElement).html(sQuestion);
             $('#' + answersElement).html(sAnswers);
 
-            //console.log(questionArray);
             $('html, body').animate({
                     scrollTop: $("#" + questionElement).offset().top
                 }, 1000);
@@ -240,7 +238,6 @@ var QB = {
             $('#' + questionElement).html(sQuestion);
             $('#' + answersElement).html(sAnswers);
 
-            //console.log(questionArray);
             $('html, body').animate({
                     scrollTop: $("#" + questionElement).offset().top
                 }, 1000);
@@ -249,59 +246,61 @@ var QB = {
 
     /* CORE FUNCTIONS - 2 STEP PROCESS */
     Activity_CorrectOrNot:function(sourceData, questionElement, answersElement,
-        inputPanel, inputPanelStage2){
+        inputPanel, inputPanelStage2, resultsPanel){
 
             this.SourceData = sourceData;
             this.QuestionElement = questionElement;
             this.AnswerElement = answersElement;
             this.InputPanel1 = inputPanel;
             this.InputPanel2 = inputPanelStage2;
+            this.ResultsPanel = resultsPanel;
 
             $('#' + questionElement).html('');
             $('#' + answersElement).html('');
 
             $('#' + inputPanelStage2).hide();
 
+            $('#' + resultsPanel).slideUp(600,function(){});
+
             $('#' + inputPanel).slideUp(600,function(){
+                var sourceArray = sourceData.split('\n');
+                var questionArray = new Array();
 
-            var sourceArray = sourceData.split('\n');
-            var questionArray = new Array();
-
-            for (var i = 0; i < sourceArray.length; i++) {
-                if (sourceArray[i].length > 0){
-                    questionArray.push(sourceArray[i].trim());
+                for (var i = 0; i < sourceArray.length; i++) {
+                    if (sourceArray[i].length > 0){
+                        questionArray.push(sourceArray[i].trim());
+                    }
                 }
-            }
 
-            if (questionArray.length > 0){
-                for (var i = 0; i < questionArray.length; i++) {
-                    var div = document.createElement('div');
-                    div.setAttribute('contenteditable','true');
-                    div.innerHTML = questionArray[i];
-                    $('#' + inputPanelStage2).append(div);
+
+                if (questionArray.length > 0){
+                    var spn = document.createElement('span');
+                    spn.innerHTML = "Click on the sentences below to correct them:";
+                    $('#' + inputPanelStage2).append(spn);
+
+
+                    for (var i = 0; i < questionArray.length; i++) {
+                        var div = document.createElement('div');
+                        div.setAttribute('contenteditable','true');
+                        div.innerHTML = questionArray[i];
+                        $('#' + inputPanelStage2).append(div);
+                    }
+                    QB.QuestionsAsArray = questionArray;
                 }
-                QB.QuestionsAsArray = questionArray;
-            }
-            var btn = document.createElement('button');
-            btn.innerHTML = 'Process corrections';
-            QB.InputPanel2 = inputPanelStage2;
-            btn.addEventListener('click', function() {QB.Activity_CorrectOrNotStage2()}); 
-            $('#' + inputPanelStage2).append(btn);
-            $('#' + inputPanelStage2).slideDown(600);
 
-        });
-
-
-
+                var btn = document.createElement('button');
+                btn.innerHTML = 'Process corrections';
+                btn.setAttribute("type","button");
+                QB.InputPanel2 = inputPanelStage2;
+                btn.addEventListener('click', function() {QB.Activity_CorrectOrNotStage2()}); 
+                $('#' + inputPanelStage2).append(btn);
+                $('#' + inputPanelStage2).slideDown(600);
+            });
     },
 
     Activity_CorrectOrNotStage2:function(){
-        // console.log('input panel stage 2: ' + this.InputPanelStage2);
-        // console.log('len:' + QB.QuestionsAsArray.length);
-
         var answers = new Array();
         $('#' + this.InputPanel2 + ' div').each(function(index){
-            console.log( index + ": " + $( this ).text());
             if (QB.QuestionsAsArray[index] == $( this ).text()){
                 answers.push('&#10004;');
             } else {
@@ -336,9 +335,10 @@ var QB = {
 
             $('#' + this.QuestionElement).html(sQuestion);
             $('#' + this.AnswerElement).html(sAnswers);
+            $('#' + QB.ResultsPanel).slideDown(600,function(){});
 
             $('html, body').animate({
-                    scrollTop: $("#" + this.QuestionElement).offset().top
+                    scrollTop: $("#" + this.ResultsPanel).offset().top
                 }, 1000);
 
             $('#' + this.InputPanel2).html('');

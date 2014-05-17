@@ -19,6 +19,10 @@
         display:block;
         background: #eee;
       }
+
+      #resultsPanel{
+        display:none;
+      }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,7 +54,7 @@
           case 'correctOrNot':
               QB.Activity_CorrectOrNot($('#txtInput').val(),
                   "question","answers",
-                  "pnlInput","pnlInputStage2");
+                  "pnlInput","pnlInputStage2", "resultsPanel");
               break;
         }
 		}
@@ -103,7 +107,7 @@
         </div>
         <div id="pnlInputStage2">
         </div>
-    		<div id="outputDiv" class="">
+    		<div id="resultsPanel" class="">
     			<div id="question" class=""></div>
     			<div id="answers" class=""></div>
     		</div>

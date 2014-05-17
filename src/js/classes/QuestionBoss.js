@@ -295,6 +295,11 @@ var QB = {
                 btn.addEventListener('click', function() {QB.Activity_CorrectOrNotStage2()}); 
                 $('#' + inputPanelStage2).append(btn);
                 $('#' + inputPanelStage2).slideDown(600);
+
+                $('html, body').animate({
+                    scrollTop: $("#" + inputPanelStage2).offset().top
+                }, 1000);
+
             });
     },
 

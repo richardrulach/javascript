@@ -37,6 +37,11 @@
           case 'multipleChoice':
               QB.Activity_MultipleChoice($('#txtInput').val(),"question","answers");
               break;
+          case 'correctOrNot':
+              QB.Activity_CorrectOrNot($('#txtInput').val(),
+                  "question","answers",
+                  "pnlInput","pnlInputStage2");
+              break;
         }
 		}
 	</script>
@@ -51,30 +56,48 @@
   	</header>
   	<section>
       <div class="row">
-  		<div>
-			<textarea id="txtInput"></textarea>
-  		</div>
-      <div>Select Question Type</div>
-      <div>
-          <input id="qtAnagrams" type="radio" name="questionType" value="anagrams">
-          <label for="qtAnagrams">Anagrams</label><br>
-          <input id="qtMissingLetters" type="radio" name="questionType" value="missingLetters">
-          <label for="qtMissingLetters">Missing Letters</label><br>
-          <input id="qtMatching" type="radio" name="questionType" value="matching">
-          <label for="qtMatching">Matching definitions</label><br>
-          <input id="qtScrambledSentences" type="radio" name="questionType" value="scrambledSentences">
-          <label for="qtScrambledSentences">Scrambled Sentences</label><br>
-          <input id="qtMultipleChoice" type="radio" name="questionType" value="multipleChoice">
-          <label for="qtMultipleChoice">MultipleChoice</label><br>
+        <div id="pnlInput">
+      		<div>
+      			<textarea id="txtInput"></textarea>
+      		</div>
+          <div>Select Question Type</div>
+          <div class="row">
+            <div class="col-sm-4 col-xs-6">
+              <input id="qtAnagrams" type="radio" name="questionType" value="anagrams" checked="checked">
+              <label for="qtAnagrams">Anagrams</label><br>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+              <input id="qtMissingLetters" type="radio" name="questionType" value="missingLetters">
+              <label for="qtMissingLetters">Missing Letters</label><br>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+              <input id="qtMatching" type="radio" name="questionType" value="matching">
+              <label for="qtMatching">Matching definitions</label><br>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+              <input id="qtScrambledSentences" type="radio" name="questionType" value="scrambledSentences">
+              <label for="qtScrambledSentences">Scrambled Sentences</label><br>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+              <input id="qtMultipleChoice" type="radio" name="questionType" value="multipleChoice">
+              <label for="qtMultipleChoice">MultipleChoice</label><br>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+              <input id="qtCorrectOrNot" type="radio" name="questionType" value="correctOrNot">
+              <label for="qtCorrectOrNot">Correct or Incorrect</label><br>
+            </div>
+          </div>
+      		<div>
+      			<input type="button" onclick="runTest()" value="RUN" />
+      		</div>
+        </div>
+        <div id="pnlInputStage2">
+        </div>
+    		<div id="outputDiv" class="">
+    			<div id="question" class=""></div>
+    			<div id="answers" class=""></div>
+    		</div>
       </div>
-  		<div>
-			<input type="button" onclick="runTest()" value="RUN" />
-  		</div>
-  		<div id="outputDiv" class="">
-  			<div id="question" class=""></div>
-  			<div id="answers" class=""></div>
-  		</div>
-    </div>
   	</section>
   	<footer class="row">
   		<small>Question Boss is a javascript library for developing question 

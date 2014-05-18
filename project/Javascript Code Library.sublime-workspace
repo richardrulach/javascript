@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"demo",
+				"demoDiv"
+			],
+			[
+				"Res",
+				"ResultsPanel"
+			],
+			[
+				"In",
+				"InputPanel2"
+			],
+			[
+				"inp",
+				"inputPanelStage2"
+			],
+			[
+				"Question",
+				"QuestionElement"
+			],
+			[
+				"in",
+				"inputPanelStage2"
+			],
+			[
+				"InputPane",
+				"InputPanelStage2"
+			],
+			[
+				"Ques",
+				"QuestionsAsArray"
+			],
+			[
+				"Quest",
+				"QuestionsAsArray"
+			],
+			[
+				"Activity",
+				"Activity_CorrectOrNotStage2"
+			],
+			[
 				"Q",
 				"questionText"
 			],
@@ -30,10 +70,6 @@
 			[
 				"source",
 				"sourceData"
-			],
-			[
-				"Ques",
-				"QuestionsAsTable"
 			],
 			[
 				"s",
@@ -64,39 +100,27 @@
 	"buffers":
 	[
 		{
-			"file": "/C/GitHub/javascript/src/xWords.htm",
-			"settings":
-			{
-				"buffer_size": 1582,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/GitHub/javascript/src/js/classes/xWords.js",
-			"settings":
-			{
-				"buffer_size": 417,
-				"line_ending": "Windows",
-				"name": "/* xWords.js */"
-			}
-		},
-		{
-			"contents": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>d3: Demo and Helper</title>\n\n    <!-- Bootstrap -->\n    <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\">\n    <link href=\"/css/bootstrap-theme.min.css\" rel=\"stylesheet\">\n\n    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->\n    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->\n    <!--[if lt IE 9]>\n      <script src=\"https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js\"></script>\n      <script src=\"https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js\"></script>\n    <![endif]-->\n  </head>\n  <body>\n    <div class=\"container\">\n    <header>\n      <div class=\"row\">\n        <h1>d3: Demo and Helper</h1>\n    </div>\n    </header>\n    <section>\n      <div class=\"row\">\n      </div>\n    </section>\n    <footer class=\"row\">\n      <small>d3: Demo and Helper.  The purpose of this file is to </small>\n    </footer>\n    </div><!-- END CONTAINER CLASS -->\n\n    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js\"></script>\n    <!-- Include all compiled plugins (below), or include individual files as needed -->\n    <script src=\"/js/bootstrap/bootstrap.min.js\"></script>\n  </body>\n</html>",
 			"file": "/C/GitHub/javascript/src/d3DemoAndHelper.htm",
-			"file_size": 1375,
-			"file_write_time": 130447198741767935,
 			"settings":
 			{
-				"buffer_size": 1401,
+				"buffer_size": 2722,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
+			"file": "/C/GitHub/javascript/src/js/d3/styles.css",
 			"settings":
 			{
-				"buffer_size": 14620,
-				"line_ending": "Windows"
+				"buffer_size": 3086,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/GitHub/javascript/src/js/d3/dc.css",
+			"settings":
+			{
+				"buffer_size": 3416,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -126,8 +150,13 @@
 	[
 		"/C/GitHub/javascript/src/QuestionBoss.htm",
 		"/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
-		"/C/GitHub/javascript/src/FlashCardBuilder.htm",
+		"/C/GitHub/javascript/src/js/classes/JavascriptClassTemplate.js",
+		"/C/GitHub/javascript/src/d3DemoAndHelper.htm",
+		"/C/GitHub/javascript/src/js/classes/D3Helper.js",
 		"/C/GitHub/javascript/src/HTML5Template.htm",
+		"/C/GitHub/javascript/src/xWords.htm",
+		"/C/GitHub/javascript/src/js/classes/xWords.js",
+		"/C/GitHub/javascript/src/FlashCardBuilder.htm",
 		"/C/GitHub/javascript/src/WireframeBuilder.htm",
 		"/C/GitHub/javascript/src/SQLBoss.htm",
 		"/C/GitHub/javascript/src/qunitDemo.htm",
@@ -192,6 +221,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"outputDiv",
+			"questionElement",
+			"console.log",
+			"Reset",
+			"reset",
+			"InputPanelStage2",
 			"listProperties",
 			"console.log("
 		],
@@ -211,23 +246,23 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/GitHub/javascript/src/xWords.htm",
+					"file": "/C/GitHub/javascript/src/d3DemoAndHelper.htm",
 					"settings":
 					{
-						"buffer_size": 1582,
+						"buffer_size": 2722,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								964,
-								964
+								360,
+								360
 							]
 						],
 						"settings":
@@ -237,31 +272,32 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 420.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/C/GitHub/javascript/src/js/classes/xWords.js",
+					"file": "/C/GitHub/javascript/src/js/d3/styles.css",
 					"settings":
 					{
-						"buffer_size": 417,
+						"buffer_size": 3086,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								57,
-								57
+								1149,
+								1149
 							]
 						],
 						"settings":
 						{
-							"auto_name": "/* xWords.js */",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -271,56 +307,28 @@
 				},
 				{
 					"buffer": 2,
-					"file": "/C/GitHub/javascript/src/d3DemoAndHelper.htm",
+					"file": "/C/GitHub/javascript/src/js/d3/dc.css",
 					"settings":
 					{
-						"buffer_size": 1401,
+						"buffer_size": 3416,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1012,
-								1012
+								203,
+								203
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 45.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
-					"settings":
-					{
-						"buffer_size": 14620,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3603,
-								3628
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 45.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

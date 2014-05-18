@@ -9,6 +9,8 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
     <style>
+
+      /* STYLES FOR THE CORRECTORNOT QUESTION TYPE */
       [contenteditable="true"]:hover {
         display:block;
         background: #eee;
@@ -56,6 +58,11 @@
                   "question","answers",
                   "pnlInput","pnlInputStage2", "resultsPanel");
               break;
+          case 'openCloze':
+              QB.Activity_OpenCloze($('#txtInput').val(),
+                  "question","answers",
+                  "pnlInput","pnlInputStage2", "resultsPanel");
+              break;
         }
 		}
 	</script>
@@ -100,6 +107,12 @@
               <input id="qtCorrectOrNot" type="radio" name="questionType" value="correctOrNot">
               <label for="qtCorrectOrNot">Correct or Incorrect</label><br>
             </div>
+
+            <div class="col-sm-4 col-xs-6">
+              <input id="qtOpenCloze" type="radio" name="questionType" value="openCloze">
+              <label for="qtOpenCloze">Open Cloze</label><br>
+            </div>
+
           </div>
       		<div>
       			<input type="button" onclick="runTest()" value="RUN" />

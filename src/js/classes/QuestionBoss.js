@@ -245,6 +245,66 @@ var QB = {
     },
 
     /* CORE FUNCTIONS - 2 STEP PROCESS */
+    Activity_OpenCloze:function(sourceData, questionElement, answersElement,
+        inputPanel, inputPanelStage2, resultsPanel){
+/*
+            this.SourceData = sourceData;
+            this.QuestionElement = questionElement;
+            this.AnswerElement = answersElement;
+            this.InputPanel1 = inputPanel;
+            this.InputPanel2 = inputPanelStage2;
+            this.ResultsPanel = resultsPanel;
+
+            $('#' + questionElement).html('');
+            $('#' + answersElement).html('');
+
+            $('#' + inputPanelStage2).hide();
+
+            $('#' + resultsPanel).slideUp(600,function(){});
+
+            $('#' + inputPanel).slideUp(600,function(){
+                var sourceArray = sourceData.split('\n');
+                var questionArray = new Array();
+
+                for (var i = 0; i < sourceArray.length; i++) {
+                    if (sourceArray[i].length > 0){
+                        questionArray.push(sourceArray[i].trim());
+                    }
+                }
+
+
+                if (questionArray.length > 0){
+                    var spn = document.createElement('span');
+                    spn.innerHTML = "Click on the sentences below to correct them:";
+                    $('#' + inputPanelStage2).append(spn);
+
+
+                    for (var i = 0; i < questionArray.length; i++) {
+                        var div = document.createElement('div');
+                        div.setAttribute('contenteditable','true');
+                        div.innerHTML = questionArray[i];
+                        $('#' + inputPanelStage2).append(div);
+                    }
+                    QB.QuestionsAsArray = questionArray;
+                }
+
+                var btn = document.createElement('button');
+                btn.innerHTML = 'Process corrections';
+                btn.setAttribute("type","button");
+                QB.InputPanel2 = inputPanelStage2;
+                btn.addEventListener('click', function() {QB.Activity_CorrectOrNotStage2()}); 
+                $('#' + inputPanelStage2).append(btn);
+                $('#' + inputPanelStage2).slideDown(600);
+
+                $('html, body').animate({
+                    scrollTop: $("#" + inputPanelStage2).offset().top
+                }, 1000);
+
+            });
+*/
+    },
+
+
     Activity_CorrectOrNot:function(sourceData, questionElement, answersElement,
         inputPanel, inputPanelStage2, resultsPanel){
 

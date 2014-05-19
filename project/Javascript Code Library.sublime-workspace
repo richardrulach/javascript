@@ -100,27 +100,19 @@
 	"buffers":
 	[
 		{
-			"file": "/C/GitHub/javascript/src/d3DemoAndHelper.htm",
+			"file": "/C/GitHub/javascript/src/QuestionBoss.htm",
 			"settings":
 			{
-				"buffer_size": 2722,
+				"buffer_size": 5297,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/GitHub/javascript/src/js/d3/styles.css",
+			"file": "/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
 			"settings":
 			{
-				"buffer_size": 3086,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/GitHub/javascript/src/js/d3/dc.css",
-			"settings":
-			{
-				"buffer_size": 3416,
-				"line_ending": "Unix"
+				"buffer_size": 21115,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -148,18 +140,20 @@
 	},
 	"file_history":
 	[
-		"/C/GitHub/javascript/src/QuestionBoss.htm",
-		"/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
-		"/C/GitHub/javascript/src/js/classes/JavascriptClassTemplate.js",
-		"/C/GitHub/javascript/src/d3DemoAndHelper.htm",
-		"/C/GitHub/javascript/src/js/classes/D3Helper.js",
 		"/C/GitHub/javascript/src/HTML5Template.htm",
-		"/C/GitHub/javascript/src/xWords.htm",
-		"/C/GitHub/javascript/src/js/classes/xWords.js",
+		"/C/GitHub/javascript/src/d3DemoAndHelper.htm",
+		"/C/GitHub/javascript/src/js/d3/styles.css",
+		"/C/GitHub/javascript/src/js/d3/dc.css",
 		"/C/GitHub/javascript/src/FlashCardBuilder.htm",
+		"/C/GitHub/javascript/src/xWords.htm",
 		"/C/GitHub/javascript/src/WireframeBuilder.htm",
 		"/C/GitHub/javascript/src/SQLBoss.htm",
 		"/C/GitHub/javascript/src/qunitDemo.htm",
+		"/C/GitHub/javascript/src/QuestionBoss.htm",
+		"/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
+		"/C/GitHub/javascript/src/js/classes/JavascriptClassTemplate.js",
+		"/C/GitHub/javascript/src/js/classes/D3Helper.js",
+		"/C/GitHub/javascript/src/js/classes/xWords.js",
 		"/C/GitHub/javascript/src/css/custom.css",
 		"/C/GitHub/javascript/src/js/classes/FlashCardBuilder.js",
 		"/C/GitHub/javascript/src/js/d3/d3.js",
@@ -251,18 +245,18 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/C/GitHub/javascript/src/d3DemoAndHelper.htm",
+					"file": "/C/GitHub/javascript/src/QuestionBoss.htm",
 					"settings":
 					{
-						"buffer_size": 2722,
+						"buffer_size": 5297,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								360,
-								360
+								4224,
+								4224
 							]
 						],
 						"settings":
@@ -272,63 +266,35 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 420.0,
+						"translation.y": 765.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/C/GitHub/javascript/src/js/d3/styles.css",
+					"file": "/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
 					"settings":
 					{
-						"buffer_size": 3086,
+						"buffer_size": 21115,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1149,
-								1149
+								9597,
+								9597
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/C/GitHub/javascript/src/js/d3/dc.css",
-					"settings":
-					{
-						"buffer_size": 3416,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								203,
-								203
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 510.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

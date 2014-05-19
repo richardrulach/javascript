@@ -39,8 +39,8 @@
     		font-weight:bold;
     	}
 
-    	span span {
-
+    	.cardText {
+    		font-weight: bold;
     	}
     </style>
   </head>
@@ -64,6 +64,14 @@
 		      		<div id="mainDisplay">
 		      		</div>
 	      		</div>
+	      		<div>
+	      			<div id="statsLabel">Current Stats:</div>
+	      			<div>
+	      				Cards: <span id="numCards"></span>
+	      				&nbsp;&nbsp;&nbsp;&nbsp;
+	      				Sides: <span id="numSides"></span>
+	      			</div>
+	      		</div>
 		      </div>
 		    </section>
 		    <footer class="row">
@@ -82,12 +90,13 @@
     <script src="/js/classes/FlashCardBuilder.js"></script>
     <script>
 	var mainDeck = new Deck();
-	var currentCard = 0;
+	mainDeck.SetDisplay('mainDisplay');
+	mainDeck.SetCardDisplay('numCards');
+	mainDeck.SetSideDisplay('numSides');
+	mainDeck.ListenForKeystrokes();
 
 	function run(){
-		mainDeck.SetDisplay('mainDisplay');
-		mainDeck.ListenForKeystrokes();
-
+		mainDeck.Reset();
 		mainDeck.Import($('#txtInput').val());
 	}	
 

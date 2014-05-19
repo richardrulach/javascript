@@ -15,10 +15,19 @@ function Deck(){
 
 
     /* CLASS PROPERTIES */
-    this.Cards = new Array();
-    this.Display = '';
+    var _self = this;
+    this.cards = new Array();
+    this.display = '';
+    this.cardDisplay = '';
+    this.sideDisplay = '';
+    this.currentCard = 0;
 
     /* EXTERNAL FUNCTIONS */
+    this.Reset = function(){
+        this.cards = new Array();
+        this.currentCard = 0;
+    };
+    
     this.Import = function(txt){
 
         //get array
@@ -27,63 +36,151 @@ function Deck(){
         //create cards
         for (var i=0; i < lArray.length; i++){
             var newCard = new Card(lArray[i]);
-            console.log(newCard);
-            this.Cards.push(newCard);
+            //console.log(newCard);
+            this.cards.push(newCard);
         }
 
         if (this.Display != ''){
-            var spn = document.createElement('span');
-            spn.setAttribute('class','middle');
-            spn.innerHTML = '<span>this and thant and <br>that or ' + this.Cards[0].GetView() + '</span>';
-            $('#' + this.Display).append(spn);
+            this.ShowCurrent();
+        }
+
+        this.UpdateCardDisplay();
+        this.UpdateSideDisplay();
+    };
+
+    this.UpdateCardDisplay = function(){
+        if (this.cardDisplay.length > 0){
+            $('#' + this.cardDisplay).html(
+                this.currentCard + 1 + '/' + this.cards.length);
         }
     };
 
+    this.UpdateSideDisplay = function(){
+        if (this.sideDisplay.length > 0){
+            $('#' + this.sideDisplay).html(
+                this.cards[this.currentCard].currentSide + 1 + 
+                '/' + this.cards[this.currentCard].Count());
+        }
+    };
+
+    this.GetDisplayElement = function(txt){
+        var spn = document.createElement('span');
+        spn.setAttribute('class','middle');
+        spn.innerHTML = '<span class="cardText">' + 
+            txt + '</span>';
+        return spn;
+    };
+
     this.GetCount = function(){
-        return this.CurrentDeck.length;         
+        return this.cards.length;         
     };
 
     this.SetDisplay = function(displayId){
-        this.Display = displayId;
+        this.display = displayId;
+    };
+
+    this.SetCardDisplay = function(displayId){
+        this.cardDisplay = displayId;
+    };
+
+    this.SetSideDisplay = function(displayId){
+        this.sideDisplay = displayId;
     };
 
     this.ShuffleDeck = function(){
 
     };
 
-    this.PreviousCard = function(){
+    this.ShowCurrent = function(movement){
+        $('#' + this.display).html('');
+        if (arguments.length == 0){
+            $('#' + this.display).append(
+                this.GetDisplayElement(
+                  this.cards[this.currentCard].First()
+                )
+            );
+        } else {
+            if (movement == -1){
+                $('#' + this.display).append(
+                    this.GetDisplayElement(
+                      this.cards[this.currentCard].GetPreviousSide()
+                    )
+                );
+            } else if (movement == 1) {
+                $('#' + this.display).append(
+                    this.GetDisplayElement(
+                      this.cards[this.currentCard].GetNextSide()
+                    )
+                );
+            }
+        }
+        this.UpdateSideDisplay();
+    };
 
+    this.PreviousCard = function(){
+        if (this.cards.length > 0 ){
+
+            if (--this.currentCard < 0) {
+                this.currentCard = this.cards.length -1;
+            }
+
+            var tmpCardText = this.cards[this.currentCard].First();
+
+            if (this.Display != ''){
+                this.ShowCurrent();
+            }
+            this.UpdateCardDisplay();
+            this.UpdateSideDisplay();
+
+            return tmpCardText;
+        }
     };
     
     this.NextCard = function(){
+        if (this.cards.length > 0 ){
+
+            if (++this.currentCard >= this.cards.length) {
+                this.currentCard = 0;
+            }
+
+            var tmpCardText = this.cards[this.currentCard].First();
+
+            if (this.Display != ''){
+                this.ShowCurrent();
+            }
+            this.UpdateCardDisplay();
+            this.UpdateSideDisplay();
+
+            return tmpCardText;
+        }
 
     };
 
     this.PreviousSide = function(){
-
+        this.ShowCurrent(-1);
     };
     
     this.NextSide = function(){
-
+        this.ShowCurrent(1);
     };
 
     this.ListenForKeystrokes = function(){
         $(document).keydown(function(e) {
             switch(e.which) {
                 case 37: // left
-                  console.log('left');
+                    _self.PreviousCard();
                 break;
 
                 case 38: // up
-                  console.log('up');
+                    _self.PreviousSide();
                 break;
 
                 case 39: // right
-                  console.log('right');
+                    _self.NextCard();
                 break;
 
                 case 40: // down
-                  console.log('down');
+                    _self.NextSide();
                 break;
 
                 default: return; // exit this handler for other keys
@@ -94,8 +191,9 @@ function Deck(){
 
     /* INTERNAL FUNCTIONS */
 
-
 };
+
+
 
 function Card(lArray){
 
@@ -108,13 +206,14 @@ function Card(lArray){
     this.currentSide = 0;
 
     /* EXTERNAL FUNCTIONS */ 
-    this.count = function(){
+    this.Count = function(){
         return this.sides.length;
     };
 
 
-    this.GetView = function(){
-        return this.sides[this.currentSide];
+    this.First = function(){
+        this.currentSide = 0;
+        return this.sides[0];
     };
 
     this.GetPreviousSide = function(){
@@ -125,7 +224,7 @@ function Card(lArray){
     };
 
     this.GetNextSide = function(){
-        if (++this.currentSide < 0){
+        if (++this.currentSide >= this.sides.length){
             this.currentSide = 0;
         }
         return this.sides[this.currentSide];

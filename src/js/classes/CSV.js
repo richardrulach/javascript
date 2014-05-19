@@ -24,8 +24,10 @@
         var resultArray = new Array();
 
         for (var i = 0; i < aValues.length; i++) {
-            var newArray = aValues[i].split(',');
-            resultArray.push(newArray);
+            if (aValues[i].trim().length > 0 ){
+                var newArray = aValues[i].split(',');
+                resultArray.push(newArray);
+            }
         }
         return resultArray;
     }

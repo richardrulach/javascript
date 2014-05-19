@@ -17,6 +17,7 @@ function Deck(){
     /* CLASS PROPERTIES */
     var _self = this;
     this.cards = new Array();
+    this.hiddenCards = new Array();
     this.display = '';
     this.cardDisplay = '';
     this.sideDisplay = '';
@@ -25,6 +26,7 @@ function Deck(){
     /* EXTERNAL FUNCTIONS */
     this.Reset = function(){
         this.cards = new Array();
+        this.hiddenCards = new Array();
         this.currentCard = 0;
     };
     

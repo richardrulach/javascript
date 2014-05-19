@@ -12,6 +12,10 @@ function [CLASSNAME](){
     this.CONSTANT = 0;
 
     /* CLASS PROPERTIES */
+
+    // FOR USE IN INTERNAL EVENT FUNCTIONS
+    var _self = this;
+
     this.property = 0;
 
 

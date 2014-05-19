@@ -13,6 +13,9 @@
 
     /* CLASS PROPERTIES */
 
+    // FOR REFERENCE TO THIS CLASS IN EVENT FUNCTIONS
+    _self:this,
+
 
     /* INITIALISERS */
 

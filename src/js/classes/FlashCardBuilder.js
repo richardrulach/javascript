@@ -45,9 +45,19 @@ function Deck(){
         if (this.Display != ''){
             this.ShowCurrent();
         }
-
+        
+        this.ScaleDisplay();
         this.UpdateCardDisplay();
         this.UpdateSideDisplay();
+    };
+
+    this.ScaleDisplay = function(){
+        var size = 12;
+        while (($('.cardText').height() < 300)&& 
+               ($('.cardText').width() < 400)){
+            $('.cardText').css({fontSize:size});
+            size += 2;
+        }
     };
 
     this.UpdateCardDisplay = function(){
@@ -116,6 +126,7 @@ function Deck(){
                 );
             }
         }
+        this.ScaleDisplay();
         this.UpdateSideDisplay();
     };
 
@@ -131,6 +142,7 @@ function Deck(){
             if (this.Display != ''){
                 this.ShowCurrent();
             }
+            this.ScaleDisplay();
             this.UpdateCardDisplay();
             this.UpdateSideDisplay();
 
@@ -150,6 +162,7 @@ function Deck(){
             if (this.Display != ''){
                 this.ShowCurrent();
             }
+            this.ScaleDisplay();
             this.UpdateCardDisplay();
             this.UpdateSideDisplay();
 

@@ -57,7 +57,7 @@
 	      		</div>
 	      		<div class="col-lg-12">
 	      			<input type="button" onclick="run()" value="RUN!!!" />
-	      			<input type="button" onclick="foldLeft()" value="RUN!!!" />
+	      			<input type="button" onclick="scale()" value="scale" />
 	      		</div>
 
 	      		<div id="outerDisplay">
@@ -98,6 +98,10 @@
 	function run(){
 		mainDeck.Reset();
 		mainDeck.Import($('#txtInput').val());
+	}	
+
+	function scale(){
+		mainDeck.ScaleDisplay();
 	}	
 
     </script>

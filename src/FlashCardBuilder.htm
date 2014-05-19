@@ -17,6 +17,32 @@
     <![endif]-->
 
 
+    <style>
+    	#outerDisplay{
+    		height:320px;
+    		width:480px;
+    		position:relative;
+        }
+
+    	#mainDisplay{
+    		position:absolute;
+    		height:320px;
+    		width:480px;
+    		background-color:#ddd;
+    		display:table;
+        }
+
+    	.middle {
+    		display:table-cell;
+    		vertical-align:middle;
+    		text-align: center;
+    		font-weight:bold;
+    	}
+
+    	span span {
+
+    	}
+    </style>
   </head>
   <body>
     <div class="container">
@@ -31,11 +57,17 @@
 	      		</div>
 	      		<div class="col-lg-12">
 	      			<input type="button" onclick="run()" value="RUN!!!" />
+	      			<input type="button" onclick="foldLeft()" value="RUN!!!" />
+	      		</div>
+
+	      		<div id="outerDisplay">
+		      		<div id="mainDisplay">
+		      		</div>
 	      		</div>
 		      </div>
 		    </section>
 		    <footer class="row">
-		      <small></small>
+		      <small>Flash card builder demonstrates the use of the various flashcardbuilder classes.</small>
 		    </footer>
 	    </div>
     </div><!-- END CONTAINER CLASS -->
@@ -53,7 +85,9 @@
 	var currentCard = 0;
 
 	function run(){
-//			console.log(CSV.TextToArray($('#txtInput').val()));
+		mainDeck.SetDisplay('mainDisplay');
+		mainDeck.ListenForKeystrokes();
+
 		mainDeck.Import($('#txtInput').val());
 	}	
 

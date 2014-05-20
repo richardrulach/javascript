@@ -13,6 +13,7 @@ function Deck(){
 
     /* CLASS CONSTANTS */
     this.DISPLAY_ELEMENT_CLASS = 'cardText';
+    this.DISPLAY_OUTER_ELEMENT_CLASS = 'middle';
 
     /* CLASS PROPERTIES */
     var _self = this;
@@ -23,6 +24,7 @@ function Deck(){
     this.sideDisplay = '';
     this.currentCard = 0;
     this.scaleText = true;
+    this.shuffleOnIteration = false;
 
     /* EXTERNAL FUNCTIONS */
     this.Reset = function(){
@@ -54,19 +56,17 @@ function Deck(){
     this.ScaleDisplay = function(){
         if (this.scaleText){
             var size = 12;
-            while (($('.' + this.DISPLAY_ELEMENT_CLASS).height() < 300)&& 
-                   ($('.' + this.DISPLAY_ELEMENT_CLASS).width() < 460)){
+            while (($('.' + this.DISPLAY_ELEMENT_CLASS).height() < 320)&& 
+                   ($('.' + this.DISPLAY_ELEMENT_CLASS).width() < 480)){
                 $('.' + this.DISPLAY_ELEMENT_CLASS).css({fontSize:size});
                 size += 1;
             }
 
-            while (($('.middle').height() > 320)|| 
-                   ($('.middle').width() > 480)){
+            while (($('.' + this.DISPLAY_OUTER_ELEMENT_CLASS).height() > 320)|| 
+                   ($('.' + this.DISPLAY_OUTER_ELEMENT_CLASS).width() > 480)){
                 $('.' + this.DISPLAY_ELEMENT_CLASS).css({fontSize:size});
                 size -= 1;
             }
-
-            console.log('scaling display');
         }
     };
 
@@ -111,7 +111,13 @@ function Deck(){
     };
 
     this.ShuffleDeck = function(){
-
+        for (var i = this.cards.length - 1; i > 0;  ) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = this.cards[i];
+            this.cards[i] = this.cards[j];
+            this.cards[j] = temp;
+            i = i - 1;
+        }
     };
 
     this.ShowCurrent = function(movement){
@@ -146,6 +152,9 @@ function Deck(){
 
             if (--this.currentCard < 0) {
                 this.currentCard = this.cards.length -1;
+                if (this.shuffleOnIteration){
+                    this.ShuffleDeck();
+                }
             }
 
             var tmpCardText = this.cards[this.currentCard].First();
@@ -165,6 +174,9 @@ function Deck(){
 
             if (++this.currentCard >= this.cards.length) {
                 this.currentCard = 0;
+                if (this.shuffleOnIteration){
+                    this.ShuffleDeck();
+                }
             }
 
             var tmpCardText = this.cards[this.currentCard].First();

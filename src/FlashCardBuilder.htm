@@ -81,6 +81,9 @@
 	      				&nbsp;&nbsp;&nbsp;&nbsp;
 	      				Sides: <span id="numSides"></span>
 	      			</div>
+	      			<div>
+	      				<input type="checkbox" id="chkShuffleOnIteration" onclick="chkShuffleOnIteration_click()" /><label for="chkShuffleOnIteration">Shuffle Deck on Iteration</label>
+	      			</div>
 	      		</div>
 		      </div>
 		    </section>
@@ -104,6 +107,15 @@
 	mainDeck.SetCardDisplay('numCards');
 	mainDeck.SetSideDisplay('numSides');
 	mainDeck.ListenForKeystrokes();
+	mainDeck.shuffleOnIteration 
+		= $('#chkShuffleOnIteration').is(':checked');
+
+
+	function chkShuffleOnIteration_click(){
+		mainDeck.shuffleOnIteration 
+			= $('#chkShuffleOnIteration').is(':checked');
+		console.log('shuffle:' + mainDeck.shuffleOnIteration);
+	}
 
 	function run(){
 		mainDeck.Reset();

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTML5 Canvas Demo</title>
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+    <header>
+      <div class="row">
+        <h1>HTML5 Canvas Demo</h1>
+    </div>
+    </header>
+    <section>
+        <canvas id="myCanvas" width="425" height="325" style="border:1px solid black;">
+        </canvas>
+    </section>
+    <footer class="row">
+      <small></small>
+    </footer>
+    </div><!-- END CONTAINER CLASS -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <script>
+
+        window.onload = function(){
+
+            // get the canvas DOM element by its ID
+            var canvas = document.getElementById("myCanvas");
+            // declare a 2-d context using the getContext() method of the
+            // canvas object
+            var context = canvas.getContext("2d");
+            // set the line width to 10 pixels
+
+            context.lineWidth = 1;
+            context.strokeStyle = "black";
+
+            for (var i = 25; i < 425; i+=25){
+                context.moveTo(i,0);
+                context.lineTo(i,325);
+                context.stroke();
+            }
+
+            for (var i = 25; i < 325; i+=25){
+                context.moveTo(0,i);
+                context.lineTo(425,i);
+                context.stroke();
+            }
+
+
+            // context.lineWidth = 10;
+            // // set the line color to blue
+            // context.strokeStyle = "blue";
+            // // position the drawing cursor
+            // context.moveTo(50, canvas.height - 50);
+            // // draw the line
+            // context.lineTo(canvas.width - 50, 50);
+
+            // context.moveTo(0, 0);
+            // // draw the line
+            // context.lineTo(50, 0);
+            // // make the line visible with the stroke color
+            // context.stroke();
+
+            context.font = "20px _sans";
+            context.textBaseline = "top";
+            // context.fillText("G",5,3);
+            // context.fillText("H",30,3);
+            // context.fillText("I",55,3);
+            // context.fillText("J",80,3);
+            // context.fillText("K",105,3);
+            // context.fillText("L",130,3);
+
+
+            var xWords = createCrossword(13,17);
+            for (var i = 0; i < xWords.length; i++){
+                for (var j = 0; j < xWords[i].length; j++){
+                    context.fillText(xWords[i][j],i*25 + 5, j*25 + 3);
+                }
+            }
+        }
+
+        function createCrossword(height, width){
+
+            var xWords = new Array(width);
+
+            for (var i = 0; i < xWords.length; i++){
+                xWords[i] = new Array(height);
+            }
+
+
+            var charCounter = 65;
+            for (var j = 0; j < xWords[0].length; j++){
+                for (var i = 0; i < xWords.length; i++){
+                    xWords[i][j] = String.fromCharCode(charCounter);
+                    if (++charCounter > 90) charCounter = 65;
+                }
+            }
+
+            return xWords;
+        }
+    </script>
+  </body>
+</html>

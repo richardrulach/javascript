@@ -87,10 +87,19 @@
             // context.fillText("L",130,3);
 
 
+
             var xWords = createCrossword(13,17);
             for (var i = 0; i < xWords.length; i++){
                 for (var j = 0; j < xWords[i].length; j++){
-                    context.fillText(xWords[i][j],i*25 + 5, j*25 + 3);
+                    if (xWords[i][j].length == 0){
+
+                        context.rect(i*25,j*25, 25, 25);
+                        context.fill();
+                        context.stroke();
+
+                    } else {
+                        context.fillText(xWords[i][j],i*25 + 5, j*25 + 3);
+                    }
                 }
             }
         }
@@ -107,8 +116,13 @@
             var charCounter = 65;
             for (var j = 0; j < xWords[0].length; j++){
                 for (var i = 0; i < xWords.length; i++){
-                    xWords[i][j] = String.fromCharCode(charCounter);
-                    if (++charCounter > 90) charCounter = 65;
+                    
+                    if (charCounter == 91){
+                        xWords[i][j] = '';
+                    } else {
+                        xWords[i][j] = String.fromCharCode(charCounter);
+                    }
+                    if (++charCounter > 91) charCounter = 65;
                 }
             }
 

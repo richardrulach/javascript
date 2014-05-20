@@ -206,13 +206,14 @@ function Deck(){
             if (this.currentCard >= this.cards.length){
                 this.currentCard = 0;
             }
-            this.ShowCurrent();
         } else if (movement == -1) {
             if (--this.currentCard < 0){
                 this.currentCard = this.cards.length - 1;
             }
-            this.ShowCurrent();
         }
+        this.ShowCurrent();
+        this.UpdateCardDisplay();
+        this.UpdateSideDisplay();
     };
 
     this.SetDifficult = function(){

@@ -12,7 +12,7 @@
 function Deck(){
 
     /* CLASS CONSTANTS */
-
+    this.DISPLAY_ELEMENT_CLASS = 'cardText';
 
     /* CLASS PROPERTIES */
     var _self = this;
@@ -22,6 +22,7 @@ function Deck(){
     this.cardDisplay = '';
     this.sideDisplay = '';
     this.currentCard = 0;
+    this.scaleText = true;
 
     /* EXTERNAL FUNCTIONS */
     this.Reset = function(){
@@ -46,17 +47,26 @@ function Deck(){
             this.ShowCurrent();
         }
         
-        this.ScaleDisplay();
         this.UpdateCardDisplay();
         this.UpdateSideDisplay();
     };
 
     this.ScaleDisplay = function(){
-        var size = 12;
-        while (($('.cardText').height() < 300)&& 
-               ($('.cardText').width() < 400)){
-            $('.cardText').css({fontSize:size});
-            size += 2;
+        if (this.scaleText){
+            var size = 12;
+            while (($('.' + this.DISPLAY_ELEMENT_CLASS).height() < 300)&& 
+                   ($('.' + this.DISPLAY_ELEMENT_CLASS).width() < 460)){
+                $('.' + this.DISPLAY_ELEMENT_CLASS).css({fontSize:size});
+                size += 1;
+            }
+
+            while (($('.middle').height() > 320)|| 
+                   ($('.middle').width() > 480)){
+                $('.' + this.DISPLAY_ELEMENT_CLASS).css({fontSize:size});
+                size -= 1;
+            }
+
+            console.log('scaling display');
         }
     };
 
@@ -78,7 +88,8 @@ function Deck(){
     this.GetDisplayElement = function(txt){
         var spn = document.createElement('span');
         spn.setAttribute('class','middle');
-        spn.innerHTML = '<span class="cardText">' + 
+        spn.innerHTML = '<span class="' + 
+            this.DISPLAY_ELEMENT_CLASS + '">' + 
             txt + '</span>';
         return spn;
     };
@@ -142,7 +153,6 @@ function Deck(){
             if (this.Display != ''){
                 this.ShowCurrent();
             }
-            this.ScaleDisplay();
             this.UpdateCardDisplay();
             this.UpdateSideDisplay();
 
@@ -162,7 +172,6 @@ function Deck(){
             if (this.Display != ''){
                 this.ShowCurrent();
             }
-            this.ScaleDisplay();
             this.UpdateCardDisplay();
             this.UpdateSideDisplay();
 
@@ -179,23 +188,56 @@ function Deck(){
         this.ShowCurrent(1);
     };
 
+    this.HideCard = function(movement){
+        this.hiddenCards.push(this.cards.splice(this.currentCard,1));
+        if (movement == 1){
+            if (this.currentCard >= this.cards.length){
+                this.currentCard = 0;
+            }
+            this.ShowCurrent();
+        } else if (movement == -1) {
+            if (--this.currentCard < 0){
+                this.currentCard = this.cards.length - 1;
+            }
+            this.ShowCurrent();
+        }
+    };
+
+    this.SetDifficult = function(){
+        this.cards[this.currentCard].incorrect++;
+    };
+
     this.ListenForKeystrokes = function(){
         $(document).keydown(function(e) {
             switch(e.which) {
                 case 37: // left
-                    _self.PreviousCard();
+                    if (e.ctrlKey) {
+                        _self.HideCard(-1);
+                    } else if (e.altKey){
+                        _self.SetDifficult();
+                        _self.PreviousCard();
+                    } else {
+                        _self.PreviousCard();
+                    }
                 break;
 
                 case 38: // up
-                    _self.PreviousSide();
+                    _self.NextSide();
                 break;
 
                 case 39: // right
-                    _self.NextCard();
+                    if (e.ctrlKey) {
+                        _self.HideCard(1);
+                    } else if (e.altKey){
+                        _self.SetDifficult();
+                        _self.NextCard();
+                    } else {
+                        _self.NextCard();
+                    }
                 break;
 
                 case 40: // down
-                    _self.NextSide();
+                    _self.PreviousSide();
                 break;
 
                 default: return; // exit this handler for other keys

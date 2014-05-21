@@ -40,7 +40,9 @@ var xWords = {
 
 		this.Grid = newGrid;
 
-		console.log(this.SortByLength(arrayOfWords));
+		this.SortByLength(arrayOfWords);
+
+		//console.log(this.SortByLength(arrayOfWords));
 
 		for (var x=0; x < arrayOfWords.length; x++){
 			 this.AddWord(arrayOfWords[x]);
@@ -58,6 +60,7 @@ var xWords = {
 
 
 	AddWord: function(newWord){
+		console.log("nw:" + newWord);
 		var positions = this.GetPositions(newWord);
 
 		if (positions.length > 0){
@@ -79,7 +82,7 @@ var xWords = {
 
 			// WRITE THE WORD INTO THE ARRAY
 			var newPos = positions[choice];
-			console.log(newPos);
+			//console.log(newPos);
 
 			// LOOP THROUGH THE WORD PLACING IT IN THE GRID
 			for (var count = 0; count < newWord.length; count++){
@@ -114,13 +117,20 @@ var xWords = {
 				// }
 			}
 		}
-		console.log(newWord + ' pos' + positionArray.length);
+		//console.log(newWord + ' pos' + positionArray.length);
 		return positionArray;
 	},
 
 	TestPosition: function(newWord,x,y,direction){
 
 		var crossingPoint = 0;
+
+		if (this.CharBeforeFirstLetter(x,y,direction))
+			return;
+
+		if (this.CharAfterLastLetter(newWord.length,x,y,direction))
+			return;
+
 
 		if (direction == 1){
 
@@ -167,6 +177,40 @@ var xWords = {
 		// If no problems - return the details!!!
 		return new Position(x,y,direction,crossingPoint);
 	},
+
+
+	CharAfterLastLetter: function(len,x,y,direction){
+		var bCharAfterLastLetter = false;
+
+		if (direction == 1){
+			if (x + len < this.Grid.length){
+				if (this.Grid[x + len][y].length > 0) return true;
+			}
+		} else if (direction == -1){
+			if (y + len < this.Grid[0].length){
+				if (this.Grid[x][y + len].length > 0) return true;
+			}
+		}
+
+		return bCharAfterLastLetter;
+	},
+
+	CharBeforeFirstLetter: function(x,y,direction){
+		var bCharBeforeFirstLetter = false;
+
+		if (direction == 1){
+			if (x-1 > 0){
+				if (this.Grid[x-1][y].length > 0) return true;
+			}
+		} else if (direction == -1){
+			if (y-1 > 0){
+				if (this.Grid[x][y-1].length > 0) return true;
+			}
+		}
+
+		return bCharBeforeFirstLetter;
+	},
+
 
 	SidesHaveChars: function(x,y,direction){
 		var bHasChars = false;

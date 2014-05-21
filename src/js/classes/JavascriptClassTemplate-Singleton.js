@@ -10,7 +10,6 @@
 
    	/* CLASS CONSTANTS */
 
-
     /* CLASS PROPERTIES */
 
     // FOR REFERENCE TO THIS CLASS IN EVENT FUNCTIONS
@@ -19,14 +18,13 @@
 
     /* INITIALISERS */
 
+    /* PUBLIC FUNCTIONS */
+    Reset:function(){}
 
-	/* EXTERNAL FUNCTIONS */
-
-
-	/* INTERNAL FUNCTIONS */
+	  /* PRIVATE FUNCTIONS */
 
 
  };
  /**
   * END CLASS DEFINITION
- **/
+  **/

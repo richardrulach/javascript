@@ -24,7 +24,10 @@
     </div>
     </header>
     <section>
-        <canvas id="myCanvas" width="425" height="325" style="border:1px solid black;">
+        <div id="#canvasContainer">
+            <canvas id="myCanvas" width="425" height="325" style="border:1px solid black;">
+
+        </div>
         </canvas>
         <div>
             <textarea id="txtWords"></textarea>
@@ -35,6 +38,11 @@
                     id="btnAddWords" 
                     onclick="btnAddWords_click()"
                     value="Add Words" />
+            <input 
+                    type="button" 
+                    id="btnClearCanvas" 
+                    onclick="clearCanvas()"
+                    value="Clear Canvas" />
         </div>
     </section>
     <footer class="row">
@@ -48,13 +56,16 @@
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/classes/xWords.js"></script>
     <script>
+        var context;
+        var canvas;
 
         function btnAddWords_click(){
-            var canvas = document.getElementById("myCanvas");
-            var context = canvas.getContext("2d");
 
+            xWords.Reset();
             context.clearRect(0, 0, canvas.width, canvas.height);
 
+
+            context.beginPath();
             context.lineWidth = 1;
             context.strokeStyle = "black";
 
@@ -83,13 +94,12 @@
 
             // GET AND DISPLAY THE CROSSWORD - PRINT LETTER IF IT IS
             // THERE OR PRINT A BLACK SQUARE ON THE CANVAS
-            var crossword = xWords.Create(13,17,aValues); 
+            var crossword = xWords.Create(13,17,aValues);
             for (var i = 0; i < crossword.length; i++){
                 for (var j = 0; j < crossword[i].length; j++){
                     if (crossword[i][j].length == 0){
                         context.rect(i*25,j*25, 25, 25);
                         context.fill();
-                        // DO NOT STROKE HERE
                     } else {
                         var x = Math.round((25 - 
                         context.measureText(crossword[i][j]).width) / 2);
@@ -99,13 +109,16 @@
                     }
                 }
             }
-            // finally do the stroke (otherwise there is a long delay)
-            context.stroke();
 
+            context.stroke();
+            context.closePath();
         }
 
         window.onload = function(){
-            btnAddWords_click();
+            canvas = document.getElementById("myCanvas");
+            context = canvas.getContext("2d");
+
+            //btnAddWords_click();
         }
     </script>
   </body>

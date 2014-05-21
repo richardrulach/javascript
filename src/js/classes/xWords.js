@@ -39,15 +39,12 @@ var xWords = {
         }
 
 		this.Grid = newGrid;
-
 		this.SortByLength(arrayOfWords);
-
-		//console.log(this.SortByLength(arrayOfWords));
 
 		for (var x=0; x < arrayOfWords.length; x++){
 			 this.AddWord(arrayOfWords[x]);
 		}
-		// console.log(this.Grid);
+
 		return this.Grid;
 	},
 
@@ -60,7 +57,6 @@ var xWords = {
 
 
 	AddWord: function(newWord){
-		console.log("nw:" + newWord);
 		var positions = this.GetPositions(newWord);
 
 		if (positions.length > 0){
@@ -82,7 +78,6 @@ var xWords = {
 
 			// WRITE THE WORD INTO THE ARRAY
 			var newPos = positions[choice];
-			//console.log(newPos);
 
 			// LOOP THROUGH THE WORD PLACING IT IN THE GRID
 			for (var count = 0; count < newWord.length; count++){
@@ -109,15 +104,8 @@ var xWords = {
 				newPos = this.TestPosition(newWord,x,y,-1);
 				if (newPos !== undefined) positionArray.push(newPos);
 
-				// if (this.TestPosition(newWord,x,y,1)){
-				// 	positionArray.push(new Position(x,y,1));
-				// }
-				// if (this.TestPosition(newWord,x,y,-1)){
-				// 	positionArray.push(new Position(x,y,-1));
-				// }
 			}
 		}
-		//console.log(newWord + ' pos' + positionArray.length);
 		return positionArray;
 	},
 
@@ -145,10 +133,6 @@ var xWords = {
 				} else if (this.Grid[x + count][y] == 
 						newWord.charAt(count).toString()){
 					crossingPoint = 1;
-					// console.log("newWord:" + newWord );
-					// console.log("x:" + x );
-					// console.log("y:" + y );
-					// console.log("direction:" + direction );
 				} else if (this.SidesHaveChars(x+count,y,direction)){
 					return;
 				} 
@@ -234,25 +218,7 @@ var xWords = {
 		return bHasChars;
 	},
 
-	GetWords: function(){
 
-	},
-
-	GetTable: function(){
-
-	},
-
-	GetPopulatedTable: function(){
-
-	},
-
-	RunDisplayAnimation:function(){
-
-	},
-
-	SetUserInterface:function(btnAddWord, txtAddWord, elemHorizontal, elemVertical, elemUnsed, tblContainer, btnGenerate, elemWordList){
-
-	}
 
 	/* PRIVATE METHODS */
 

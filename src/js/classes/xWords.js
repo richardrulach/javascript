@@ -1,12 +1,10 @@
 /**
-  * Class: xWords
+  * Class: xWords and position
   * File: xWords.js 
   *
   * Definition:
   *		Creates and manages a crossword.
   *
-  * Dependencies:
-  * 	jQuery
  **/
 var xWords = {
    	/* CLASS CONSTANTS */
@@ -48,6 +46,9 @@ var xWords = {
 		return this.Grid;
 	},
 
+	/* PRIVATE METHODS */
+
+	// SORT THE ARRAY LONGEST TO SHORTEST
 	SortByLength: function(lArray){
 		lArray.sort(function(a,b){
            return a.length < b.length
@@ -56,6 +57,7 @@ var xWords = {
 	},
 
 
+	// ADD A WORD TO THE GRID (IF POSSIBLE)
 	AddWord: function(newWord){
 		var positions = this.GetPositions(newWord);
 
@@ -92,6 +94,7 @@ var xWords = {
 		}
 	},
 
+	// RETURNS ALL THE AVAILABLE VALID POSITIONS FOR PLACING THE WORD
 	GetPositions: function(newWord){
 		var positionArray = new Array();
 
@@ -109,23 +112,39 @@ var xWords = {
 		return positionArray;
 	},
 
+	// TRIES A POSITION TO SEE IF IT IS ACCEPTABLE
 	TestPosition: function(newWord,x,y,direction){
 
 		var crossingPoint = 0;
 
+		// UNNACCEPTABLE IF THERE IS A LETTER
+		// IN THE SQUARE BEFORE THE PROPOSED START 
 		if (this.CharBeforeFirstLetter(x,y,direction))
 			return;
 
+		// UNNACCEPTABLE IF THERE IS A LETTER
+		// IN THE SQUARE AFTER THE END 
 		if (this.CharAfterLastLetter(newWord.length,x,y,direction))
 			return;
 
 
+		// DEAL WITH HORIZONTAL AND VERTICAL WORD PLACEMENT
+		// SEPARATELY
 		if (direction == 1){
 
+			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
 			if (x + newWord.length > this.Grid.length)
 				return;
 
 			for (var count = 0; count < newWord.length; count++){
+
+				// 3 CHECKS:
+				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
+				//		ON THE PROPOSED PATH OF THIS WORD
+				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
+				//		THE CHARACTER IN THIS WORD
+				// 3 - UNACCEPTABLE IF THERE ARE CHARACTERS
+				//		EITHER SIDE OF THIE PROPOSED PATH
 				if ((this.Grid[x + count][y].length > 0)&&
 					(this.Grid[x + count][y] != 
 						newWord.charAt(count))){
@@ -140,10 +159,19 @@ var xWords = {
 
 		} else if (direction == -1){
 
+			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
 			if (y + newWord.length > this.Grid[0].length)
 				return;
 
 			for (var count = 0; count < newWord.length; count++){
+
+				// 3 CHECKS:
+				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
+				//		ON THE PROPOSED PATH OF THIS WORD
+				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
+				//		THE CHARACTER IN THIS WORD
+				// 3 - UNACCEPTABLE IF THERE ARE CHARACTERS
+				//		EITHER SIDE OF THIE PROPOSED PATH
 				if ((this.Grid[x][y + count].length > 0)&&
 					(this.Grid[x][y + count] != 
 						newWord.charAt(count))) 
@@ -158,11 +186,12 @@ var xWords = {
 
 		}
 
-		// If no problems - return the details!!!
+		// IF NO PROBLEMS RETURN THE POSITION DETAILS
 		return new Position(x,y,direction,crossingPoint);
 	},
 
 
+	// CHECKS THE SQUARE AFTER THE WORD TO SEE IF VALID
 	CharAfterLastLetter: function(len,x,y,direction){
 		var bCharAfterLastLetter = false;
 
@@ -179,6 +208,7 @@ var xWords = {
 		return bCharAfterLastLetter;
 	},
 
+	// CHECKS THE SQUARE BEFORE THE WORD TO SEE IF VALID
 	CharBeforeFirstLetter: function(x,y,direction){
 		var bCharBeforeFirstLetter = false;
 
@@ -196,6 +226,9 @@ var xWords = {
 	},
 
 
+	// CHECKS THE POSITIONS TO THE SIDE OF THE PROPOSED
+	// PATH TO SEE IF THERE ARE ANY CHARACTERS WHICH
+	// COULD LEAD TO CONFLICT
 	SidesHaveChars: function(x,y,direction){
 		var bHasChars = false;
 
@@ -219,22 +252,35 @@ var xWords = {
 	},
 
 
-
-	/* PRIVATE METHODS */
-
-
-
 };
  /**
   * END CLASS DEFINITION
   **/
 
-// Direction: 
-//  1 indicates horizontal
-// -1 indicates vertical
+
+
+
+/**
+  * CLASS: position
+  * 
+  * Holds the details of a valid position on the grid
+  *
+  * X and Y - indicate horizonal and vertical positions
+  * on the grid.
+  *
+  * Direction:
+  * 	1 indicates horizontal
+  * 	-1 indicates vertical
+  * CrossingPoint:
+  * 	Indicates the number of valid crossing points with 
+  *		other words already on the grid.
+ **/
 function Position(x,y,direction,crossingPoint){
 	this.x = x;
 	this.y = y;
 	this.direction = direction;
 	this.crossingPoint = crossingPoint;
 }
+ /**
+  * END CLASS DEFINITION
+  **/

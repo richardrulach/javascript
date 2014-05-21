@@ -53,6 +53,8 @@
             var canvas = document.getElementById("myCanvas");
             var context = canvas.getContext("2d");
 
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
             context.lineWidth = 1;
             context.strokeStyle = "black";
 
@@ -87,7 +89,7 @@
                     if (crossword[i][j].length == 0){
                         context.rect(i*25,j*25, 25, 25);
                         context.fill();
-                        context.stroke();
+                        // DO NOT STROKE HERE
                     } else {
                         var x = Math.round((25 - 
                         context.measureText(crossword[i][j]).width) / 2);
@@ -97,6 +99,13 @@
                     }
                 }
             }
+            // finally do the stroke (otherwise there is a long delay)
+            context.stroke();
+
+        }
+
+        window.onload = function(){
+            btnAddWords_click();
         }
     </script>
   </body>

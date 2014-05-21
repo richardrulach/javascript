@@ -67,10 +67,14 @@ var xWords = {
 
 			// CHOOSE THE FIRST ONE WITH A CROSSING POINT
 			// IF IT IS THERE
-			for (var iCount = 0; iCount < positions.length; iCount++){
-				if (positions[iCount].crossingPoint == 1){
+			for (var iCount = 0; 
+						iCount < positions.length; 
+						iCount++){
+
+				if (positions[iCount].crossingPoint > 0){
 					choice = iCount;
 				}
+
 			}
 
 			if (choice == -1){
@@ -142,7 +146,8 @@ var xWords = {
 				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
 				//		ON THE PROPOSED PATH OF THIS WORD
 				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
-				//		THE CHARACTER IN THIS WORD
+				//		THE CHARACTER IN THIS WORD - ADD
+				//		A CROSSING POINT
 				// 3 - UNACCEPTABLE IF THERE ARE CHARACTERS
 				//		EITHER SIDE OF THIE PROPOSED PATH
 				if ((this.Grid[x + count][y].length > 0)&&
@@ -151,7 +156,7 @@ var xWords = {
 					return;
 				} else if (this.Grid[x + count][y] == 
 						newWord.charAt(count).toString()){
-					crossingPoint = 1;
+					crossingPoint++;
 				} else if (this.SidesHaveChars(x+count,y,direction)){
 					return;
 				} 
@@ -169,7 +174,8 @@ var xWords = {
 				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
 				//		ON THE PROPOSED PATH OF THIS WORD
 				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
-				//		THE CHARACTER IN THIS WORD
+				//		THE CHARACTER IN THIS WORD - ADD
+				//		A CROSSING POINT
 				// 3 - UNACCEPTABLE IF THERE ARE CHARACTERS
 				//		EITHER SIDE OF THIE PROPOSED PATH
 				if ((this.Grid[x][y + count].length > 0)&&
@@ -178,7 +184,7 @@ var xWords = {
 					return;
 				else if (this.Grid[x][y + count] == 
 						newWord.charAt(count).toString()){
-					crossingPoint = 1;
+					crossingPoint++;
 				} else if (this.SidesHaveChars(x,y+count,direction)){
 					return;
 				} 

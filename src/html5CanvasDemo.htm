@@ -56,6 +56,8 @@
             context.lineWidth = 1;
             context.strokeStyle = "black";
 
+
+            // DRAW THE GRID
             for (var i = 25; i < 425; i+=25){
                 context.moveTo(i,0);
                 context.lineTo(i,325);
@@ -67,13 +69,18 @@
                 context.lineTo(425,i);
                 context.stroke();
             }
+            // END OF DRAWING THE GRID
+
 
             context.font = "20px _sans";
             context.textBaseline = "middle";
 
+            // GENERATE ARRAY OF WORDS TO PUT INTO THE CANVAS
             var rawData = $('#txtWords').val();
             var aValues = rawData.split('\n');
 
+            // GET AND DISPLAY THE CROSSWORD - PRINT LETTER IF IT IS
+            // THERE OR PRINT A BLACK SQUARE ON THE CANVAS
             var crossword = xWords.Create(13,17,aValues); 
             for (var i = 0; i < crossword.length; i++){
                 for (var j = 0; j < crossword[i].length; j++){

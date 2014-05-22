@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"char",
+				"CharBeforeFirstLetter"
+			],
+			[
+				"line",
+				"lineTo"
+			],
+			[
+				"Sh",
+				"ShuffleDeck"
+			],
+			[
+				"current",
+				"currentCard"
+			],
+			[
+				"paddin",
+				"padding"
+			],
+			[
+				"Upda",
+				"UpdateSideDisplay"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"curren",
+				"currentCard"
+			],
+			[
+				"tab",
+				"table"
+			],
+			[
 				"demo",
 				"demoDiv"
 			],
@@ -100,10 +136,18 @@
 	"buffers":
 	[
 		{
-			"contents": "describe(\"description\", function() {\n  beforeEach(function() {\n    \n  });\n\n  afterEach(function() {\n    \n  });\n\n  it(\"description\", function() {\n  	\n  });\n});",
+			"file": "/C/GitHub/javascript/src/html5CanvasDemo.htm",
 			"settings":
 			{
-				"buffer_size": 158,
+				"buffer_size": 4033,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/GitHub/javascript/src/js/classes/xWords.js",
+			"settings":
+			{
+				"buffer_size": 7063,
 				"line_ending": "Windows"
 			}
 		}
@@ -111,9 +155,17 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 265.0,
+		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control:",
+				"Package Control: Discover Packages"
+			],
 			[
 				"ins",
 				"Package Control: Install Package"
@@ -136,12 +188,19 @@
 	},
 	"file_history":
 	[
-		"/C/GitHub/javascript/src/d3DemoAndHelper.htm",
+		"/C/GitHub/javascript/src/js/classes/JavascriptClassTemplate-Singleton.js",
+		"/C/GitHub/javascript/src/html5CanvasDemo.htm",
+		"/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
 		"/C/GitHub/javascript/src/FlashCardBuilder.htm",
+		"/C/GitHub/javascript/src/js/classes/FlashCardBuilder.js",
+		"/C/GitHub/javascript/src/QuestionBoss.htm",
+		"/C/GitHub/javascript/src/js/classes/CSV.js",
+		"/C/GitHub/javascript/src/js/classes/JavascriptClassTemplate-Multiples.js",
 		"/C/GitHub/javascript/src/HTML5Template.htm",
+		"/C/GitHub/javascript/src/js/classes/JavascriptClassTemplate.js",
+		"/C/GitHub/javascript/src/d3DemoAndHelper.htm",
 		"/C/GitHub/javascript/src/index.htm",
 		"/C/GitHub/javascript/src/jasmineDemo.htm",
-		"/C/GitHub/javascript/src/QuestionBoss.htm",
 		"/C/GitHub/javascript/src/qunitDemo.htm",
 		"/C/GitHub/javascript/src/SQLBoss.htm",
 		"/C/GitHub/javascript/src/WireframeBuilder.htm",
@@ -149,14 +208,11 @@
 		"/C/GitHub/javascript/src/js/jasmine/spec/hello.spec.js",
 		"/C/GitHub/javascript/src/js/jasmine/src/hello.js",
 		"/C/GitHub/javascript/src/js/testlibs/jasmine/boot.js",
-		"/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
 		"/C/GitHub/javascript/src/js/d3/styles.css",
 		"/C/GitHub/javascript/src/js/d3/dc.css",
-		"/C/GitHub/javascript/src/js/classes/JavascriptClassTemplate.js",
 		"/C/GitHub/javascript/src/js/classes/D3Helper.js",
 		"/C/GitHub/javascript/src/js/classes/xWords.js",
 		"/C/GitHub/javascript/src/css/custom.css",
-		"/C/GitHub/javascript/src/js/classes/FlashCardBuilder.js",
 		"/C/GitHub/javascript/src/js/d3/d3.js",
 		"/C/websites/bootstrap_base/index.htm",
 		"/C/websites/bootstrap_base/menu.htm",
@@ -216,6 +272,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"console",
+			"ScaleDisplay",
+			"cardText",
+			"console",
 			"outputDiv",
 			"questionElement",
 			"console.log",
@@ -246,23 +306,82 @@
 			[
 				{
 					"buffer": 0,
+					"file": "/C/GitHub/javascript/src/html5CanvasDemo.htm",
 					"settings":
 					{
-						"buffer_size": 158,
+						"buffer_size": 4033,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								148,
-								148
+								728,
+								728
 							]
 						],
 						"settings":
 						{
-							"auto_name": "",
-							"syntax": "Packages/Jasmine/Syntaxes/Jasmine.tmLanguage"
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 126.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 0,
+					"file": "/C/GitHub/javascript/src/html5CanvasDemo.htm",
+					"settings":
+					{
+						"buffer_size": 4033,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3956,
+								3956
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1665.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/GitHub/javascript/src/js/classes/xWords.js",
+					"settings":
+					{
+						"buffer_size": 7063,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1033,
+								1033
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"word_wrap": true,
+							"wrap_width": 70
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -329,6 +448,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 190.0,
+	"side_bar_width": 198.0,
 	"status_bar_visible": true
 }

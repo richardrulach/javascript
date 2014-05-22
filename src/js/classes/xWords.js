@@ -1,5 +1,5 @@
 /**
-  * Class: xWords and position
+  * Classes: xWords and position
   * File: xWords.js 
   *
   * Definition:
@@ -24,6 +24,8 @@ var xWords = {
 
 
 	Create: function(height, width, arrayOfWords){
+
+		// RESET AND CREATE THE NEW GRID
 		this.Reset();
         var newGrid = new Array(width);
         for (var i = 0; i < newGrid.length; i++){
@@ -37,6 +39,9 @@ var xWords = {
         }
 
 		this.Grid = newGrid;
+
+		// ORDER WORDS SO THE LONGEST ONES ARE 
+		// ADDED TO THE GRID FIRST
 		this.SortByLength(arrayOfWords);
 
 		for (var x=0; x < arrayOfWords.length; x++){
@@ -46,7 +51,9 @@ var xWords = {
 		return this.Grid;
 	},
 
-	/* PRIVATE METHODS */
+	/**********************************************************/
+	/* PRIVATE METHODS                                        */
+	/**********************************************************/
 
 	// SORT THE ARRAY LONGEST TO SHORTEST
 	SortByLength: function(lArray){
@@ -287,6 +294,22 @@ function Position(x,y,direction,crossingPoint){
 	this.direction = direction;
 	this.crossingPoint = crossingPoint;
 }
+
+function Word(txt){
+	this.word = txt;
+	this.crossingPositions = new Array();
+	this.availablePositions; = new Array();
+	this.orphaned = false;
+	this.finalPosition = undefined;
+	this.placedId = -1;
+}
+
+function AlternativeGrid(){
+	this.Grid = new Array();
+	this.Words = new Array();
+	this.NumberOfOrphans = 0;
+}
+
  /**
   * END CLASS DEFINITION
   **/

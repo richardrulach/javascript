@@ -15,6 +15,11 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+        #mainContainer { display:none; }
+        .canvasContainer { margin-bottom:15px; }
+    </style>
   </head>
   <body>
 
@@ -25,11 +30,16 @@
     </div>
     </header>
     <section>
-        <div id="#canvasContainer">
-            <canvas id="myCanvas" width="425" height="325" style="border:1px solid black;">
-
+        <div id="mainContainer">
+            <div class="canvasContainer">
+                <canvas id="myCanvas" width="425" height="325" style="border:1px solid black;">
+                </canvas>
+            </div>
+            <div class="canvasContainer">
+                <canvas id="myAnswersCanvas" width="425" height="325" style="border:1px solid black;">
+                </canvas>
+            </div>
         </div>
-        </canvas>
         <div>
             <textarea id="txtWords"></textarea>
         </div>
@@ -55,7 +65,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap/bootstrap.min.js"></script>
-    <script src="/js/classes/xWords.js"></script>
+    <script src="/js/classes/wordSearch.js"></script>
     <script>
         var context;
         var canvas;
@@ -99,12 +109,16 @@
             for (var i = 0; i < crossword.length; i++){
                 for (var j = 0; j < crossword[i].length; j++){
                     if (crossword[i][j].length == 0){
-                        context.rect(i*25,j*25, 25, 25);
-                        context.fill();
+                        var letter = String.fromCharCode(Math.random() * 26 + 65);
+                        var correction = Math.round((25 - context.measureText(letter).width) / 2);
+        
+                        context.fillText(letter,
+                            i * 25 + correction - 0.5,
+                            j * 25 + 12.5);
                     } else {
                         var x = Math.round((25 - 
-                        context.measureText(crossword[i][j]).width) / 2);
-                        context.fillText(crossword[i][j],
+                        context.measureText(crossword[i][j].toUpperCase()).width) / 2);
+                        context.fillText(crossword[i][j].toUpperCase(),
                           i*25 + x - 0.5, 
                           j*25 + 12.5);
                     }
@@ -113,6 +127,8 @@
 
             context.stroke();
             context.closePath();
+
+            $('#mainContainer').slideDown(500);
         }
 
         window.onload = function(){

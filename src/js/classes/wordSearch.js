@@ -298,7 +298,7 @@ function Position(x,y,direction,crossingPoint){
 function Word(txt){
 	this.word = txt;
 	this.crossingPositions = new Array();
-	this.availablePositions; = new Array();
+	this.availablePositions = new Array();
 	this.orphaned = false;
 	this.finalPosition = undefined;
 	this.placedId = -1;

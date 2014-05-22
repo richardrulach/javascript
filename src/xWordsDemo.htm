@@ -15,6 +15,10 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        #mainContainer { display:none; }
+        .canvasContainer { margin-bottom:15px; }
+    </style>
   </head>
   <body>
 
@@ -25,11 +29,17 @@
     </div>
     </header>
     <section>
-        <div id="#canvasContainer">
-            <canvas id="myCanvas" width="425" height="325" style="border:1px solid black;">
+        <div id="mainContainer">
+            <div class="canvasContainer col-md-6">
+                <canvas id="myQuestionCanvas" width="425" height="325" style="border:1px solid black;">
+                </canvas>
+            </div>
 
+            <div class="canvasContainer col-md-6">
+                <canvas id="myCanvas" width="425" height="325" style="border:1px solid black;">
+                </canvas>
+            </div>
         </div>
-        </canvas>
         <div>
             <textarea id="txtWords"></textarea>
         </div>
@@ -60,11 +70,19 @@
         var context;
         var canvas;
 
+        var contextQuestion;
+        var canvasQuestion;
+
         function btnAddWords_click(){
 
             xWords.Reset();
+            contextQuestion.clearRect(0, 0, canvas.width, canvas.height);
             context.clearRect(0, 0, canvas.width, canvas.height);
 
+
+            contextQuestion.beginPath();
+            contextQuestion.lineWidth = 1;
+            contextQuestion.strokeStyle = "black";
 
             context.beginPath();
             context.lineWidth = 1;
@@ -73,12 +91,20 @@
 
             // DRAW THE GRID
             for (var i = 25; i < 425; i+=25){
+                contextQuestion.moveTo(i,0);
+                contextQuestion.lineTo(i,325);
+                contextQuestion.stroke();
+
                 context.moveTo(i,0);
                 context.lineTo(i,325);
                 context.stroke();
             }
 
             for (var i = 25; i < 325; i+=25){
+                contextQuestion.moveTo(0,i);
+                contextQuestion.lineTo(425,i);
+                contextQuestion.stroke();
+
                 context.moveTo(0,i);
                 context.lineTo(425,i);
                 context.stroke();
@@ -99,6 +125,10 @@
             for (var i = 0; i < crossword.length; i++){
                 for (var j = 0; j < crossword[i].length; j++){
                     if (crossword[i][j].length == 0){
+
+                        contextQuestion.rect(i*25,j*25, 25, 25);
+                        contextQuestion.fill();
+
                         context.rect(i*25,j*25, 25, 25);
                         context.fill();
                     } else {
@@ -111,11 +141,19 @@
                 }
             }
 
+            contextQuestion.stroke();
+            contextQuestion.closePath();
+
             context.stroke();
             context.closePath();
+
+            $('#mainContainer').slideDown(500);
         }
 
         window.onload = function(){
+            canvasQuestion = document.getElementById("myQuestionCanvas");
+            contextQuestion = canvasQuestion.getContext("2d");
+
             canvas = document.getElementById("myCanvas");
             context = canvas.getContext("2d");
 

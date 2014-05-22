@@ -246,14 +246,14 @@ var xWords = {
 		var bHasChars = false;
 
 		if (direction == 1){
-			if (y-1 > 0){
+			if (y-1 >= 0){
 				if (this.Grid[x][y-1].length > 0) return true;
 			}
 			if (y+1 < this.Grid[0].length){
 				if (this.Grid[x][y+1].length > 0) return true;
 			}
 		} else if (direction == -1){
-			if (x-1 > 0){
+			if (x-1 >= 0){
 				if (this.Grid[x-1][y].length > 0) return true;
 			}
 			if (x+1 < this.Grid.length){
@@ -298,7 +298,7 @@ function Position(x,y,direction,crossingPoint){
 function Word(txt){
 	this.word = txt;
 	this.crossingPositions = new Array();
-	this.availablePositions; = new Array();
+	this.availablePositions = new Array();
 	this.orphaned = false;
 	this.finalPosition = undefined;
 	this.placedId = -1;

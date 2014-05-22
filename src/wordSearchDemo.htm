@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTML5 Canvas Demo</title>
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="container">
+    <header>
+      <div class="row">
+        <h1>HTML5 Canvas Demo</h1>
+    </div>
+    </header>
+    <section>
+        <div id="#canvasContainer">
+            <canvas id="myCanvas" width="425" height="325" style="border:1px solid black;">
+
+        </div>
+        </canvas>
+        <div>
+            <textarea id="txtWords"></textarea>
+        </div>
+        <div>
+            <input 
+                    type="button" 
+                    id="btnAddWords" 
+                    onclick="btnAddWords_click()"
+                    value="Add Words" />
+            <input 
+                    type="button" 
+                    id="btnClearCanvas" 
+                    onclick="clearCanvas()"
+                    value="Clear Canvas" />
+        </div>
+    </section>
+    <footer class="row">
+      <small></small>
+    </footer>
+    </div><!-- END CONTAINER CLASS -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/classes/xWords.js"></script>
+    <script>
+        var context;
+        var canvas;
+
+        function btnAddWords_click(){
+
+            xWords.Reset();
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+
+            context.beginPath();
+            context.lineWidth = 1;
+            context.strokeStyle = "black";
+
+
+            // DRAW THE GRID
+            for (var i = 25; i < 425; i+=25){
+                context.moveTo(i,0);
+                context.lineTo(i,325);
+                context.stroke();
+            }
+
+            for (var i = 25; i < 325; i+=25){
+                context.moveTo(0,i);
+                context.lineTo(425,i);
+                context.stroke();
+            }
+            // END OF DRAWING THE GRID
+
+
+            context.font = "20px _sans";
+            context.textBaseline = "middle";
+
+            // GENERATE ARRAY OF WORDS TO PUT INTO THE CANVAS
+            var rawData = $('#txtWords').val();
+            var aValues = rawData.split('\n');
+
+            // GET AND DISPLAY THE CROSSWORD - PRINT LETTER IF IT IS
+            // THERE OR PRINT A BLACK SQUARE ON THE CANVAS
+            var crossword = xWords.Create(13,17,aValues);
+            for (var i = 0; i < crossword.length; i++){
+                for (var j = 0; j < crossword[i].length; j++){
+                    if (crossword[i][j].length == 0){
+                        context.rect(i*25,j*25, 25, 25);
+                        context.fill();
+                    } else {
+                        var x = Math.round((25 - 
+                        context.measureText(crossword[i][j]).width) / 2);
+                        context.fillText(crossword[i][j],
+                          i*25 + x - 0.5, 
+                          j*25 + 12.5);
+                    }
+                }
+            }
+
+            context.stroke();
+            context.closePath();
+        }
+
+        window.onload = function(){
+            canvas = document.getElementById("myCanvas");
+            context = canvas.getContext("2d");
+
+            //btnAddWords_click();
+        }
+    </script>
+  </body>
+</html>

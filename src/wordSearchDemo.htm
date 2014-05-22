@@ -26,16 +26,16 @@
     <div class="container">
     <header>
       <div class="row">
-        <h1>HTML5 Canvas Demo</h1>
+        <h1>Word Search Demo</h1>
     </div>
     </header>
     <section>
         <div id="mainContainer">
-            <div class="canvasContainer">
+            <div class="canvasContainer col-md-6">
                 <canvas id="myCanvas" width="425" height="325" style="border:1px solid black;">
                 </canvas>
             </div>
-            <div class="canvasContainer">
+            <div class="canvasContainer col-md-6">
                 <canvas id="myAnswersCanvas" width="425" height="325" style="border:1px solid black;">
                 </canvas>
             </div>
@@ -70,15 +70,25 @@
         var context;
         var canvas;
 
+        var contextAnswers;
+        var canvasAnswers;
+
+
         function btnAddWords_click(){
 
             xWords.Reset();
             context.clearRect(0, 0, canvas.width, canvas.height);
+            contextAnswers.clearRect(0, 0, 
+                canvasAnswers.width, canvasAnswers.height);
 
 
             context.beginPath();
             context.lineWidth = 1;
             context.strokeStyle = "black";
+
+            contextAnswers.beginPath();
+            contextAnswers.lineWidth = 1;
+            contextAnswers.strokeStyle = "black";
 
 
             // DRAW THE GRID
@@ -86,18 +96,29 @@
                 context.moveTo(i,0);
                 context.lineTo(i,325);
                 context.stroke();
+
+                contextAnswers.moveTo(i,0);
+                contextAnswers.lineTo(i,325);
+                contextAnswers.stroke();
             }
 
             for (var i = 25; i < 325; i+=25){
                 context.moveTo(0,i);
                 context.lineTo(425,i);
                 context.stroke();
+
+                contextAnswers.moveTo(0,i);
+                contextAnswers.lineTo(425,i);
+                contextAnswers.stroke();
             }
             // END OF DRAWING THE GRID
 
 
             context.font = "20px _sans";
             context.textBaseline = "middle";
+
+            contextAnswers.font = "20px _sans";
+            contextAnswers.textBaseline = "middle";
 
             // GENERATE ARRAY OF WORDS TO PUT INTO THE CANVAS
             var rawData = $('#txtWords').val();
@@ -115,10 +136,18 @@
                         context.fillText(letter,
                             i * 25 + correction - 0.5,
                             j * 25 + 12.5);
+
+                        contextAnswers.fillText(letter,
+                            i * 25 + correction - 0.5,
+                            j * 25 + 12.5);
                     } else {
                         var x = Math.round((25 - 
                         context.measureText(crossword[i][j].toUpperCase()).width) / 2);
                         context.fillText(crossword[i][j].toUpperCase(),
+                          i*25 + x - 0.5, 
+                          j*25 + 12.5);
+
+                        contextAnswers.fillText(crossword[i][j].toUpperCase(),
                           i*25 + x - 0.5, 
                           j*25 + 12.5);
                     }
@@ -128,12 +157,18 @@
             context.stroke();
             context.closePath();
 
+            contextAnswers.stroke();
+            contextAnswers.closePath();
+
             $('#mainContainer').slideDown(500);
         }
 
         window.onload = function(){
             canvas = document.getElementById("myCanvas");
             context = canvas.getContext("2d");
+
+            canvasAnswers = document.getElementById("myAnswersCanvas");
+            contextAnswers = canvasAnswers.getContext("2d");
 
             //btnAddWords_click();
         }

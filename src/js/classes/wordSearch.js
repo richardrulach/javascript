@@ -70,24 +70,8 @@ var xWords = {
 
 		if (positions.length > 0){
 
-			var choice = -1;
-
-			// CHOOSE THE FIRST ONE WITH A CROSSING POINT
-			// IF IT IS THERE
-			for (var iCount = 0; 
-						iCount < positions.length; 
-						iCount++){
-
-				if (positions[iCount].crossingPoint > 0){
-					choice = iCount;
-				}
-
-			}
-
-			if (choice == -1){
-				choice = Math.floor(
+			var choice = Math.floor(
 					(Math.random() * positions.length));
-			}
 
 			// WRITE THE WORD INTO THE ARRAY
 			var newPos = positions[choice];

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HTML5 Canvas Demo</title>
+    <title>Word Search Demo</title>
 
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -130,16 +130,16 @@
             for (var i = 0; i < crossword.length; i++){
                 for (var j = 0; j < crossword[i].length; j++){
                     if (crossword[i][j].length == 0){
-                        var letter = String.fromCharCode(Math.random() * 26 + 65);
-                        var correction = Math.round((25 - context.measureText(letter).width) / 2);
+                        // var letter = String.fromCharCode(Math.random() * 26 + 65);
+                        // var correction = Math.round((25 - context.measureText(letter).width) / 2);
         
-                        context.fillText(letter,
-                            i * 25 + correction - 0.5,
-                            j * 25 + 12.5);
+                        // context.fillText(letter,
+                        //     i * 25 + correction - 0.5,
+                        //     j * 25 + 12.5);
 
-                        contextAnswers.fillText(letter,
-                            i * 25 + correction - 0.5,
-                            j * 25 + 12.5);
+                        // contextAnswers.fillText(letter,
+                        //     i * 25 + correction - 0.5,
+                        //     j * 25 + 12.5);
                     } else {
                         var x = Math.round((25 - 
                         context.measureText(crossword[i][j].toUpperCase()).width) / 2);

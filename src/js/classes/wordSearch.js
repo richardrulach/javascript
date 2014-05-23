@@ -9,6 +9,18 @@
 var xWords = {
    	/* CLASS CONSTANTS */
 
+   	// IDENTIFY THE TEXT DIRECTION IN THE GRID
+   	HORIZONTAL:1,
+   	VERTICAL:-1,
+   	REVERSE_HORIZONTAL:3,
+   	REVERSE_VERTICAL:4,
+
+   	DIAGONAL_DOWN:5,
+   	DIAGONAL_UP:6,
+   	REVERSE_DIAGONAL_DOWN:7,
+   	REVERSE_DIAGONAL_UP:8,
+
+
     /* CLASS PROPERTIES */
     _self:this,
 	Grid:new Array(),
@@ -42,10 +54,15 @@ var xWords = {
 
 		// ORDER WORDS SO THE LONGEST ONES ARE 
 		// ADDED TO THE GRID FIRST
-		this.SortByLength(arrayOfWords);
+		for (var x = 0; x < arrayOfWords.length; x++){
+			this.Words.push(new Word(arrayOfWords[x]));
+		}
+		this.SortByLength(this.Words);
 
-		for (var x=0; x < arrayOfWords.length; x++){
-			 this.AddWord(arrayOfWords[x]);
+		console.log(this.Words);
+
+		for (var x=0; x < this.Words.length; x++){
+			 this.AddWord(this.Words[x]);
 		}
 
 		return this.Grid;
@@ -58,7 +75,7 @@ var xWords = {
 	// SORT THE ARRAY LONGEST TO SHORTEST
 	SortByLength: function(lArray){
 		lArray.sort(function(a,b){
-           return a.length < b.length
+           return a.word.length < b.word.length
         });
 		return lArray;
 	},
@@ -66,26 +83,30 @@ var xWords = {
 
 	// ADD A WORD TO THE GRID (IF POSSIBLE)
 	AddWord: function(newWord){
-		var positions = this.GetPositions(newWord);
+		newWord.availablePositions = this.GetPositions(newWord.word);
 
-		if (positions.length > 0){
+		if (newWord.availablePositions.length > 0){
 
-			var choice = Math.floor(
-					(Math.random() * positions.length));
+			newWord.selectedPosition = Math.floor(
+					(Math.random() * 
+					newWord.availablePositions.length));
 
 			// WRITE THE WORD INTO THE ARRAY
 			// NOTE NO PRIORITY FOR WORDS WITH CROSSING POINTS
-			// AS IN WORDSEARCH ALL ARE EQUALLY VALUABLE
-			var newPos = positions[choice];
+			// AS IN WORDSEARCH ALL ARE EQUALLY ACCEPTABLE
+			var newPos = newWord.availablePositions[
+								newWord.selectedPosition];
 
 			// LOOP THROUGH THE WORD PLACING IT IN THE GRID
-			for (var count = 0; count < newWord.length; count++){
+			for (	var count = 0; 
+					count < newWord.word.length; 
+					count++){
 				if (newPos.direction == 1){
 					this.Grid[newPos.x + count][newPos.y] = 
-						newWord.charAt(count);
+						newWord.word.charAt(count);
 				} else if (newPos.direction == -1){
 					this.Grid[newPos.x][newPos.y + count] = 
-						newWord.charAt(count);
+						newWord.word.charAt(count);
 				}
 			}
 		}
@@ -93,6 +114,8 @@ var xWords = {
 
 	// RETURNS ALL THE AVAILABLE VALID POSITIONS FOR PLACING THE WORD
 	GetPositions: function(newWord){
+		console.log("getpos:" + newWord);
+
 		var positionArray = new Array();
 
 		for (var x = 0; x < this.Grid.length; x++){
@@ -265,11 +288,9 @@ function Position(x,y,direction,crossingPoint){
 
 function Word(txt){
 	this.word = txt;
-	this.crossingPositions = new Array();
 	this.availablePositions = new Array();
 	this.orphaned = false;
-	this.finalPosition = undefined;
-	this.placedId = -1;
+	this.selectedPosition = -1;
 }
 
 function AlternativeGrid(){

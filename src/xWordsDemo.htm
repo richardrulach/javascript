@@ -117,6 +117,8 @@
             // GET AND DISPLAY THE CROSSWORD - PRINT LETTER IF IT IS
             // THERE OR PRINT A BLACK SQUARE ON THE CANVAS
             var crossword = xWords.Create(13,17,aValues);
+            var qGrid = xWords.GetQuestionGrid();
+
             for (var i = 0; i < crossword.length; i++){
                 for (var j = 0; j < crossword[i].length; j++){
                     if (crossword[i][j].length == 0){
@@ -127,6 +129,13 @@
                         context.rect(i*25,j*25, 25, 25);
                         context.fill();
                     } else {
+
+                        if (qGrid[i][j].length > 0){
+                            contextQuestion.fillText(qGrid[i][j],
+                              i*25 + 3, 
+                              j*25 + 10);
+                        }
+
                         var x = Math.round((25 - 
                         context.measureText(crossword[i][j]).width) / 2);
                         context.fillText(crossword[i][j],

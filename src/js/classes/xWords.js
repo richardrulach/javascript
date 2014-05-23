@@ -15,47 +15,61 @@ var xWords = {
     _self:this,
 	Grid:new Array(),
 	Words:new Array(),
+	QuestionGrid:new Array(),
 
 
 	/* PUBLIC METHODS */
 	// resets the grid and word list
 	Reset: function(){
 		this.Grid = new Array();
+		this.QuestionGrid = new Array();
 		this.Words = new Array();
 	},
 
+	GetQuestionGrid:function(){
+		return this.QuestionGrid;
+	},
 
 	Create: function(height, width, arrayOfWords){
 
 		// RESET AND CREATE THE NEW GRID
+		// AND THE QUESTION GRID
 		this.Reset();
-        var newGrid = new Array(width);
-        for (var i = 0; i < newGrid.length; i++){
-            newGrid[i] = new Array(height);
+
+        this.Grid = new Array(width);
+        this.QuestionGrid = new Array(width);
+
+        for (var i = 0; i < this.Grid.length; i++){
+            this.Grid[i] = new Array(height);
+            this.QuestionGrid[i] = new Array(height);
         }
 
-        for (var i = 0; i < newGrid.length; i++){
-        	for (var j = 0; j < newGrid[0].length; j++){
-            	newGrid[i][j] = '';
+        for (var i = 0; i < this.Grid.length; i++){
+        	for (var j = 0; j < this.Grid[0].length; j++){
+            	this.Grid[i][j] = '';
+            	this.QuestionGrid[i][j] = '';
             }
         }
-
-		this.Grid = newGrid;
 
 		// CREATE A NEW WORD AND ADD TO THE 
 		// WORDS ARRAY
 		for (var x=0; x < arrayOfWords.length; x++){
-			 this.Words.push(new Word(arrayOfWords[x]));
+			if (arrayOfWords[x].length > 0){
+			 	this.Words.push(new Word(arrayOfWords[x]));
+			}
 		}
 
 		// ORDER ALL OF THE WORDS BY WHICH IS THE LONGEST
 		this.SortByLength(this.Words);
 
-		console.log(this.Words);
+		//console.log(this.Words);
 
 		for (var x=0; x < this.Words.length; x++){
 			 this.AddWord(this.Words[x]);
 		}
+
+
+		this.GenerateQuestionGrid();
 
 		return this.Grid;
 	},
@@ -63,8 +77,71 @@ var xWords = {
 	/**********************************************************/
 	/* PRIVATE METHODS                                        */
 	/**********************************************************/
+	GenerateQuestionGrid: function(){
+		var counter = 1;
 
-	// SORT THE ARRAY LONGEST TO SHORTEST
+		var questionList = new Array();
+
+		for (var i = 0; i < this.Words.length; i++){
+			if (this.Words[i].posIndex != -1){
+				if (this.Words[i].crossingPositions.length > 0){
+					// this.QuestionGrid
+					// [ this.Words[i].crossingPositions[this.Words[i].posIndex].x ]
+					// [ this.Words[i].crossingPositions[this.Words[i].posIndex].y] 
+					// = counter.toString();
+
+					var tmpObj = {
+						x: this.Words[i].crossingPositions[this.Words[i].posIndex].x,
+						y: this.Words[i].crossingPositions[this.Words[i].posIndex].y,
+						d: this.Words[i].crossingPositions[this.Words[i].posIndex].direction,
+						clue: this.Words[i].word
+					};
+					questionList.push(tmpObj);
+
+				} else {
+					// this.QuestionGrid
+					// [this.Words[i].availablePositions[this.Words[i].posIndex].x]
+					// [this.Words[i].availablePositions[this.Words[i].posIndex].y] 
+					// = counter.toString();
+
+					var tmpObj = {
+						x: this.Words[i].availablePositions[this.Words[i].posIndex].x,
+						y: this.Words[i].availablePositions[this.Words[i].posIndex].y,
+						d: this.Words[i].availablePositions[this.Words[i].posIndex].direction,
+						num: 0,
+						clue: this.Words[i].word
+					};
+					questionList.push(tmpObj);
+				}
+				counter++;
+			}
+		}
+
+		this.SortXwordQuestions(questionList);
+
+		var counter = 0
+		for (var k = 0; k < questionList.length; k++){
+			if (this.QuestionGrid[questionList[k].x][questionList[k].y].length == 0){
+				counter++;
+				this.QuestionGrid[questionList[k].x][questionList[k].y] = counter.toString();
+				questionList[k].num = counter;
+			} else {
+				questionList[k].num = counter;
+			}
+		}
+	},
+
+	// SORT THE ARRAY LONGEST TO SHORTEST 
+	SortXwordQuestions: function(lArray){
+		lArray.sort(function(a,b){
+			var bReturn = true;			
+		   	if (a.y < b.y) bReturn = false;
+		   	if ((a.y == b.y)&&(a.x < b.x)) bReturn = false;
+		   	return bReturn;
+        });
+	},
+
+
 	SortByLength: function(lArray){
 		lArray.sort(function(a,b){
            return a.word.length < b.word.length
@@ -98,6 +175,8 @@ var xWords = {
 					newWord.availablePositions.length));
 					newPos = newWord.availablePositions[choice];
 			}
+
+			newWord.posIndex = choice;
 
 			// LOOP THROUGH THE WORD PLACING IT IN THE GRID
 			for (var count = 0; count < newWord.word.length; count++){
@@ -336,6 +415,7 @@ function Word(txt){
  **/
 function AlternativeGrid(){
 	this.Grid = new Array();
+	this.QuestionGrid = new Array();
 	this.Words = new Array();
 	this.NumberOfOrphans = 0;
 }

@@ -59,7 +59,6 @@ var wordSearch = {
 		}
 		this.SortByLength(this.Words);
 
-		console.log(this.Words);
 
 		for (var x=0; x < this.Words.length; x++){
 			 this.AddWord(this.Words[x]);
@@ -75,7 +74,6 @@ var wordSearch = {
 				answers.push(this.Words[x].GridPositions());
 			}
 		}
-		console.log(answers);
 		return answers;
 	},
 
@@ -118,11 +116,25 @@ var wordSearch = {
 				} else if (newPos.direction == this.VERTICAL){
 					this.Grid[newPos.x][newPos.y + count] = 
 						newWord.word.charAt(count);
+				} else if (newPos.direction == 
+					this.REVERSE_HORIZONTAL){
+					this.Grid[newPos.x-count][newPos.y] = 
+						newWord.word.charAt(count);
+				} else if (newPos.direction == 
+					this.REVERSE_VERTICAL){
+					this.Grid[newPos.x][newPos.y-count] = 
+						newWord.word.charAt(count);
 				} else if (newPos.direction == this.DIAGONAL_UP){
 					this.Grid[newPos.x + count][newPos.y - count] = 
 						newWord.word.charAt(count);
 				} else if (newPos.direction == this.DIAGONAL_DOWN){
 					this.Grid[newPos.x + count][newPos.y + count] = 
+						newWord.word.charAt(count);
+				} else if (newPos.direction == this.REVERSE_DIAGONAL_UP){
+					this.Grid[newPos.x - count][newPos.y + count] = 
+						newWord.word.charAt(count);
+				} else if (newPos.direction == this.REVERSE_DIAGONAL_DOWN){
+					this.Grid[newPos.x - count][newPos.y - count] = 
 						newWord.word.charAt(count);
 				}
 			}
@@ -131,14 +143,15 @@ var wordSearch = {
 
 	// RETURNS ALL THE AVAILABLE VALID POSITIONS FOR PLACING THE WORD
 	GetPositions: function(newWord){
-		console.log("getpos:" + newWord);
 
 		var positionArray = new Array();
 
 		for (var x = 0; x < this.Grid.length; x++){
 			for (var y = 0; y < this.Grid[0].length; y++){
+
+				var newPos = undefined
 				
-				var newPos = this.TestPosition(
+				newPos = this.TestPosition(
 					newWord,x,y,this.HORIZONTAL);
 				if (newPos !== undefined) positionArray.push(newPos);
 
@@ -147,11 +160,27 @@ var wordSearch = {
 				if (newPos !== undefined) positionArray.push(newPos);
 
 				newPos = this.TestPosition(
+					newWord,x,y,this.REVERSE_HORIZONTAL);
+				if (newPos !== undefined) positionArray.push(newPos);
+
+				newPos = this.TestPosition(
+					newWord,x,y,this.REVERSE_VERTICAL);
+				if (newPos !== undefined) positionArray.push(newPos);
+
+				newPos = this.TestPosition(
 					newWord,x,y,this.DIAGONAL_UP);
 				if (newPos !== undefined) positionArray.push(newPos);
 
 				newPos = this.TestPosition(
 					newWord,x,y,this.DIAGONAL_DOWN);
+				if (newPos !== undefined) positionArray.push(newPos);
+
+				newPos = this.TestPosition(
+					newWord,x,y,this.REVERSE_DIAGONAL_UP);
+				if (newPos !== undefined) positionArray.push(newPos);
+
+				newPos = this.TestPosition(
+					newWord,x,y,this.REVERSE_DIAGONAL_DOWN);
 				if (newPos !== undefined) positionArray.push(newPos);
 
 			}
@@ -215,6 +244,54 @@ var wordSearch = {
 				} 
 			}
 
+		} else if (direction == this.REVERSE_HORIZONTAL){
+
+			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
+			if (x - newWord.length + 1 < 0)
+				return;
+
+			for (var count = 0; count < newWord.length; count++){
+
+				// 2 CHECKS:
+				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
+				//		ON THE PROPOSED PATH OF THIS WORD
+				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
+				//		THE CHARACTER IN THIS WORD - ADD
+				//		A CROSSING POINT
+				if ((this.Grid[x - count][y].length > 0)&&
+					(this.Grid[x - count][y] != 
+						newWord.charAt(count))) 
+					return;
+				else if (this.Grid[x - count][y] == 
+						newWord.charAt(count).toString()){
+					crossingPoint++;
+				} 
+			}
+
+		} else if (direction == this.REVERSE_VERTICAL){
+
+			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
+			if (y - newWord.length + 1 < 0)
+				return;
+
+			for (var count = 0; count < newWord.length; count++){
+
+				// 2 CHECKS:
+				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
+				//		ON THE PROPOSED PATH OF THIS WORD
+				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
+				//		THE CHARACTER IN THIS WORD - ADD
+				//		A CROSSING POINT
+				if ((this.Grid[x][y - count].length > 0)&&
+					(this.Grid[x][y - count] != 
+						newWord.charAt(count))) 
+					return;
+				else if (this.Grid[x][y - count] == 
+						newWord.charAt(count).toString()){
+					crossingPoint++;
+				} 
+			}
+
 		} else if (direction == this.DIAGONAL_UP){
 
 			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
@@ -266,7 +343,61 @@ var wordSearch = {
 					(this.Grid[x + count][y + count] != 
 						newWord.charAt(count))) 
 					return;
-				else if (this.Grid[x][y + count] == 
+				else if (this.Grid[x + count][y + count] == 
+						newWord.charAt(count).toString()){
+					crossingPoint++;
+				} 
+			}
+
+		} else if (direction == this.REVERSE_DIAGONAL_UP){
+
+			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
+			if (x - newWord.length + 1 < 0)
+				return;
+
+			if (y + newWord.length > this.Grid[0].length)
+				return;
+
+			for (var count = 0; count < newWord.length; count++){
+
+				// 2 CHECKS:
+				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
+				//		ON THE PROPOSED PATH OF THIS WORD
+				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
+				//		THE CHARACTER IN THIS WORD - ADD
+				//		A CROSSING POINT
+				if ((this.Grid[x - count][y + count].length > 0)&&
+					(this.Grid[x - count][y + count] != 
+						newWord.charAt(count))) 
+					return;
+				else if (this.Grid[x - count][y + count] == 
+						newWord.charAt(count).toString()){
+					crossingPoint++;
+				} 
+			}
+
+		} else if (direction == this.REVERSE_DIAGONAL_DOWN){
+
+			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
+			if (x - newWord.length + 1 < 0)
+				return;
+
+			if (y - newWord.length + 1 < 0)
+				return;
+
+			for (var count = 0; count < newWord.length; count++){
+
+				// 2 CHECKS:
+				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
+				//		ON THE PROPOSED PATH OF THIS WORD
+				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
+				//		THE CHARACTER IN THIS WORD - ADD
+				//		A CROSSING POINT
+				if ((this.Grid[x - count][y - count].length > 0)&&
+					(this.Grid[x - count][y - count] != 
+						newWord.charAt(count))) 
+					return;
+				else if (this.Grid[x - count][y - count] == 
 						newWord.charAt(count).toString()){
 					crossingPoint++;
 				} 
@@ -347,8 +478,10 @@ function Word(txt){
 				break;
 
 		   	case wordSearch.REVERSE_HORIZONTAL:
+				lPositions.x1 = lPositions.x1 - this.word.length + 1;
 				break;
 		   	case wordSearch.REVERSE_VERTICAL:
+				lPositions.y1 = lPositions.y1 - this.word.length + 1;
 				break;
 
 		   	case wordSearch.DIAGONAL_DOWN:
@@ -357,12 +490,16 @@ function Word(txt){
 				break;
 		   	case wordSearch.DIAGONAL_UP:
 				lPositions.x2 += this.word.length - 1;
-				lPositions.y2 -= this.word.length - 1;
+				lPositions.y2 = lPositions.y2 - this.word.length + 1;
 				break;
 
 		   	case wordSearch.REVERSE_DIAGONAL_DOWN:
+				lPositions.x1 = lPositions.x1 - this.word.length + 1;
+				lPositions.y1 = lPositions.y1 - this.word.length + 1;
 				break;
 		   	case wordSearch.REVERSE_DIAGONAL_UP:		
+				lPositions.x1 = lPositions.x1 - this.word.length + 1;
+				lPositions.y1 += this.word.length - 1;
 				break;
    		}
    		return lPositions;

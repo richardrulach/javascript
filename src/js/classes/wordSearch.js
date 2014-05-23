@@ -74,6 +74,8 @@ var xWords = {
 					(Math.random() * positions.length));
 
 			// WRITE THE WORD INTO THE ARRAY
+			// NOTE NO PRIORITY FOR WORDS WITH CROSSING POINTS
+			// AS IN WORDSEARCH ALL ARE EQUALLY VALUABLE
 			var newPos = positions[choice];
 
 			// LOOP THROUGH THE WORD PLACING IT IN THE GRID
@@ -112,17 +114,6 @@ var xWords = {
 
 		var crossingPoint = 0;
 
-		// UNNACCEPTABLE IF THERE IS A LETTER
-		// IN THE SQUARE BEFORE THE PROPOSED START 
-		if (this.CharBeforeFirstLetter(x,y,direction))
-			return;
-
-		// UNNACCEPTABLE IF THERE IS A LETTER
-		// IN THE SQUARE AFTER THE END 
-		if (this.CharAfterLastLetter(newWord.length,x,y,direction))
-			return;
-
-
 		// DEAL WITH HORIZONTAL AND VERTICAL WORD PLACEMENT
 		// SEPARATELY
 		if (direction == 1){
@@ -135,12 +126,11 @@ var xWords = {
 
 				// 3 CHECKS:
 				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
-				//		ON THE PROPOSED PATH OF THIS WORD
+				//		ON THE PROPOSED PATH OF THIS WORD AND
+				//		IT DOESN'T MATCH THE ONE IN THIS WORD
 				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
 				//		THE CHARACTER IN THIS WORD - ADD
 				//		A CROSSING POINT
-				// 3 - UNACCEPTABLE IF THERE ARE CHARACTERS
-				//		EITHER SIDE OF THIE PROPOSED PATH
 				if ((this.Grid[x + count][y].length > 0)&&
 					(this.Grid[x + count][y] != 
 						newWord.charAt(count))){
@@ -148,8 +138,6 @@ var xWords = {
 				} else if (this.Grid[x + count][y] == 
 						newWord.charAt(count).toString()){
 					crossingPoint++;
-				} else if (this.SidesHaveChars(x+count,y,direction)){
-					return;
 				} 
 			}
 
@@ -167,8 +155,6 @@ var xWords = {
 				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
 				//		THE CHARACTER IN THIS WORD - ADD
 				//		A CROSSING POINT
-				// 3 - UNACCEPTABLE IF THERE ARE CHARACTERS
-				//		EITHER SIDE OF THIE PROPOSED PATH
 				if ((this.Grid[x][y + count].length > 0)&&
 					(this.Grid[x][y + count] != 
 						newWord.charAt(count))) 
@@ -176,8 +162,6 @@ var xWords = {
 				else if (this.Grid[x][y + count] == 
 						newWord.charAt(count).toString()){
 					crossingPoint++;
-				} else if (this.SidesHaveChars(x,y+count,direction)){
-					return;
 				} 
 			}
 

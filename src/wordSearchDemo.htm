@@ -190,7 +190,7 @@ function drawMarker(context, x1, y1, x2, y2) {
     context.strokeStyle = "red";
 
 
-    if ((x1 == x2) && (y1 != y2)) {
+    if ((x1 == x2) && (y1 < y2)) {
         // VERTICAL
         context.moveTo(x1 * 25, y1 * 25 + 12.5);
         context.lineTo(x2 * 25, y2 * 25 + 12.5);
@@ -214,7 +214,7 @@ function drawMarker(context, x1, y1, x2, y2) {
         3.14,
         false);
 
-    } else if ((x1 != x2) && (y1 == y2)) {
+    } else if ((x1 < x2) && (y1 == y2)) {
         // HORIZONTAL
         context.moveTo(x1 * 25 + 12.5, y1 * 25);
         context.lineTo(x2 * 25 + 12.5, y2 * 25);
@@ -234,8 +234,8 @@ function drawMarker(context, x1, y1, x2, y2) {
         4.71,
         1.57,
         false);
-    } else {
-        // DIAGONAL   
+    } else if ((x1 < x2) && (y1 < y2)) {
+        // DIAGONAL DOWN
 
         context.moveTo(x1 * 25 + 12.5, y1 * 25);
         context.lineTo((x2 + 1) * 25, y2 * 25 + 12.5);
@@ -254,6 +254,31 @@ function drawMarker(context, x1, y1, x2, y2) {
         Math.sqrt((12.5 * 12.5) + (12.5 * 12.5)) / 2,
         5.49,
         2.35,
+        false);
+
+    } else if ((x1 < x2) && (y1 > y2)) {
+        // DIAGONAL UP
+
+        context.moveTo(x1 * 25, y1 * 25 + 12.5);
+        context.lineTo(x2 * 25 + 12.5, y2 * 25);
+
+        context.moveTo(x1 * 25 + 12.5, (y1+1) * 25);
+        context.lineTo((x2+1) * 25, y2 * 25 + 12.5);
+
+
+        context.arc((x1 * 25) + (12.5 / 2), (y1 * 25 + 12.5) + (12.5 / 2),
+        Math.sqrt((12.5 * 12.5) + (12.5 * 12.5)) / 2,
+        0.78,
+        3.92,
+        false);
+
+        context.moveTo(x2 * 25 + 12.5,y2 * 25);
+
+        context.arc(
+        ((x2 + 1) * 25) - (12.5 / 2), (y2 * 25) + (12.5 / 2),
+        Math.sqrt((12.5 * 12.5) + (12.5 * 12.5)) / 2,
+        3.92,
+        7.06,
         false);
 
     }

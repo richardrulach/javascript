@@ -11,7 +11,7 @@ var wordSearch = {
 
    	// IDENTIFY THE TEXT DIRECTION IN THE GRID
    	HORIZONTAL:1,
-   	VERTICAL:-1,
+   	VERTICAL:2,
    	REVERSE_HORIZONTAL:3,
    	REVERSE_VERTICAL:4,
 
@@ -112,11 +112,17 @@ var wordSearch = {
 			for (	var count = 0; 
 					count < newWord.word.length; 
 					count++){
-				if (newPos.direction == 1){
+				if (newPos.direction == this.HORIZONTAL){
 					this.Grid[newPos.x + count][newPos.y] = 
 						newWord.word.charAt(count);
-				} else if (newPos.direction == -1){
+				} else if (newPos.direction == this.VERTICAL){
 					this.Grid[newPos.x][newPos.y + count] = 
+						newWord.word.charAt(count);
+				} else if (newPos.direction == this.DIAGONAL_UP){
+					this.Grid[newPos.x + count][newPos.y - count] = 
+						newWord.word.charAt(count);
+				} else if (newPos.direction == this.DIAGONAL_DOWN){
+					this.Grid[newPos.x + count][newPos.y + count] = 
 						newWord.word.charAt(count);
 				}
 			}
@@ -132,10 +138,20 @@ var wordSearch = {
 		for (var x = 0; x < this.Grid.length; x++){
 			for (var y = 0; y < this.Grid[0].length; y++){
 				
-				var newPos = this.TestPosition(newWord,x,y,1);
+				var newPos = this.TestPosition(
+					newWord,x,y,this.HORIZONTAL);
 				if (newPos !== undefined) positionArray.push(newPos);
 
-				newPos = this.TestPosition(newWord,x,y,-1);
+				newPos = this.TestPosition(
+					newWord,x,y,this.VERTICAL);
+				if (newPos !== undefined) positionArray.push(newPos);
+
+				newPos = this.TestPosition(
+					newWord,x,y,this.DIAGONAL_UP);
+				if (newPos !== undefined) positionArray.push(newPos);
+
+				newPos = this.TestPosition(
+					newWord,x,y,this.DIAGONAL_DOWN);
 				if (newPos !== undefined) positionArray.push(newPos);
 
 			}
@@ -150,7 +166,7 @@ var wordSearch = {
 
 		// DEAL WITH HORIZONTAL AND VERTICAL WORD PLACEMENT
 		// SEPARATELY
-		if (direction == 1){
+		if (direction == this.HORIZONTAL){
 
 			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
 			if (x + newWord.length > this.Grid.length)
@@ -158,7 +174,7 @@ var wordSearch = {
 
 			for (var count = 0; count < newWord.length; count++){
 
-				// 3 CHECKS:
+				// 2 CHECKS:
 				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
 				//		ON THE PROPOSED PATH OF THIS WORD AND
 				//		IT DOESN'T MATCH THE ONE IN THIS WORD
@@ -175,7 +191,7 @@ var wordSearch = {
 				} 
 			}
 
-		} else if (direction == -1){
+		} else if (direction == this.VERTICAL){
 
 			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
 			if (y + newWord.length > this.Grid[0].length)
@@ -183,7 +199,7 @@ var wordSearch = {
 
 			for (var count = 0; count < newWord.length; count++){
 
-				// 3 CHECKS:
+				// 2 CHECKS:
 				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
 				//		ON THE PROPOSED PATH OF THIS WORD
 				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
@@ -199,72 +215,69 @@ var wordSearch = {
 				} 
 			}
 
+		} else if (direction == this.DIAGONAL_UP){
+
+			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
+			if (y - newWord.length < 0)
+				return;
+
+			if (y + newWord.length > this.Grid[0].length)
+				return;
+
+			if (x + newWord.length > this.Grid.length)
+				return;
+
+			for (var count = 0; count < newWord.length; count++){
+
+				// 2 CHECKS:
+				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
+				//		ON THE PROPOSED PATH OF THIS WORD
+				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
+				//		THE CHARACTER IN THIS WORD - ADD
+				//		A CROSSING POINT
+				if ((this.Grid[x + count][y - count].length > 0)&&
+					(this.Grid[x + count][y - count] != 
+						newWord.charAt(count))) 
+					return;
+				else if (this.Grid[x + count][y - count] == 
+						newWord.charAt(count).toString()){
+					crossingPoint++;
+				} 
+			}
+
+		} else if (direction == this.DIAGONAL_DOWN){
+
+			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
+			if (x + newWord.length > this.Grid.length)
+				return;
+
+			if (y + newWord.length > this.Grid[0].length)
+				return;
+
+			for (var count = 0; count < newWord.length; count++){
+
+				// 2 CHECKS:
+				// 1 - UNACCEPTABLE IF THERE IS A CHARACTER ON
+				//		ON THE PROPOSED PATH OF THIS WORD
+				// 2 - ACCEPTABLE IF THE CHARACTER MATCHES THE
+				//		THE CHARACTER IN THIS WORD - ADD
+				//		A CROSSING POINT
+				if ((this.Grid[x + count][y + count].length > 0)&&
+					(this.Grid[x + count][y + count] != 
+						newWord.charAt(count))) 
+					return;
+				else if (this.Grid[x][y + count] == 
+						newWord.charAt(count).toString()){
+					crossingPoint++;
+				} 
+			}
+
 		}
 
 		// IF NO PROBLEMS RETURN THE POSITION DETAILS
-		return new Position(x,y,direction,crossingPoint);
-	},
+		return new Position(x,y,direction);
+	}
 
-
-	// CHECKS THE SQUARE AFTER THE WORD TO SEE IF VALID
-	CharAfterLastLetter: function(len,x,y,direction){
-		var bCharAfterLastLetter = false;
-
-		if (direction == 1){
-			if (x + len < this.Grid.length){
-				if (this.Grid[x + len][y].length > 0) return true;
-			}
-		} else if (direction == -1){
-			if (y + len < this.Grid[0].length){
-				if (this.Grid[x][y + len].length > 0) return true;
-			}
-		}
-
-		return bCharAfterLastLetter;
-	},
-
-	// CHECKS THE SQUARE BEFORE THE WORD TO SEE IF VALID
-	CharBeforeFirstLetter: function(x,y,direction){
-		var bCharBeforeFirstLetter = false;
-
-		if (direction == 1){
-			if (x-1 > 0){
-				if (this.Grid[x-1][y].length > 0) return true;
-			}
-		} else if (direction == -1){
-			if (y-1 > 0){
-				if (this.Grid[x][y-1].length > 0) return true;
-			}
-		}
-
-		return bCharBeforeFirstLetter;
-	},
-
-
-	// CHECKS THE POSITIONS TO THE SIDE OF THE PROPOSED
-	// PATH TO SEE IF THERE ARE ANY CHARACTERS WHICH
-	// COULD LEAD TO CONFLICT
-	SidesHaveChars: function(x,y,direction){
-		var bHasChars = false;
-
-		if (direction == 1){
-			if (y-1 > 0){
-				if (this.Grid[x][y-1].length > 0) return true;
-			}
-			if (y+1 < this.Grid[0].length){
-				if (this.Grid[x][y+1].length > 0) return true;
-			}
-		} else if (direction == -1){
-			if (x-1 > 0){
-				if (this.Grid[x-1][y].length > 0) return true;
-			}
-			if (x+1 < this.Grid.length){
-				if (this.Grid[x+1][y].length > 0) return true;
-			}
-		}
-
-		return bHasChars;
-	},
 
 
 };
@@ -299,11 +312,10 @@ function Answer(x1,y1,x2,y2,direction){
 	this.direction = direction;
 }
 
-function Position(x,y,direction,crossingPoint){
+function Position(x,y,direction){
 	this.x = x;
 	this.y = y;
 	this.direction = direction;
-	this.crossingPoint = crossingPoint;	
 }
 
 function Word(txt){
@@ -340,8 +352,12 @@ function Word(txt){
 				break;
 
 		   	case wordSearch.DIAGONAL_DOWN:
+				lPositions.x2 += this.word.length - 1;
+				lPositions.y2 += this.word.length - 1;
 				break;
 		   	case wordSearch.DIAGONAL_UP:
+				lPositions.x2 += this.word.length - 1;
+				lPositions.y2 -= this.word.length - 1;
 				break;
 
 		   	case wordSearch.REVERSE_DIAGONAL_DOWN:

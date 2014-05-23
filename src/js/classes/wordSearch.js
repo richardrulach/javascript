@@ -68,6 +68,17 @@ var xWords = {
 		return this.Grid;
 	},
 
+	GetAnswerPositions:function(){
+		var answers = new Array();
+		for (var x=0; x < this.Words.length; x++){
+			if (this.Words.posIndex != -1){
+				answers.push(this.Words[x].GridPositions());
+			}
+		}
+		console.log(answers);
+		return answers;
+	},
+
 	/**********************************************************/
 	/* PRIVATE METHODS                                        */
 	/**********************************************************/
@@ -87,7 +98,7 @@ var xWords = {
 
 		if (newWord.availablePositions.length > 0){
 
-			newWord.selectedPosition = Math.floor(
+			newWord.posIndex = Math.floor(
 					(Math.random() * 
 					newWord.availablePositions.length));
 
@@ -95,7 +106,7 @@ var xWords = {
 			// NOTE NO PRIORITY FOR WORDS WITH CROSSING POINTS
 			// AS IN WORDSEARCH ALL ARE EQUALLY ACCEPTABLE
 			var newPos = newWord.availablePositions[
-								newWord.selectedPosition];
+								newWord.posIndex];
 
 			// LOOP THROUGH THE WORD PLACING IT IN THE GRID
 			for (	var count = 0; 
@@ -279,18 +290,68 @@ var xWords = {
   * 	Indicates the number of valid crossing points with 
   *		other words already on the grid.
  **/
+
+function Answer(x1,y1,x2,y2,direction){
+	this.x1 = x1;
+	this.y1 = y1;
+	this.x2 = x2;
+	this.y2 = y2;
+	this.direction = direction;
+}
+
 function Position(x,y,direction,crossingPoint){
 	this.x = x;
 	this.y = y;
 	this.direction = direction;
-	this.crossingPoint = crossingPoint;
+	this.crossingPoint = crossingPoint;	
 }
 
 function Word(txt){
 	this.word = txt;
 	this.availablePositions = new Array();
 	this.orphaned = false;
-	this.selectedPosition = -1;
+	this.posIndex = -1;
+
+	this.GridPositions = function(){
+		var lPositions = {
+			x1:-1,y1:-1,x2:-1,y2:-1,direction:-1
+		};
+
+		// DEFAULT ALL TO STARTING POSTION
+		lPositions.x1 = this.availablePositions[this.posIndex].x;
+		lPositions.y1 = this.availablePositions[this.posIndex].y;
+		lPositions.x2 = this.availablePositions[this.posIndex].x;
+		lPositions.y2 = this.availablePositions[this.posIndex].y;
+		lPositions.direction = this.availablePositions[this.posIndex].direction;
+		
+		// MAKE ADJUSTMENT BASED ON DIRECTION OF TEXT
+		switch (this.availablePositions[this.posIndex].direction){
+
+			case xWords.HORIZONTAL:
+				lPositions.x2 += this.word.length - 1;
+				break;
+		   	case xWords.VERTICAL:
+				lPositions.y2 += this.word.length - 1;
+				break;
+
+		   	case xWords.REVERSE_HORIZONTAL:
+				break;
+		   	case xWords.REVERSE_VERTICAL:
+				break;
+
+		   	case xWords.DIAGONAL_DOWN:
+				break;
+		   	case xWords.DIAGONAL_UP:
+				break;
+
+		   	case xWords.REVERSE_DIAGONAL_DOWN:
+				break;
+		   	case xWords.REVERSE_DIAGONAL_UP:		
+				break;
+   		}
+   		return lPositions;
+	}
+
 }
 
 function AlternativeGrid(){

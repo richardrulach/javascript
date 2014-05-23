@@ -49,11 +49,6 @@
                     id="btnAddWords" 
                     onclick="btnAddWords_click()"
                     value="Add Words" />
-            <input 
-                    type="button" 
-                    id="btnClearCanvas" 
-                    onclick="clearCanvas()"
-                    value="Clear Canvas" />
         </div>
     </section>
     <footer class="row">
@@ -151,13 +146,12 @@
         }
 
         window.onload = function(){
+            // set up the question canvas and the answer canvas
             canvasQuestion = document.getElementById("myQuestionCanvas");
             contextQuestion = canvasQuestion.getContext("2d");
 
             canvas = document.getElementById("myCanvas");
             context = canvas.getContext("2d");
-
-            //btnAddWords_click();
         }
     </script>
   </body>

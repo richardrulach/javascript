@@ -1,5 +1,5 @@
 /**
-  * Classes: xWords and position
+  * Classes: xWords, Position, Word and Alternative Grid
   * File: xWords.js 
   *
   * Definition:
@@ -8,6 +8,8 @@
  **/
 var xWords = {
    	/* CLASS CONSTANTS */
+   	HORIZONTAL:1,
+   	VERTICAL:2,
 
     /* CLASS PROPERTIES */
     _self:this,
@@ -40,12 +42,19 @@ var xWords = {
 
 		this.Grid = newGrid;
 
-		// ORDER WORDS SO THE LONGEST ONES ARE 
-		// ADDED TO THE GRID FIRST
-		this.SortByLength(arrayOfWords);
-
+		// CREATE A NEW WORD AND ADD TO THE 
+		// WORDS ARRAY
 		for (var x=0; x < arrayOfWords.length; x++){
-			 this.AddWord(arrayOfWords[x]);
+			 this.Words.push(new Word(arrayOfWords[x]));
+		}
+
+		// ORDER ALL OF THE WORDS BY WHICH IS THE LONGEST
+		this.SortByLength(this.Words);
+
+		console.log(this.Words);
+
+		for (var x=0; x < this.Words.length; x++){
+			 this.AddWord(this.Words[x]);
 		}
 
 		return this.Grid;
@@ -58,7 +67,7 @@ var xWords = {
 	// SORT THE ARRAY LONGEST TO SHORTEST
 	SortByLength: function(lArray){
 		lArray.sort(function(a,b){
-           return a.length < b.length
+           return a.word.length < b.word.length
         });
 		return lArray;
 	},
@@ -66,40 +75,38 @@ var xWords = {
 
 	// ADD A WORD TO THE GRID (IF POSSIBLE)
 	AddWord: function(newWord){
-		var positions = this.GetPositions(newWord);
+		
+		this.GetPositions(newWord);
 
-		if (positions.length > 0){
+		if (newWord.crossingPositions.length + 
+			newWord.availablePositions.length > 0){
 
 			var choice = -1;
+			var newPos;
 
-			// CHOOSE THE FIRST ONE WITH A CROSSING POINT
-			// IF IT IS THERE
-			for (var iCount = 0; 
-						iCount < positions.length; 
-						iCount++){
-
-				if (positions[iCount].crossingPoint > 0){
-					choice = iCount;
-				}
-
-			}
-
-			if (choice == -1){
+			// CHOOSE A CROSSING POINT POSITION IF
+			// THERE IS ONE - OTHERWISE RANDOMLY 
+			// CHOOSE FROM THE AVAILABLE POSITIONS
+			if (newWord.crossingPositions.length > 0){
 				choice = Math.floor(
-					(Math.random() * positions.length));
+					(Math.random() * 
+					newWord.crossingPositions.length));
+					newPos = newWord.crossingPositions[choice];
+			} else {
+				choice = Math.floor(
+					(Math.random() * 
+					newWord.availablePositions.length));
+					newPos = newWord.availablePositions[choice];
 			}
-
-			// WRITE THE WORD INTO THE ARRAY
-			var newPos = positions[choice];
 
 			// LOOP THROUGH THE WORD PLACING IT IN THE GRID
-			for (var count = 0; count < newWord.length; count++){
-				if (newPos.direction == 1){
+			for (var count = 0; count < newWord.word.length; count++){
+				if (newPos.direction == this.HORIZONTAL){
 					this.Grid[newPos.x + count][newPos.y] = 
-						newWord.charAt(count);
-				} else if (newPos.direction == -1){
+						newWord.word.charAt(count);
+				} else if (newPos.direction == this.VERTICAL){
 					this.Grid[newPos.x][newPos.y + count] = 
-						newWord.charAt(count);
+						newWord.word.charAt(count);
 				}
 			}
 		}
@@ -107,20 +114,35 @@ var xWords = {
 
 	// RETURNS ALL THE AVAILABLE VALID POSITIONS FOR PLACING THE WORD
 	GetPositions: function(newWord){
-		var positionArray = new Array();
+//		var positionArray = new Array();
 
 		for (var x = 0; x < this.Grid.length; x++){
 			for (var y = 0; y < this.Grid[0].length; y++){
 				
-				var newPos = this.TestPosition(newWord,x,y,1);
-				if (newPos !== undefined) positionArray.push(newPos);
+				var newPos = undefined;
 
-				newPos = this.TestPosition(newWord,x,y,-1);
-				if (newPos !== undefined) positionArray.push(newPos);
+				newPos = this.TestPosition(newWord.word,x,y,this.HORIZONTAL);
+				if (newPos !== undefined) {
+					if (newPos.crossingPoint > 0){
+						newWord.crossingPositions.push(newPos);
+					} else {
+						newWord.availablePositions.push(newPos);
+					}
+///					positionArray.push(newPos);
+				}
+				newPos = this.TestPosition(newWord.word,x,y,this.VERTICAL);
+				if (newPos !== undefined) {
+					if (newPos.crossingPoint > 0){
+						newWord.crossingPositions.push(newPos);
+					} else {
+						newWord.availablePositions.push(newPos);
+					}
+				}
+				///positionArray.push(newPos);
 
 			}
 		}
-		return positionArray;
+		//return positionArray;
 	},
 
 	// TRIES A POSITION TO SEE IF IT IS ACCEPTABLE
@@ -141,7 +163,7 @@ var xWords = {
 
 		// DEAL WITH HORIZONTAL AND VERTICAL WORD PLACEMENT
 		// SEPARATELY
-		if (direction == 1){
+		if (direction == this.HORIZONTAL){
 
 			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
 			if (x + newWord.length > this.Grid.length)
@@ -169,7 +191,7 @@ var xWords = {
 				} 
 			}
 
-		} else if (direction == -1){
+		} else if (direction == this.VERTICAL){
 
 			// UNACCEPTABLE IF THERE IS NO SPACE IN THE GRID
 			if (y + newWord.length > this.Grid[0].length)
@@ -208,11 +230,11 @@ var xWords = {
 	CharAfterLastLetter: function(len,x,y,direction){
 		var bCharAfterLastLetter = false;
 
-		if (direction == 1){
+		if (direction == this.HORIZONTAL){
 			if (x + len < this.Grid.length){
 				if (this.Grid[x + len][y].length > 0) return true;
 			}
-		} else if (direction == -1){
+		} else if (direction == this.VERTICAL){
 			if (y + len < this.Grid[0].length){
 				if (this.Grid[x][y + len].length > 0) return true;
 			}
@@ -225,11 +247,11 @@ var xWords = {
 	CharBeforeFirstLetter: function(x,y,direction){
 		var bCharBeforeFirstLetter = false;
 
-		if (direction == 1){
+		if (direction == this.HORIZONTAL){
 			if (x-1 > 0){
 				if (this.Grid[x-1][y].length > 0) return true;
 			}
-		} else if (direction == -1){
+		} else if (direction == this.VERTICAL){
 			if (y-1 > 0){
 				if (this.Grid[x][y-1].length > 0) return true;
 			}
@@ -245,14 +267,14 @@ var xWords = {
 	SidesHaveChars: function(x,y,direction){
 		var bHasChars = false;
 
-		if (direction == 1){
+		if (direction == this.HORIZONTAL){
 			if (y-1 >= 0){
 				if (this.Grid[x][y-1].length > 0) return true;
 			}
 			if (y+1 < this.Grid[0].length){
 				if (this.Grid[x][y+1].length > 0) return true;
 			}
-		} else if (direction == -1){
+		} else if (direction == this.VERTICAL){
 			if (x-1 >= 0){
 				if (this.Grid[x-1][y].length > 0) return true;
 			}
@@ -266,15 +288,10 @@ var xWords = {
 
 
 };
- /**
-  * END CLASS DEFINITION
-  **/
-
-
 
 
 /**
-  * CLASS: position
+  * OBJECT: Position
   * 
   * Holds the details of a valid position on the grid
   *
@@ -295,21 +312,31 @@ function Position(x,y,direction,crossingPoint){
 	this.crossingPoint = crossingPoint;
 }
 
+/**
+  * OBJECT: Word
+  * 
+  *	Holds all the information related to an individual word
+  *
+ **/
 function Word(txt){
 	this.word = txt;
+	this.clue = '';//clue;
 	this.crossingPositions = new Array();
 	this.availablePositions = new Array();
 	this.orphaned = false;
-	this.finalPosition = undefined;
-	this.placedId = -1;
+	this.posIndex = -1;
 }
 
+/**
+  * OBJECT: AlternativeGrid
+  * 
+  *	Saves the state of a grid that has been processed.
+  * This is to allow for evaluation of several runs of 
+  * the processor.
+ **/
 function AlternativeGrid(){
 	this.Grid = new Array();
 	this.Words = new Array();
 	this.NumberOfOrphans = 0;
 }
 
- /**
-  * END CLASS DEFINITION
-  **/

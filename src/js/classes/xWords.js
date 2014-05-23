@@ -13,22 +13,29 @@ var xWords = {
 
     /* CLASS PROPERTIES */
     _self:this,
-	Grid:new Array(),
-	Words:new Array(),
-	QuestionGrid:new Array(),
+	Grid:new Array(),			// Answer Grid
+	Words:new Array(),			// Word Objects
+	QuestionGrid:new Array(),	// Question Grid with numbering
+	QuestionList:new Array(),	// Numbered clues
 
 
 	/* PUBLIC METHODS */
 	// resets the grid and word list
 	Reset: function(){
 		this.Grid = new Array();
-		this.QuestionGrid = new Array();
 		this.Words = new Array();
+		this.QuestionGrid = new Array();
+		this.QuestionList = new Array();
 	},
 
 	GetQuestionGrid:function(){
 		return this.QuestionGrid;
 	},
+
+	GetQuestionList:function(){
+		return this.QuestionGrid;
+	},
+
 
 	Create: function(height, width, arrayOfWords){
 
@@ -80,15 +87,9 @@ var xWords = {
 	GenerateQuestionGrid: function(){
 		var counter = 1;
 
-		var questionList = new Array();
-
 		for (var i = 0; i < this.Words.length; i++){
 			if (this.Words[i].posIndex != -1){
 				if (this.Words[i].crossingPositions.length > 0){
-					// this.QuestionGrid
-					// [ this.Words[i].crossingPositions[this.Words[i].posIndex].x ]
-					// [ this.Words[i].crossingPositions[this.Words[i].posIndex].y] 
-					// = counter.toString();
 
 					var tmpObj = {
 						x: this.Words[i].crossingPositions[this.Words[i].posIndex].x,
@@ -96,13 +97,9 @@ var xWords = {
 						d: this.Words[i].crossingPositions[this.Words[i].posIndex].direction,
 						clue: this.Words[i].word
 					};
-					questionList.push(tmpObj);
+					this.QuestionList.push(tmpObj);
 
 				} else {
-					// this.QuestionGrid
-					// [this.Words[i].availablePositions[this.Words[i].posIndex].x]
-					// [this.Words[i].availablePositions[this.Words[i].posIndex].y] 
-					// = counter.toString();
 
 					var tmpObj = {
 						x: this.Words[i].availablePositions[this.Words[i].posIndex].x,
@@ -111,22 +108,23 @@ var xWords = {
 						num: 0,
 						clue: this.Words[i].word
 					};
-					questionList.push(tmpObj);
+					this.QuestionList.push(tmpObj);
+
 				}
 				counter++;
 			}
 		}
 
-		this.SortXwordQuestions(questionList);
+		this.SortXwordQuestions(this.QuestionList);
 
 		var counter = 0
-		for (var k = 0; k < questionList.length; k++){
-			if (this.QuestionGrid[questionList[k].x][questionList[k].y].length == 0){
+		for (var k = 0; k < this.QuestionList.length; k++){
+			if (this.QuestionGrid[this.QuestionList[k].x][this.QuestionList[k].y].length == 0){
 				counter++;
-				this.QuestionGrid[questionList[k].x][questionList[k].y] = counter.toString();
-				questionList[k].num = counter;
+				this.QuestionGrid[this.QuestionList[k].x][this.QuestionList[k].y] = counter.toString();
+				this.QuestionList[k].num = counter;
 			} else {
-				questionList[k].num = counter;
+				this.QuestionList[k].num = counter;
 			}
 		}
 	},

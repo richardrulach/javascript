@@ -29,7 +29,7 @@
     </div>
     </header>
     <section>
-        <div id="mainContainer">
+        <div id="mainContainer" class="row">
             <div class="canvasContainer col-md-6">
                 <canvas id="myQuestionCanvas" width="425" height="325" style="border:1px solid black;">
                 </canvas>
@@ -40,15 +40,28 @@
                 </canvas>
             </div>
         </div>
-        <div>
-            <textarea id="txtWords"></textarea>
-        </div>
-        <div>
-            <input 
-                    type="button" 
-                    id="btnAddWords" 
-                    onclick="btnAddWords_click()"
-                    value="Add Words" />
+    
+        <div class="row">
+            <div class="col-md-4">
+                <div>
+                    <textarea id="txtWords"></textarea>
+                </div>
+                <div>
+                    <input 
+                            type="button" 
+                            id="btnAddWords" 
+                            onclick="btnAddWords_click()"
+                            value="Add Words" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="across">
+                </div>                
+            </div>
+            <div class="col-md-4">
+                <div id="down">
+                </div>                
+            </div>
         </div>
     </section>
     <footer class="row">
@@ -150,6 +163,41 @@
 
             context.stroke();
             context.closePath();
+
+
+            $('#across').html("");
+            $('#down').html("");
+
+            $('#across').append("<h2>ACROSS</h2>");
+            $('#down').append("<h2>DOWN</h2>");
+
+            for (var i = 0; i < xWords.QuestionList.length; i++){
+
+                switch (xWords.QuestionList[i].d){
+
+                    case xWords.HORIZONTAL :
+                        $('#across').append(
+                            '<div>' + 
+                            xWords.QuestionList[i].num + 
+                            '. ' + 
+                            xWords.QuestionList[i].clue + 
+                            '</div>');
+                        break;
+                        
+                    case xWords.VERTICAL :
+                        $('#down').append(
+                            '<div>' + 
+                            xWords.QuestionList[i].num + 
+                            '. ' + 
+                            xWords.QuestionList[i].clue + 
+                            '</div>');
+                        break;
+                        
+                }
+
+            }
+
+
 
             $('#mainContainer').slideDown(500);
         }

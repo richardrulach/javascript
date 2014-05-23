@@ -76,7 +76,7 @@
 
         function btnAddWords_click(){
 
-            xWords.Reset();
+            wordSearch.Reset();
             context.clearRect(0, 0, canvas.width, canvas.height);
             contextAnswers.clearRect(0, 0, 
                 canvasAnswers.width, canvasAnswers.height);
@@ -113,7 +113,6 @@
             }
             // END OF DRAWING THE GRID
 
-
             context.font = "20px _sans";
             context.textBaseline = "middle";
 
@@ -126,7 +125,7 @@
 
             // GET AND DISPLAY THE CROSSWORD - PRINT LETTER IF IT IS
             // THERE OR PRINT A BLACK SQUARE ON THE CANVAS
-            var crossword = xWords.Create(13,17,aValues);
+            var crossword = wordSearch.Create(13,17,aValues);
             for (var i = 0; i < crossword.length; i++){
                 for (var j = 0; j < crossword[i].length; j++){
                     if (crossword[i][j].length == 0){
@@ -137,9 +136,12 @@
                             i * 25 + correction - 0.5,
                             j * 25 + 12.5);
 
+                        contextAnswers.beginPath();
+                        contextAnswers.fillStyle = 'grey';
                         contextAnswers.fillText(letter,
                             i * 25 + correction - 0.5,
                             j * 25 + 12.5);
+                         contextAnswers.closePath();
                     } else {
                         var x = Math.round((25 - 
                         context.measureText(crossword[i][j].toUpperCase()).width) / 2);
@@ -147,9 +149,12 @@
                           i*25 + x - 0.5, 
                           j*25 + 12.5);
 
+                        contextAnswers.beginPath();
+                        contextAnswers.fillStyle = 'black';
                         contextAnswers.fillText(crossword[i][j].toUpperCase(),
                           i*25 + x - 0.5, 
                           j*25 + 12.5);
+                        contextAnswers.closePath();
                     }
                 }
             }
@@ -160,7 +165,7 @@
             contextAnswers.stroke();
             contextAnswers.closePath();
 
-            var posArray = xWords.GetAnswerPositions();
+            var posArray = wordSearch.GetAnswerPositions();
 
             for (var x=0; x < posArray.length; x++){
               drawMarker(

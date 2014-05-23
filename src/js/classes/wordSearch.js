@@ -1,12 +1,12 @@
 /**
-  * Classes: xWords and position
-  * File: xWords.js 
+  * Classes: wordSearch and position
+  * File: wordSearch.js 
   *
   * Definition:
-  *		Creates and manages a crossword.
+  *		Creates and manages a wordsearch puzzle.
   *
  **/
-var xWords = {
+var wordSearch = {
    	/* CLASS CONSTANTS */
 
    	// IDENTIFY THE TEXT DIRECTION IN THE GRID
@@ -327,26 +327,26 @@ function Word(txt){
 		// MAKE ADJUSTMENT BASED ON DIRECTION OF TEXT
 		switch (this.availablePositions[this.posIndex].direction){
 
-			case xWords.HORIZONTAL:
+			case wordSearch.HORIZONTAL:
 				lPositions.x2 += this.word.length - 1;
 				break;
-		   	case xWords.VERTICAL:
+		   	case wordSearch.VERTICAL:
 				lPositions.y2 += this.word.length - 1;
 				break;
 
-		   	case xWords.REVERSE_HORIZONTAL:
+		   	case wordSearch.REVERSE_HORIZONTAL:
 				break;
-		   	case xWords.REVERSE_VERTICAL:
-				break;
-
-		   	case xWords.DIAGONAL_DOWN:
-				break;
-		   	case xWords.DIAGONAL_UP:
+		   	case wordSearch.REVERSE_VERTICAL:
 				break;
 
-		   	case xWords.REVERSE_DIAGONAL_DOWN:
+		   	case wordSearch.DIAGONAL_DOWN:
 				break;
-		   	case xWords.REVERSE_DIAGONAL_UP:		
+		   	case wordSearch.DIAGONAL_UP:
+				break;
+
+		   	case wordSearch.REVERSE_DIAGONAL_DOWN:
+				break;
+		   	case wordSearch.REVERSE_DIAGONAL_UP:		
 				break;
    		}
    		return lPositions;

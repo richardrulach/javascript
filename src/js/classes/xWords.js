@@ -10,6 +10,7 @@ var xWords = {
    	/* CLASS CONSTANTS */
    	HORIZONTAL:1,
    	VERTICAL:2,
+   	MAX_PASSES:3,
 
     /* CLASS PROPERTIES */
     _self:this,
@@ -39,6 +40,7 @@ var xWords = {
 
 	Create: function(height, width, arrayOfWords){
 
+		console.clear();
 		// RESET AND CREATE THE NEW GRID
 		// AND THE QUESTION GRID
 		this.Reset();
@@ -61,7 +63,9 @@ var xWords = {
 		// CREATE A NEW WORD AND ADD TO THE 
 		// WORDS ARRAY
 		for (var x=0; x < arrayOfWords.length; x++){
-			if (arrayOfWords[x].length > 0){
+
+			// MUST BE AT LEAST 2 CHARS LONG
+			if (arrayOfWords[x].length > 1){
 			 	this.Words.push(new Word(arrayOfWords[x]));
 			}
 		}
@@ -72,7 +76,17 @@ var xWords = {
 		//console.log(this.Words);
 
 		for (var x=0; x < this.Words.length; x++){
-			 this.AddWord(this.Words[x]);
+			 this.AddWord(this.Words[x],x,1);
+		}
+
+		for (var x=0; x < this.Words.length; x++){
+			if (this.Words[x].orphaned)
+			 	this.AddWord(this.Words[x],x,2);
+		}
+
+		for (var x=0; x < this.Words.length; x++){
+			if (this.Words[x].orphaned)
+			 	this.AddWord(this.Words[x],x,3);
 		}
 
 
@@ -149,9 +163,10 @@ var xWords = {
 
 
 	// ADD A WORD TO THE GRID (IF POSSIBLE)
-	AddWord: function(newWord){
+	AddWord: function(newWord, callNumber, passNumber){
 		
 		this.GetPositions(newWord);
+
 
 		if (newWord.crossingPositions.length + 
 			newWord.availablePositions.length > 0){
@@ -167,25 +182,35 @@ var xWords = {
 					(Math.random() * 
 					newWord.crossingPositions.length));
 					newPos = newWord.crossingPositions[choice];
-			} else {
+			} else if (((callNumber == 0)&&(passNumber == 1))
+				||(passNumber > 1)){
 				choice = Math.floor(
 					(Math.random() * 
 					newWord.availablePositions.length));
 					newPos = newWord.availablePositions[choice];
 			}
 
-			newWord.posIndex = choice;
-
-			// LOOP THROUGH THE WORD PLACING IT IN THE GRID
-			for (var count = 0; count < newWord.word.length; count++){
-				if (newPos.direction == this.HORIZONTAL){
-					this.Grid[newPos.x + count][newPos.y] = 
-						newWord.word.charAt(count);
-				} else if (newPos.direction == this.VERTICAL){
-					this.Grid[newPos.x][newPos.y + count] = 
-						newWord.word.charAt(count);
+			if (choice != -1){
+				newWord.posIndex = choice;
+				// LOOP THROUGH THE WORD PLACING IT IN THE GRID
+				for (var count = 0; count < newWord.word.length; count++){
+					if (newPos.direction == this.HORIZONTAL){
+						this.Grid[newPos.x + count][newPos.y] = 
+							newWord.word.charAt(count);
+					} else if (newPos.direction == this.VERTICAL){
+						this.Grid[newPos.x][newPos.y + count] = 
+							newWord.word.charAt(count);
+					}
 				}
+				if ((newWord.orphaned)&&(newWord.crossingPositions.length > 0)){
+					console.log('orphan no more:' + newWord.word)
+				}
+				newWord.orphaned = false;
+			} else {
+				newWord.orphaned = true;
+				console.log('couldn\'t find location:' + newWord.word)
 			}
+
 		}
 	},
 

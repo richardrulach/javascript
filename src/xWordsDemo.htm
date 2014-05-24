@@ -153,10 +153,15 @@
             var aValues = rawData.split('\n');
 
             // GET AND DISPLAY THE CROSSWORD  
+
+            //console.profile('xWords.Create()');
+
             var crossword = xWords.Create(
                 VERTICAL_BOXES,
                 HORIZONTAL_BOXES,
                 aValues);
+
+            //console.profileEnd();
 
             var qGrid = xWords.GetQuestionGrid();
 

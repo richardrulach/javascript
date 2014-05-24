@@ -40,7 +40,6 @@ var xWords = {
 
 	Create: function(height, width, arrayOfWords){
 
-		console.clear();
 		// RESET AND CREATE THE NEW GRID
 		// AND THE QUESTION GRID
 		this.Reset();
@@ -73,22 +72,14 @@ var xWords = {
 		// ORDER ALL OF THE WORDS BY WHICH IS THE LONGEST
 		this.SortByLength(this.Words);
 
-		//console.log(this.Words);
-
-		for (var x=0; x < this.Words.length; x++){
-			 this.AddWord(this.Words[x],x,1);
+		for (var y = 1; y <= this.MAX_PASSES; y++){
+			for (var x=0; x < this.Words.length; x++){
+				if ((this.Words[x].orphaned)||(y == 1)){
+					this.Words[x].Reset();
+				 	this.AddWord(this.Words[x],x,y);
+				}
+			}
 		}
-
-		for (var x=0; x < this.Words.length; x++){
-			if (this.Words[x].orphaned)
-			 	this.AddWord(this.Words[x],x,2);
-		}
-
-		for (var x=0; x < this.Words.length; x++){
-			if (this.Words[x].orphaned)
-			 	this.AddWord(this.Words[x],x,3);
-		}
-
 
 		this.GenerateQuestionGrid();
 
@@ -129,7 +120,7 @@ var xWords = {
 			}
 		}
 
-		this.SortXwordQuestions(this.QuestionList);
+		this.QuestionList = this.SortXwordQuestions(this.QuestionList);
 
 		var counter = 0
 		for (var k = 0; k < this.QuestionList.length; k++){
@@ -146,17 +137,18 @@ var xWords = {
 	// SORT THE ARRAY LONGEST TO SHORTEST 
 	SortXwordQuestions: function(lArray){
 		lArray.sort(function(a,b){
-			var bReturn = true;			
-		   	if (a.y < b.y) bReturn = false;
-		   	if ((a.y == b.y)&&(a.x < b.x)) bReturn = false;
+			var bReturn = 1;			
+		   	if (a.y < b.y) bReturn = -1;
+		   	if ((a.y == b.y)&&(a.x < b.x)) bReturn = -1;
 		   	return bReturn;
         });
+        return lArray;
 	},
 
 
 	SortByLength: function(lArray){
 		lArray.sort(function(a,b){
-           return a.word.length < b.word.length
+           return a.word.length < b.word.length;
         });
 		return lArray;
 	},
@@ -183,7 +175,7 @@ var xWords = {
 					newWord.crossingPositions.length));
 					newPos = newWord.crossingPositions[choice];
 			} else if (((callNumber == 0)&&(passNumber == 1))
-				||(passNumber > 1)){
+				||(passNumber >= this.MAX_PASSES)){
 				choice = Math.floor(
 					(Math.random() * 
 					newWord.availablePositions.length));
@@ -216,7 +208,6 @@ var xWords = {
 
 	// RETURNS ALL THE AVAILABLE VALID POSITIONS FOR PLACING THE WORD
 	GetPositions: function(newWord){
-//		var positionArray = new Array();
 
 		for (var x = 0; x < this.Grid.length; x++){
 			for (var y = 0; y < this.Grid[0].length; y++){
@@ -230,7 +221,6 @@ var xWords = {
 					} else {
 						newWord.availablePositions.push(newPos);
 					}
-///					positionArray.push(newPos);
 				}
 				newPos = this.TestPosition(newWord.word,x,y,this.VERTICAL);
 				if (newPos !== undefined) {
@@ -240,11 +230,9 @@ var xWords = {
 						newWord.availablePositions.push(newPos);
 					}
 				}
-				///positionArray.push(newPos);
 
 			}
 		}
-		//return positionArray;
 	},
 
 	// TRIES A POSITION TO SEE IF IT IS ACCEPTABLE
@@ -350,11 +338,11 @@ var xWords = {
 		var bCharBeforeFirstLetter = false;
 
 		if (direction == this.HORIZONTAL){
-			if (x-1 > 0){
+			if (x-1 >= 0){
 				if (this.Grid[x-1][y].length > 0) return true;
 			}
 		} else if (direction == this.VERTICAL){
-			if (y-1 > 0){
+			if (y-1 >= 0){
 				if (this.Grid[x][y-1].length > 0) return true;
 			}
 		}
@@ -427,6 +415,10 @@ function Word(txt){
 	this.availablePositions = new Array();
 	this.orphaned = false;
 	this.posIndex = -1;
+	this.Reset = function(){
+		this.crossingPositions = new Array();
+		this.availablePositions = new Array();
+	};
 }
 
 /**

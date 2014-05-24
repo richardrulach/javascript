@@ -42,7 +42,7 @@
         </div>
     
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div>
                     <textarea id="txtWords"></textarea>
                 </div>
@@ -54,12 +54,16 @@
                             value="Add Words" />
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div id="across">
                 </div>                
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div id="down">
+                </div>                
+            </div>
+            <div class="col-md-3">
+                <div id="unused">
                 </div>                
             </div>
         </div>
@@ -154,14 +158,16 @@
 
             // GET AND DISPLAY THE CROSSWORD  
 
-            //console.profile('xWords.Create()');
+            console.clear();
+        
+            console.profile('xWords.Create()');
 
             var crossword = xWords.Create(
                 VERTICAL_BOXES,
                 HORIZONTAL_BOXES,
                 aValues);
 
-            //console.profileEnd();
+            console.profileEnd();
 
             var qGrid = xWords.GetQuestionGrid();
 
@@ -210,11 +216,12 @@
 
 
 
-            $('#across').html("");
-            $('#down').html("");
+            $('#across').html("<h2>ACROSS</h2>");
+            $('#down').html("<h2>DOWN</h2>");
+            $('#unused').html("<h2>UNUSED</h2>");
 
-            $('#across').append("<h2>ACROSS</h2>");
-            $('#down').append("<h2>DOWN</h2>");
+            // $('#across').append("<h2>ACROSS</h2>");
+            // $('#down').append("<h2>DOWN</h2>");
 
             for (var i = 0; i < xWords.QuestionList.length; i++){
 

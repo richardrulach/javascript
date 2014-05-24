@@ -75,17 +75,32 @@
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/classes/xWords.js"></script>
     <script>
+
         var context;
         var canvas;
 
         var contextQuestion;
         var canvasQuestion;
 
+        var GRID_SIZE = 25;
+        var HORIZONTAL_BOXES = 17;
+        var VERTICAL_BOXES = 13;
+
+        var GRID_WIDTH = GRID_SIZE * HORIZONTAL_BOXES;
+        var GRID_HEIGHT = GRID_SIZE * VERTICAL_BOXES;
+
         function btnAddWords_click(){
 
             xWords.Reset();
-            contextQuestion.clearRect(0, 0, canvas.width, canvas.height);
-            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            canvas.width = GRID_WIDTH;
+            canvas.height = GRID_HEIGHT;
+
+            canvasQuestion.width = GRID_WIDTH;
+            canvasQuestion.height = GRID_HEIGHT;
+
+            contextQuestion.clearRect(0, 0, GRID_WIDTH, GRID_HEIGHT);
+            context.clearRect(0, 0, GRID_WIDTH, GRID_HEIGHT);
 
 
             contextQuestion.beginPath();
@@ -98,62 +113,84 @@
 
 
             // DRAW THE GRID
-            for (var i = 25; i < 425; i+=25){
+            for (var i = GRID_SIZE; i < GRID_WIDTH; i+=GRID_SIZE){
                 contextQuestion.moveTo(i,0);
-                contextQuestion.lineTo(i,325);
+                contextQuestion.lineTo(i,GRID_HEIGHT);
                 contextQuestion.stroke();
 
                 context.moveTo(i,0);
-                context.lineTo(i,325);
+                context.lineTo(i,GRID_HEIGHT);
                 context.stroke();
             }
 
-            for (var i = 25; i < 325; i+=25){
+            for (var i = GRID_SIZE; i < GRID_HEIGHT; i+=GRID_SIZE){
                 contextQuestion.moveTo(0,i);
-                contextQuestion.lineTo(425,i);
+                contextQuestion.lineTo(GRID_WIDTH,i);
                 contextQuestion.stroke();
 
                 context.moveTo(0,i);
-                context.lineTo(425,i);
+                context.lineTo(GRID_WIDTH,i);
                 context.stroke();
             }
             // END OF DRAWING THE GRID
 
+            // FONT SIZE IS 80% SIZE OF EACH SQUARE
+            var fontSize = Math.floor(GRID_SIZE * 0.8);
 
-            context.font = "20px _sans";
+
+            var smallFontSize = Math.floor(GRID_SIZE * 0.35);
+            if (GRID_SIZE < 34) smallFontSize = 12;
+
+
+            context.font = fontSize.toString() + "px _sans";
             context.textBaseline = "middle";
+
+            contextQuestion.font = 
+                smallFontSize.toString() + "px _sans";
 
             // GENERATE ARRAY OF WORDS TO PUT INTO THE CANVAS
             var rawData = $('#txtWords').val();
             var aValues = rawData.split('\n');
 
-            // GET AND DISPLAY THE CROSSWORD - PRINT LETTER IF IT IS
-            // THERE OR PRINT A BLACK SQUARE ON THE CANVAS
-            var crossword = xWords.Create(13,17,aValues);
+            // GET AND DISPLAY THE CROSSWORD  
+            var crossword = xWords.Create(
+                VERTICAL_BOXES,
+                HORIZONTAL_BOXES,
+                aValues);
+
             var qGrid = xWords.GetQuestionGrid();
 
             for (var i = 0; i < crossword.length; i++){
                 for (var j = 0; j < crossword[i].length; j++){
                     if (crossword[i][j].length == 0){
 
-                        contextQuestion.rect(i*25,j*25, 25, 25);
+                        contextQuestion.rect(i*GRID_SIZE,j*GRID_SIZE, GRID_SIZE, GRID_SIZE);
                         contextQuestion.fill();
 
-                        context.rect(i*25,j*25, 25, 25);
+                        context.rect(i*GRID_SIZE,j*GRID_SIZE, GRID_SIZE, GRID_SIZE);
                         context.fill();
                     } else {
 
                         if (qGrid[i][j].length > 0){
+
+                            var qAdjustW = GRID_SIZE * 0.05;
+                            var qAdjustH = GRID_SIZE * 0.3;
+
+                            if (GRID_SIZE < 34) {
+                                qAdjustW = 1.9;
+                                qAdjustH = 10.6;
+                            } 
+
                             contextQuestion.fillText(qGrid[i][j],
-                              i*25 + 3, 
-                              j*25 + 10);
+                              i*GRID_SIZE + qAdjustW, 
+                              j*GRID_SIZE + qAdjustH);
                         }
 
-                        var x = Math.round((25 - 
+                        var x = Math.round((GRID_SIZE - 
                         context.measureText(crossword[i][j]).width) / 2);
                         context.fillText(crossword[i][j],
-                          i*25 + x - 0.5, 
-                          j*25 + 12.5);
+                          i*GRID_SIZE + x - 0.5, 
+                          j*GRID_SIZE + (GRID_SIZE/2));
                     }
                 }
             }
@@ -163,6 +200,9 @@
 
             context.stroke();
             context.closePath();
+
+
+
 
 
             $('#across').html("");
@@ -199,7 +239,7 @@
 
 
 
-            $('#mainContainer').slideDown(500);
+            $('#mainContainer').show();
         }
 
         window.onload = function(){

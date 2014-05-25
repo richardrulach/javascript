@@ -23,7 +23,7 @@
   </head>
   <body>
 
-    <div class="container">
+    <div id="topContainer" class="container">
     <header>
       <div class="row">
         <h1>xWords Demo</h1>
@@ -53,6 +53,11 @@
                             id="btnAddWords" 
                             onclick="btnAddWords_click()"
                             value="Add Words" />
+                    <input 
+                            type="button" 
+                            id="btnPrint" 
+                            onclick="printPage('topContainer')"
+                            value="Print" />
                 </div>
             </div>
             <div class="col-md-3">
@@ -84,6 +89,36 @@
     <script src="/js/classes/xWords.js"></script>
     <script>
 
+        function printPage(id)
+        {
+            var html="<!DOCTYPE html><html>";
+            html += '<body><div><h1>xWords Crossword</h1></div>';
+            html += '<div style="text-align:center;margin-top:20px;">';
+            html += '<img border="2px" src="' +
+                canvasQuestion.toDataURL() + '" />';
+            html += '</div>';
+
+            html += '<div style="float:left;width:50%">' +    $('#across').html() + 
+                    '</div>';
+
+            html += '<div style="float:left;width:50%">' +    $('#down').html() + 
+                    '</div>';
+
+            html += '<br style="clear:both;" />';
+            html += '<div style="text-align:center;margin-top:20px;">';
+            html += '<img border="2px" src="' +
+                canvas.toDataURL() + '" />';
+            html += '</div>';
+            html+="</body></html>";
+
+            var printWin = window.open('','','toolbar=0,scrollbars=0,status=0');
+            printWin.document.write(html);
+            printWin.document.close();
+            printWin.focus();
+            printWin.print();
+
+        }
+
         var context;
         var canvas;
 
@@ -103,6 +138,7 @@
 
         function btnAddWords_click(){
             $('.loading').show();
+
             setTimeout(run,1000);
         }
 

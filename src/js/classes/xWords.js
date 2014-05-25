@@ -67,50 +67,73 @@ var xWords = {
 
 		// RESET AND CREATE THE NEW GRID
 		// AND THE QUESTION GRID
-		this.Reset();
 
-        this.Grid = new Array(width);
-        this.QuestionGrid = new Array(width);
+		var time1 = new Date().getTime();
+		var lIteration = 1;
+//console.log(time1);
+// $('#results').append('<div>' + time1 + '</div>');
+    // nothing
 
-        for (var i = 0; i < this.Grid.length; i++){
-            this.Grid[i] = new Array(height);
-            this.QuestionGrid[i] = new Array(height);
-        }
+// console.log(time2);
+// $('#results').append('<div>' + time2 + '</div>');
 
-        for (var i = 0; i < this.Grid.length; i++){
-        	for (var j = 0; j < this.Grid[0].length; j++){
-            	this.Grid[i][j] = '';
-            	this.QuestionGrid[i][j] = '';
-            }
-        }
 
-		// CREATE A NEW WORD AND ADD TO THE 
-		// WORDS ARRAY
-		for (var x=0; x < arrayOfWords.length; x++){
+		do {
 
-			// MUST BE AT LEAST 2 CHARS LONG
-			if (arrayOfWords[x].length > 1){
-			 	this.Words.push(new Word(arrayOfWords[x]));
-			}
-		}
+			this.Reset();
 
-		// ORDER ALL OF THE WORDS BY WHICH IS THE LONGEST
-		this.SortByLength(this.Words);
+	        this.Grid = new Array(width);
+	        this.QuestionGrid = new Array(width);
 
-		for (var y = 1; y <= this.MAX_PASSES; y++){
-			for (var x=0; x < this.Words.length; x++){
-				if (((this.Words[x].orphaned)
-					&&(this.Words[x].posIndex == this.UNSET))
-					||(y == 1)){
-					this.Words[x].Reset();
-				 	this.AddWord(this.Words[x],x,y);
+	        for (var i = 0; i < this.Grid.length; i++){
+	            this.Grid[i] = new Array(height);
+	            this.QuestionGrid[i] = new Array(height);
+	        }
+
+	        for (var i = 0; i < this.Grid.length; i++){
+	        	for (var j = 0; j < this.Grid[0].length; j++){
+	            	this.Grid[i][j] = '';
+	            	this.QuestionGrid[i][j] = '';
+	            }
+	        }
+
+			// CREATE A NEW WORD AND ADD TO THE 
+			// WORDS ARRAY
+			for (var x=0; x < arrayOfWords.length; x++){
+
+				// MUST BE AT LEAST 2 CHARS LONG
+				if (arrayOfWords[x].length > 1){
+				 	this.Words.push(new Word(arrayOfWords[x]));
 				}
 			}
-		}
 
-		this.GenerateQuestionGrid();
+			// ORDER ALL OF THE WORDS BY WHICH IS THE LONGEST
+			this.SortByLength(this.Words);
 
-		console.log('Word groups: ' + this.GetNumberOfWordGroups());
+			for (var y = 1; y <= this.MAX_PASSES; y++){
+				for (var x=0; x < this.Words.length; x++){
+					if (((this.Words[x].orphaned)
+						&&(this.Words[x].posIndex == this.UNSET))
+						||(y == 1)){
+						this.Words[x].Reset();
+					 	this.AddWord(this.Words[x],x,y);
+					}
+				}
+			}
+
+			this.GenerateQuestionGrid();
+
+			console.log('Iteration:' + 
+				lIteration + 
+				' Word groups:' + this.GetNumberOfWordGroups());
+			lIteration++;
+
+		    time2 = new Date().getTime();
+
+		} while ((time2 - time1 < this.MAX_RUNTIME)
+			&&(this.GetNumberOfWordGroups() > 1));
+
+
 		return this.Grid;
 	},
 

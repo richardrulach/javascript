@@ -4,6 +4,114 @@
 		"selected_items":
 		[
 			[
+				"ma",
+				"MAX_PASSES"
+			],
+			[
+				"fo",
+				"fo	for"
+			],
+			[
+				"qad",
+				"qAdjustW"
+			],
+			[
+				"small",
+				"smallFontSize"
+			],
+			[
+				"GR",
+				"GRID_SIZE"
+			],
+			[
+				"gri",
+				"GRID_HEIGHT"
+			],
+			[
+				"grid",
+				"GRID_HEIGHT"
+			],
+			[
+				"GRI",
+				"GRID_SIZE"
+			],
+			[
+				"font",
+				"fontSize"
+			],
+			[
+				"HORIZONTAL",
+				"HORIZONTAL_BOXES"
+			],
+			[
+				"verti",
+				"VERTICAL"
+			],
+			[
+				"Ver",
+				"VERTICAL"
+			],
+			[
+				"v",
+				"VERTICAL"
+			],
+			[
+				"Hori",
+				"HORIZONTAL"
+			],
+			[
+				"cr",
+				"crossingPositions"
+			],
+			[
+				"cross",
+				"crossingPositions"
+			],
+			[
+				"cro",
+				"crossingPoint"
+			],
+			[
+				"V",
+				"VERTICAL"
+			],
+			[
+				"Hoi",
+				"HORIZONTAL"
+			],
+			[
+				"REVERSE",
+				"REVERSE_VERTICAL"
+			],
+			[
+				"REVER",
+				"REVERSE_VERTICAL"
+			],
+			[
+				"dia",
+				"DIAGONAL_DOWN"
+			],
+			[
+				"di",
+				"DIAGONAL_DOWN"
+			],
+			[
+				"DI",
+				"DIAGONAL_UP"
+			],
+			[
+				"DIAGONAL",
+				"DIAGONAL_UP"
+			],
+			[
+				"hori",
+				"HORIZONTAL"
+			],
+			[
+				"ver",
+				"VERTICAL"
+			],
+			[
 				"char",
 				"CharBeforeFirstLetter"
 			],
@@ -26,10 +134,6 @@
 			[
 				"Upda",
 				"UpdateSideDisplay"
-			],
-			[
-				"font",
-				"font-weight"
 			],
 			[
 				"curren",
@@ -136,10 +240,10 @@
 	"buffers":
 	[
 		{
-			"file": "/C/GitHub/javascript/src/html5CanvasDemo.htm",
+			"file": "/C/GitHub/javascript/src/xWordsDemo.htm",
 			"settings":
 			{
-				"buffer_size": 4033,
+				"buffer_size": 8510,
 				"line_ending": "Windows"
 			}
 		},
@@ -147,7 +251,7 @@
 			"file": "/C/GitHub/javascript/src/js/classes/xWords.js",
 			"settings":
 			{
-				"buffer_size": 7063,
+				"buffer_size": 11858,
 				"line_ending": "Windows"
 			}
 		}
@@ -158,6 +262,10 @@
 		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"for",
+				"Snippet: for (…) {…} (Improved Native For-Loop)"
+			],
 			[
 				"in",
 				"Package Control: Install Package"
@@ -171,7 +279,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 400.0
+		"width": 416.0
 	},
 	"console":
 	{
@@ -188,8 +296,17 @@
 	},
 	"file_history":
 	[
-		"/C/GitHub/javascript/src/js/classes/JavascriptClassTemplate-Singleton.js",
+		"/C/GitHub/js-xwords/src/index.htm",
+		"/C/GitHub/js-wordSearch/src/index.htm",
+		"/C/Users/Richard/AppData/Roaming/Sublime Text 2/Packages/User/javascript/case.sublime-snippet",
+		"/C/Users/Richard/AppData/Roaming/Sublime Text 2/Packages/User/javascript/for2.sublime-snippet",
+		"/C/GitHub/javascript/src/js/classes/wordSearch.js",
+		"/C/GitHub/javascript/src/wordSearchDemo.htm",
+		"/C/GitHub/javascript/src/js/classes/xWords.js",
+		"/C/GitHub/javascript/src/xWordsDemo.htm",
+		"/C/GitHub/javascript/src/xWords.htm",
 		"/C/GitHub/javascript/src/html5CanvasDemo.htm",
+		"/C/GitHub/javascript/src/js/classes/JavascriptClassTemplate-Singleton.js",
 		"/C/GitHub/javascript/src/js/classes/QuestionBoss.js",
 		"/C/GitHub/javascript/src/FlashCardBuilder.htm",
 		"/C/GitHub/javascript/src/js/classes/FlashCardBuilder.js",
@@ -204,14 +321,12 @@
 		"/C/GitHub/javascript/src/qunitDemo.htm",
 		"/C/GitHub/javascript/src/SQLBoss.htm",
 		"/C/GitHub/javascript/src/WireframeBuilder.htm",
-		"/C/GitHub/javascript/src/xWords.htm",
 		"/C/GitHub/javascript/src/js/jasmine/spec/hello.spec.js",
 		"/C/GitHub/javascript/src/js/jasmine/src/hello.js",
 		"/C/GitHub/javascript/src/js/testlibs/jasmine/boot.js",
 		"/C/GitHub/javascript/src/js/d3/styles.css",
 		"/C/GitHub/javascript/src/js/d3/dc.css",
 		"/C/GitHub/javascript/src/js/classes/D3Helper.js",
-		"/C/GitHub/javascript/src/js/classes/xWords.js",
 		"/C/GitHub/javascript/src/css/custom.css",
 		"/C/GitHub/javascript/src/js/d3/d3.js",
 		"/C/websites/bootstrap_base/index.htm",
@@ -273,6 +388,17 @@
 		"find_history":
 		[
 			"console",
+			"SortXwordQuestions",
+			"posIndex",
+			"positionArray",
+			"console.log",
+			"xWords",
+			"selectedPosition",
+			"Words",
+			"SortByLength",
+			"SidesHaveChars",
+			"Words",
+			"console",
 			"ScaleDisplay",
 			"cardText",
 			"console",
@@ -306,18 +432,18 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/C/GitHub/javascript/src/html5CanvasDemo.htm",
+					"file": "/C/GitHub/javascript/src/xWordsDemo.htm",
 					"settings":
 					{
-						"buffer_size": 4033,
+						"buffer_size": 8510,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								728,
-								728
+								7063,
+								7170
 							]
 						],
 						"settings":
@@ -327,35 +453,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 126.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 0,
-					"file": "/C/GitHub/javascript/src/html5CanvasDemo.htm",
-					"settings":
-					{
-						"buffer_size": 4033,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3956,
-								3956
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1665.0,
+						"translation.y": 3651.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -365,26 +463,57 @@
 					"file": "/C/GitHub/javascript/src/js/classes/xWords.js",
 					"settings":
 					{
-						"buffer_size": 7063,
+						"buffer_size": 11858,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1033,
-								1033
+								2308,
+								2308
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false,
-							"word_wrap": true,
-							"wrap_width": 70
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 5598.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "/C/GitHub/javascript/src/js/classes/xWords.js",
+					"settings":
+					{
+						"buffer_size": 11858,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5895,
+								5895
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3105.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -409,11 +538,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.4375,
 			1.0
 		],
 		"rows":

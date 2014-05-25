@@ -8,9 +8,11 @@
  **/
 var xWords = {
    	/* CLASS CONSTANTS */
-   	HORIZONTAL:1,
-   	VERTICAL:2,
-   	MAX_PASSES:3,
+   	HORIZONTAL: 1,
+   	VERTICAL: 2,
+   	MAX_PASSES: 3,
+   	CENTER_FIRST: false,
+   	UNSET: -1,
 
     /* CLASS PROPERTIES */
     _self:this,
@@ -34,7 +36,7 @@ var xWords = {
 	},
 
 	GetQuestionList:function(){
-		return this.QuestionGrid;
+		return this.QuestionList;
 	},
 
 
@@ -74,7 +76,9 @@ var xWords = {
 
 		for (var y = 1; y <= this.MAX_PASSES; y++){
 			for (var x=0; x < this.Words.length; x++){
-				if ((this.Words[x].orphaned)||(y == 1)){
+				if (((this.Words[x].orphaned)
+					&&(this.Words[x].posIndex == this.UNSET))
+					||(y == 1)){
 					this.Words[x].Reset();
 				 	this.AddWord(this.Words[x],x,y);
 				}
@@ -157,7 +161,7 @@ var xWords = {
 	// ADD A WORD TO THE GRID (IF POSSIBLE)
 	AddWord: function(newWord, callNumber, passNumber){
 		
-		this.GetPositions(newWord);
+		this.GetPositions(newWord, callNumber, passNumber);
 
 
 		if (newWord.crossingPositions.length + 
@@ -174,6 +178,8 @@ var xWords = {
 					(Math.random() * 
 					newWord.crossingPositions.length));
 					newPos = newWord.crossingPositions[choice];
+					newWord.orphaned = false;
+					console.log('orphan no more:' + newWord.word)
 			} else if (((callNumber == 0)&&(passNumber == 1))
 				||(passNumber >= this.MAX_PASSES)){
 				choice = Math.floor(
@@ -195,11 +201,11 @@ var xWords = {
 					}
 				}
 				if ((newWord.orphaned)&&(newWord.crossingPositions.length > 0)){
-					console.log('orphan no more:' + newWord.word)
+//					console.log('orphan no more:' + newWord.word)
 				}
-				newWord.orphaned = false;
+				//newWord.orphaned = false;
 			} else {
-				newWord.orphaned = true;
+				//newWord.orphaned = true;
 				console.log('couldn\'t find location:' + newWord.word)
 			}
 
@@ -207,32 +213,60 @@ var xWords = {
 	},
 
 	// RETURNS ALL THE AVAILABLE VALID POSITIONS FOR PLACING THE WORD
-	GetPositions: function(newWord){
+	GetPositions: function(newWord, callNumber, passNumber){
 
-		for (var x = 0; x < this.Grid.length; x++){
-			for (var y = 0; y < this.Grid[0].length; y++){
-				
-				var newPos = undefined;
+		if ((this.CENTER_FIRST)&&
+			(callNumber == 0)&&
+			(passNumber == 1)){
 
-				newPos = this.TestPosition(newWord.word,x,y,this.HORIZONTAL);
-				if (newPos !== undefined) {
-					if (newPos.crossingPoint > 0){
-						newWord.crossingPositions.push(newPos);
-					} else {
-						newWord.availablePositions.push(newPos);
+			var newPos = undefined;
+			var x = 0;
+			var y = 0;
+			var d = this.HORIZONTAL;
+			
+			if (this.Grid.length > this.Grid[0].length){
+				x = Math.floor(this.Grid.length/2);
+				y = Math.floor((this.Grid[0].length - newWord.word.length)/2);
+				d = this.VERTICAL
+			} else {
+				x = Math.floor((this.Grid.length - newWord.word.length)/2);
+				y = Math.floor(this.Grid[0].length/2);
+				d = this.HORIZONTAL
+			}
+			
+			newPos = this.TestPosition(newWord.word,x,y,d);
+			if (newPos !== undefined) {
+				newWord.availablePositions.push(newPos);
+			}
+
+		} else {
+			for (var x = 0; x < this.Grid.length; x++){
+				for (var y = 0; y < this.Grid[0].length; y++){
+					
+					var newPos = undefined;
+
+					newPos = this.TestPosition(newWord.word,x,y,this.HORIZONTAL);
+					if (newPos !== undefined) {
+						if (newPos.crossingPoint > 0){
+							newWord.crossingPositions.push(newPos);
+						} else {
+							newWord.availablePositions.push(newPos);
+						}
 					}
-				}
-				newPos = this.TestPosition(newWord.word,x,y,this.VERTICAL);
-				if (newPos !== undefined) {
-					if (newPos.crossingPoint > 0){
-						newWord.crossingPositions.push(newPos);
-					} else {
-						newWord.availablePositions.push(newPos);
+					newPos = this.TestPosition(newWord.word,x,y,this.VERTICAL);
+					if (newPos !== undefined) {
+						if (newPos.crossingPoint > 0){
+							newWord.crossingPositions.push(newPos);
+						} else {
+							newWord.availablePositions.push(newPos);
+						}
 					}
-				}
 
+				}
 			}
 		}
+
+
 	},
 
 	// TRIES A POSITION TO SEE IF IT IS ACCEPTABLE
@@ -413,7 +447,7 @@ function Word(txt){
 	this.clue = '';//clue;
 	this.crossingPositions = new Array();
 	this.availablePositions = new Array();
-	this.orphaned = false;
+	this.orphaned = true;
 	this.posIndex = -1;
 	this.Reset = function(){
 		this.crossingPositions = new Array();

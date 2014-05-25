@@ -87,8 +87,8 @@
         var canvasQuestion;
 
         var GRID_SIZE = 25;
-        var HORIZONTAL_BOXES = 17;
-        var VERTICAL_BOXES = 13;
+        var HORIZONTAL_BOXES = 18;
+        var VERTICAL_BOXES = 20;
 
         var GRID_WIDTH = GRID_SIZE * HORIZONTAL_BOXES;
         var GRID_HEIGHT = GRID_SIZE * VERTICAL_BOXES;
@@ -212,16 +212,9 @@
             context.stroke();
             context.closePath();
 
-
-
-
-
             $('#across').html("<h2>ACROSS</h2>");
             $('#down').html("<h2>DOWN</h2>");
             $('#unused').html("<h2>UNUSED</h2>");
-
-            // $('#across').append("<h2>ACROSS</h2>");
-            // $('#down').append("<h2>DOWN</h2>");
 
             for (var i = 0; i < xWords.QuestionList.length; i++){
 

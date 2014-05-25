@@ -1,5 +1,5 @@
 /* Absolute Center CSS Spinner */
-.loading {
+.loading2 {
   position: fixed;
   z-index: 999;
   height: 2em;
@@ -13,7 +13,7 @@
 }
 
 /* Transparent Overlay */
-.loading:before {
+.loading2:before {
   content: '';
   display: block;
   position: fixed;

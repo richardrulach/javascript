@@ -19,6 +19,17 @@
     <style>
         #mainContainer { display:none; }
         .canvasContainer { margin-bottom:15px; }
+
+
+        .center {
+            position: absolute;
+            width: 100px;
+            height: 50px;
+            top: 50%;
+            left: 50%;
+            margin-left: -50px; /* margin is -0.5 * dimension */
+            margin-top: -25px; 
+        }​
     </style>
   </head>
   <body>
@@ -80,8 +91,13 @@
     </div><!-- END CONTAINER CLASS -->
 
     <!-- BUSY ANIMATION -->
-    <div class="loading">Loading&#8230;</div>
-
+    <div class='loading2'>
+        <div class="center"><img src="/img/crosswordTimer.gif" /></div>
+    </div>​
+<!--     <div class="xloading">
+        <img src="/img/crosswordTimer.gif" />
+    </div>
+ -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -133,11 +149,11 @@
         var GRID_WIDTH = GRID_SIZE * HORIZONTAL_BOXES;
         var GRID_HEIGHT = GRID_SIZE * VERTICAL_BOXES;
 
-        $('.loading').hide();
+        $('.loading2').hide();
 
 
         function btnAddWords_click(){
-            $('.loading').show();
+            $('.loading2').show();
 
             setTimeout(run,1000);
         }
@@ -306,7 +322,7 @@
             }
 
             $('#mainContainer').show();
-            $('.loading').hide();
+            $('.loading2').hide();
         }
 
         window.onload = function(){

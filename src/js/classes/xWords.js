@@ -13,6 +13,7 @@ var xWords = {
    	MAX_PASSES: 3,
    	CENTER_FIRST: false,
    	UNSET: -1,
+   	MAX_RUNTIME: 5000,
 
     /* CLASS PROPERTIES */
     _self:this,
@@ -29,6 +30,28 @@ var xWords = {
 		this.Words = new Array();
 		this.QuestionGrid = new Array();
 		this.QuestionList = new Array();
+	},
+
+	// INDICATES HOW MANY GROUPINGS OF WORDS ARE ON THE GRID
+	GetNumberOfWordGroups: function(){
+		var iReturn = 0;
+		for (var x = 0; x < this.Words.length; x++){
+			if ((this.Words[x].orphaned)&&
+				(this.Words[x].posIndex != this.UNSET)){
+				iReturn++;
+			}	
+		}
+		return iReturn;
+	},
+
+	GetUnusedWords: function(){
+		var unusedArray = new Array();
+		for (var x = 0; x < this.Words.length; x++){
+			if (this.Words[x].posIndex == this.UNSET){
+				unusedArray.push(this.Words[x].word);
+			}	
+		}
+		return unusedArray;
 	},
 
 	GetQuestionGrid:function(){
@@ -87,6 +110,7 @@ var xWords = {
 
 		this.GenerateQuestionGrid();
 
+		console.log('Word groups: ' + this.GetNumberOfWordGroups());
 		return this.Grid;
 	},
 

@@ -87,8 +87,9 @@
         var canvasQuestion;
 
         var GRID_SIZE = 25;
-        var HORIZONTAL_BOXES = 18;
-        var VERTICAL_BOXES = 20;
+        var HORIZONTAL_BOXES = 8;
+        var VERTICAL_BOXES = 8;
+        var PROFILE_CREATE = false;
 
         var GRID_WIDTH = GRID_SIZE * HORIZONTAL_BOXES;
         var GRID_HEIGHT = GRID_SIZE * VERTICAL_BOXES;
@@ -160,14 +161,18 @@
 
             console.clear();
         
-            console.profile('xWords.Create()');
+            if (PROFILE_CREATE){
+                console.profile('xWords.Create()');
+            }
 
             var crossword = xWords.Create(
                 VERTICAL_BOXES,
                 HORIZONTAL_BOXES,
                 aValues);
 
-            console.profileEnd();
+            if (PROFILE_CREATE){
+                console.profileEnd();
+            }
 
             var qGrid = xWords.GetQuestionGrid();
 
@@ -216,25 +221,35 @@
             $('#down').html("<h2>DOWN</h2>");
             $('#unused').html("<h2>UNUSED</h2>");
 
-            for (var i = 0; i < xWords.QuestionList.length; i++){
+            var unusedList = xWords.GetUnusedWords();
+            for (var x = 0; x < unusedList.length; x++){
+                $('#unused').append(
+                    '<div>' + 
+                    unusedList[x] + 
+                    '</div>');
+            }
 
-                switch (xWords.QuestionList[i].d){
+            var qList = xWords.GetQuestionList();
+
+            for (var i = 0; i < qList.length; i++){
+
+                switch (qList[i].d){
 
                     case xWords.HORIZONTAL :
                         $('#across').append(
                             '<div>' + 
-                            xWords.QuestionList[i].num + 
+                            qList[i].num + 
                             '. ' + 
-                            xWords.QuestionList[i].clue + 
+                            qList[i].clue + 
                             '</div>');
                         break;
                         
                     case xWords.VERTICAL :
                         $('#down').append(
                             '<div>' + 
-                            xWords.QuestionList[i].num + 
+                            qList[i].num + 
                             '. ' + 
-                            xWords.QuestionList[i].clue + 
+                            qList[i].clue + 
                             '</div>');
                         break;
                         

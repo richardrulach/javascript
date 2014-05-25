@@ -8,6 +8,7 @@
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/css/loading.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -73,14 +74,15 @@
     </footer>
     </div><!-- END CONTAINER CLASS -->
 
+    <!-- BUSY ANIMATION -->
+    <div class="loading">Loading&#8230;</div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/classes/xWords.js"></script>
     <script>
-
-
 
         var context;
         var canvas;
@@ -89,14 +91,22 @@
         var canvasQuestion;
 
         var GRID_SIZE = 25;
-        var HORIZONTAL_BOXES = 15;
-        var VERTICAL_BOXES = 15;
+        var HORIZONTAL_BOXES = 10;
+        var VERTICAL_BOXES = 10;
         var PROFILE_CREATE = false;
 
         var GRID_WIDTH = GRID_SIZE * HORIZONTAL_BOXES;
         var GRID_HEIGHT = GRID_SIZE * VERTICAL_BOXES;
 
+        $('.loading').hide();
+
+
         function btnAddWords_click(){
+            $('.loading').show();
+            setTimeout(run,1000);
+        }
+
+        function run(){
 
             xWords.Reset();
 
@@ -259,9 +269,8 @@
 
             }
 
-
-
             $('#mainContainer').show();
+            $('.loading').hide();
         }
 
         window.onload = function(){

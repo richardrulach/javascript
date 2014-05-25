@@ -14,7 +14,7 @@ var xWords = {
    	MAX_PASSES: 3,		// MAXIMUM NUMBER OF ATTEMPTS TO PLACE A WORD
    	MAX_RUNTIME: 5000, 	// THE MAXIMUM RUN TIME IN MILLISECONDS
 
-   	CENTER_FIRST: true,	// PLACE THE FIRST IN CENTER
+   	CENTER_FIRST: false,	// PLACE THE FIRST IN CENTER
    	UNSET: -1,			// CONSTANT FOR UNASSIGNED INDEXES
 
 
@@ -24,7 +24,8 @@ var xWords = {
 	Words:new Array(),			// Word Objects
 	QuestionGrid:new Array(),	// Question Grid with numbering
 	QuestionList:new Array(),	// Numbered clues
-
+	bestFit:null,				// Records the grid with fewest orphans
+								// over all iterations.
 
 	/* PUBLIC METHODS */
 	// resets the grid and word list
@@ -78,6 +79,10 @@ var xWords = {
 
 		var time1 = new Date().getTime();
 		var lIteration = 1;
+
+		this.Reset();
+		this.bestFit = null;
+
 //console.log(time1);
 // $('#results').append('<div>' + time1 + '</div>');
     // nothing
@@ -131,15 +136,58 @@ var xWords = {
 
 			this.GenerateQuestionGrid();
 
-			console.log('Iteration:' + 
-				lIteration + 
-				' Word groups:' + this.GetNumberOfWordGroups());
+			if (this.bestFit != null){
+				if (this.bestFit.WordGroupsCount 
+					> this.GetNumberOfWordGroups()){
+					this.bestFit = null;
+					this.bestFit = new AlternativeGrid(
+						this.Grid.slice(),
+						this.Words.slice(),
+						this.QuestionGrid.slice(),
+						this.QuestionList.slice(),
+						this.GetNumberOfWordGroups());
+					console.log('Replacing old grid: ' + lIteration +
+						' groups:' + this.bestFit.WordGroupsCount);
+				} else {
+					console.log('Saved grid is best: ' + lIteration + 
+						' groups:' + this.bestFit.WordGroupsCount + 
+						' current:' + this.GetNumberOfWordGroups());
+				}
+			} else {
+				var x = this.GetNumberOfWordGroups();
+				this.bestFit = new AlternativeGrid(
+					this.Grid.slice(),
+					this.Words.slice(),
+					this.QuestionGrid.slice(),
+					this.QuestionList.slice(),
+					this.GetNumberOfWordGroups());
+				console.log('New Grid: ' + lIteration + 
+					' groups:' + this.GetNumberOfWordGroups());
+			}
+
+
+			// console.log('Iteration:' + 
+			// 	lIteration + 
+			// 	' Word groups:' + this.GetNumberOfWordGroups());
 			lIteration++;
 
 		    time2 = new Date().getTime();
-
 		} while ((time2 - time1 < this.MAX_RUNTIME)
 			&&(this.GetNumberOfWordGroups() > 1));
+
+
+
+
+		if (this.bestFit.WordGroupsCount 
+			< this.GetNumberOfWordGroups()){
+			this.Reset();
+			this.Grid = this.bestFit.Grid;
+			this.Words = this.bestFit.Words;
+			this.QuestionGrid = this.bestFit.QuestionGrid;
+			this.QuestionList = this.bestFit.QuestionList;
+			console.log('Updating to best saved grid.');
+		}
+
 
 
 		return this.Grid;
@@ -234,7 +282,7 @@ var xWords = {
 					newWord.crossingPositions.length));
 					newPos = newWord.crossingPositions[choice];
 					newWord.orphaned = false;
-					console.log('orphan no more:' + newWord.word)
+					// console.log('orphan no more:' + newWord.word)
 			} else if (((callNumber == 0)&&(passNumber == 1))
 				||(passNumber >= this.MAX_PASSES)){
 				choice = Math.floor(
@@ -251,8 +299,8 @@ var xWords = {
 				} else if (newWord.availablePositions.length > 0) {
 					newWord.chosenPosition = newWord.availablePositions[newWord.posIndex];
 				} else {
-					console.log("no position:");
-					console.log(newWord);
+					// console.log("no position:");
+					// console.log(newWord);
 				}
 
 				// LOOP THROUGH THE WORD PLACING IT IN THE GRID
@@ -271,7 +319,7 @@ var xWords = {
 				//newWord.orphaned = false;
 			} else {
 				//newWord.orphaned = true;
-				console.log('couldn\'t find location:' + newWord.word)
+				// console.log('couldn\'t find location:' + newWord.word)
 			}
 
 		}

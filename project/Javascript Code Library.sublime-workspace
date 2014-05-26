@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"Word",
+				"WordGroupsCount"
+			],
+			[
+				"best",
+				"bestFit"
+			],
+			[
+				"Question",
+				"QuestionGrid"
+			],
+			[
+				"cro",
+				"crossingPositions"
+			],
+			[
+				"Un",
+				"UNSET"
+			],
+			[
+				"Max_",
+				"MAX_RUNTIME"
+			],
+			[
+				"Get",
+				"GetNumberOfWordGroups"
+			],
+			[
 				"ma",
 				"MAX_PASSES"
 			],
@@ -66,10 +94,6 @@
 			[
 				"cross",
 				"crossingPositions"
-			],
-			[
-				"cro",
-				"crossingPoint"
 			],
 			[
 				"V",
@@ -160,10 +184,6 @@
 				"inputPanelStage2"
 			],
 			[
-				"Question",
-				"QuestionElement"
-			],
-			[
 				"in",
 				"inputPanelStage2"
 			],
@@ -243,7 +263,7 @@
 			"file": "/C/GitHub/javascript/src/xWordsDemo.htm",
 			"settings":
 			{
-				"buffer_size": 8510,
+				"buffer_size": 10824,
 				"line_ending": "Windows"
 			}
 		},
@@ -251,7 +271,15 @@
 			"file": "/C/GitHub/javascript/src/js/classes/xWords.js",
 			"settings":
 			{
-				"buffer_size": 11858,
+				"buffer_size": 16127,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/GitHub/javascript/src/css/loading.css",
+			"settings":
+			{
+				"buffer_size": 3198,
 				"line_ending": "Windows"
 			}
 		}
@@ -296,6 +324,10 @@
 	},
 	"file_history":
 	[
+		"/C/GitHub/javascript/src/css/loading.css",
+		"/C/GitHub/javascript/src/busyTest.htm",
+		"/C/GitHub/javascript/src/js/busy/busy.js",
+		"/C/Users/Richard/AppData/Roaming/Sublime Text 2/Packages/User/javascript/do while.sublime-snippet",
 		"/C/GitHub/js-xwords/src/index.htm",
 		"/C/GitHub/js-wordSearch/src/index.htm",
 		"/C/Users/Richard/AppData/Roaming/Sublime Text 2/Packages/User/javascript/case.sublime-snippet",
@@ -387,6 +419,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"console.log",
+			"posIndex",
+			"GetQuestionGrid",
+			"GetQuestionList",
 			"console",
 			"SortXwordQuestions",
 			"posIndex",
@@ -427,7 +463,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -435,15 +471,15 @@
 					"file": "/C/GitHub/javascript/src/xWordsDemo.htm",
 					"settings":
 					{
-						"buffer_size": 8510,
+						"buffer_size": 10824,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7063,
-								7170
+								10418,
+								10418
 							]
 						],
 						"settings":
@@ -453,7 +489,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3651.0,
+						"translation.y": 64.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -463,15 +499,15 @@
 					"file": "/C/GitHub/javascript/src/js/classes/xWords.js",
 					"settings":
 					{
-						"buffer_size": 11858,
+						"buffer_size": 16127,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2308,
-								2308
+								429,
+								429
 							]
 						],
 						"settings":
@@ -480,7 +516,35 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5598.0,
+						"translation.y": 497.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/GitHub/javascript/src/css/loading.css",
+					"settings":
+					{
+						"buffer_size": 3198,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								43,
+								43
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -496,15 +560,15 @@
 					"file": "/C/GitHub/javascript/src/js/classes/xWords.js",
 					"settings":
 					{
-						"buffer_size": 11858,
+						"buffer_size": 16127,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5895,
-								5895
+								4810,
+								4810
 							]
 						],
 						"settings":
@@ -513,7 +577,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3105.0,
+						"translation.y": 4364.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -549,7 +613,7 @@
 		"cols":
 		[
 			0.0,
-			0.4375,
+			0.457091560911,
 			1.0
 		],
 		"rows":
@@ -569,6 +633,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"",
+				"javascript/src/js/classes/xWords.js"
+			]
 		],
 		"width": 0.0
 	},
@@ -584,6 +652,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 198.0,
+	"side_bar_width": 170.0,
 	"status_bar_visible": true
 }

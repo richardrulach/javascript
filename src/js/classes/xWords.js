@@ -21,8 +21,9 @@ var xWords = {
     /* CLASS PROPERTIES */
     _self:this,
 	Grid:new Array(),			// Answer Grid
+	QuestionGrid:new Array(),	// Question Grid (HOLDS NUMBERING)
+
 	Words:new Array(),			// Word Objects
-	QuestionGrid:new Array(),	// Question Grid with numbering
 	QuestionList:new Array(),	// Numbered clues
 	bestFit:null,				// Records the grid with fewest orphans
 								// over all iterations.
@@ -83,14 +84,6 @@ var xWords = {
 		this.Reset();
 		this.bestFit = null;
 
-//console.log(time1);
-// $('#results').append('<div>' + time1 + '</div>');
-    // nothing
-
-// console.log(time2);
-// $('#results').append('<div>' + time2 + '</div>');
-
-
 		do {
 
 			this.Reset();
@@ -146,12 +139,6 @@ var xWords = {
 						this.QuestionGrid.slice(),
 						this.QuestionList.slice(),
 						this.GetNumberOfWordGroups());
-					console.log('Replacing old grid: ' + lIteration +
-						' groups:' + this.bestFit.WordGroupsCount);
-				} else {
-					console.log('Saved grid is best: ' + lIteration + 
-						' groups:' + this.bestFit.WordGroupsCount + 
-						' current:' + this.GetNumberOfWordGroups());
 				}
 			} else {
 				var x = this.GetNumberOfWordGroups();
@@ -161,17 +148,12 @@ var xWords = {
 					this.QuestionGrid.slice(),
 					this.QuestionList.slice(),
 					this.GetNumberOfWordGroups());
-				console.log('New Grid: ' + lIteration + 
-					' groups:' + this.GetNumberOfWordGroups());
 			}
 
 
-			// console.log('Iteration:' + 
-			// 	lIteration + 
-			// 	' Word groups:' + this.GetNumberOfWordGroups());
 			lIteration++;
-
 		    time2 = new Date().getTime();
+
 		} while ((time2 - time1 < this.MAX_RUNTIME)
 			&&(this.GetNumberOfWordGroups() > 1));
 
@@ -185,7 +167,6 @@ var xWords = {
 			this.Words = this.bestFit.Words;
 			this.QuestionGrid = this.bestFit.QuestionGrid;
 			this.QuestionList = this.bestFit.QuestionList;
-			console.log('Updating to best saved grid.');
 		}
 
 
@@ -282,7 +263,6 @@ var xWords = {
 					newWord.crossingPositions.length));
 					newPos = newWord.crossingPositions[choice];
 					newWord.orphaned = false;
-					// console.log('orphan no more:' + newWord.word)
 			} else if (((callNumber == 0)&&(passNumber == 1))
 				||(passNumber >= this.MAX_PASSES)){
 				choice = Math.floor(
@@ -298,9 +278,6 @@ var xWords = {
 					newWord.chosenPosition = newWord.crossingPositions[newWord.posIndex];
 				} else if (newWord.availablePositions.length > 0) {
 					newWord.chosenPosition = newWord.availablePositions[newWord.posIndex];
-				} else {
-					// console.log("no position:");
-					// console.log(newWord);
 				}
 
 				// LOOP THROUGH THE WORD PLACING IT IN THE GRID
@@ -313,13 +290,6 @@ var xWords = {
 							newWord.word.charAt(count);
 					}
 				}
-				if ((newWord.orphaned)&&(newWord.crossingPositions.length > 0)){
-//					console.log('orphan no more:' + newWord.word)
-				}
-				//newWord.orphaned = false;
-			} else {
-				//newWord.orphaned = true;
-				// console.log('couldn\'t find location:' + newWord.word)
 			}
 
 		}

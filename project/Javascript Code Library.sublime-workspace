@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"Words",
+				"WordsAdded"
+			],
+			[
+				"D",
+				"Directions"
+			],
+			[
 				"pri",
 				"printWin"
 			],
@@ -275,22 +283,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/C/GitHub/js-xwords/src/js/xWordsDisplay.js",
-			"settings":
-			{
-				"buffer_size": 9903,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/GitHub/js-xwords/src/js/xWords.js",
-			"settings":
-			{
-				"buffer_size": 16505,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -332,10 +324,20 @@
 	},
 	"file_history":
 	[
-		"/C/GitHub/js-xwords/src/index.htm",
-		"/C/GitHub/js-xwords/src/js/xWords.js",
-		"/C/GitHub/js-xwords/src/css/loading.css",
+		"/C/GitHub/js-wordSearch/src/js/wordSearch.js",
+		"/C/GitHub/js-wordSearch/src/js/wordSearchDisplay.js",
+		"/C/GitHub/js-wordSearch/src/index.htm",
 		"/C/GitHub/js-xwords/src/js/xWordsDisplay.js",
+		"/C/GitHub/js-xwords/src/js/xWords.js",
+		"/C/GitHub/js-xwords/src/index.htm",
+		"/C/GitHub/javascript/src/d3DemoMaps.htm",
+		"/C/GitHub/javascript/src/interactive/testzaf.html",
+		"/C/GitHub/javascript/src/interactive/test.html",
+		"/C/GitHub/javascript/src/js/d3/d3.js",
+		"/C/GitHub/js-wordSearch/src/css/loading.css",
+		"/C/GitHub/javascript/src/wordSearchDemo.htm",
+		"/C/GitHub/javascript/src/js/classes/wordSearch.js",
+		"/C/GitHub/js-xwords/src/css/loading.css",
 		"/C/GitHub/js-xwords/LICENSE.md",
 		"/C/GitHub/javascript/src/xWordsDemo.htm",
 		"/C/GitHub/javascript/src/js/classes/xWords.js",
@@ -344,11 +346,8 @@
 		"/C/GitHub/javascript/src/busyTest.htm",
 		"/C/GitHub/javascript/src/js/busy/busy.js",
 		"/C/Users/Richard/AppData/Roaming/Sublime Text 2/Packages/User/javascript/do while.sublime-snippet",
-		"/C/GitHub/js-wordSearch/src/index.htm",
 		"/C/Users/Richard/AppData/Roaming/Sublime Text 2/Packages/User/javascript/case.sublime-snippet",
 		"/C/Users/Richard/AppData/Roaming/Sublime Text 2/Packages/User/javascript/for2.sublime-snippet",
-		"/C/GitHub/javascript/src/js/classes/wordSearch.js",
-		"/C/GitHub/javascript/src/wordSearchDemo.htm",
 		"/C/GitHub/javascript/src/xWords.htm",
 		"/C/GitHub/javascript/src/html5CanvasDemo.htm",
 		"/C/GitHub/javascript/src/js/classes/JavascriptClassTemplate-Singleton.js",
@@ -373,7 +372,6 @@
 		"/C/GitHub/javascript/src/js/d3/dc.css",
 		"/C/GitHub/javascript/src/js/classes/D3Helper.js",
 		"/C/GitHub/javascript/src/css/custom.css",
-		"/C/GitHub/javascript/src/js/d3/d3.js",
 		"/C/websites/bootstrap_base/index.htm",
 		"/C/websites/bootstrap_base/menu.htm",
 		"/C/GitHub/javascript/src/js/testlibs/qunit/qunit.js",
@@ -480,64 +478,13 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/C/GitHub/js-xwords/src/js/xWordsDisplay.js",
-					"settings":
-					{
-						"buffer_size": 9903,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3028,
-								3509
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1530.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/C/GitHub/js-xwords/src/js/xWords.js",
-					"settings":
-					{
-						"buffer_size": 16505,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4198,
-								4198
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 8546.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
+			]
+		},
+		{
+			"sheets":
+			[
 			]
 		}
 	],
@@ -558,11 +505,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -601,6 +555,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 170.0,
+	"side_bar_width": 235.0,
 	"status_bar_visible": true
 }

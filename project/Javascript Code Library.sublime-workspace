@@ -283,6 +283,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/C/GitHub/javascript/src/GrooveShark.htm",
+			"settings":
+			{
+				"buffer_size": 3433,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -430,6 +438,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"247638636",
 			"console",
 			"QuestionList",
 			"PROFILE_CREATE",
@@ -478,8 +487,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/C/GitHub/javascript/src/GrooveShark.htm",
+					"settings":
+					{
+						"buffer_size": 3433,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3054,
+								3054
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1031.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		},
 		{

@@ -66,7 +66,8 @@
 	      			<textarea id="txtInput"></textarea>
 	      		</div>
 	      		<div class="col-lg-12">
-	      			<input type="button" onclick="run()" value="RUN!!!" />
+                    <input type="button" onclick="run()" value="RUN!!!" />
+                    <input type="button" onclick="processSkritter()" value="Process Skritter" />
 	      			<input type="button" onclick="scale()" value="scale" />
 	      		</div>
 
@@ -85,6 +86,47 @@
 	      				<input type="checkbox" id="chkShuffleOnIteration" onclick="chkShuffleOnIteration_click()" /><label for="chkShuffleOnIteration">Shuffle Deck on Iteration</label>
 	      			</div>
 	      		</div>
+                
+                <!-- MATCHING GAME -->
+                <div>
+                    <div id="matchingGameControls">
+                        <div>
+                            Matching Game Type:
+                            <select id="sltMatchingGameType">
+                                <option value="sequencial">Sequencial Sets</option>
+                                <option value="addThree">Add Three Items On Solution</option>
+                                <option value="random">Totally Random</option>
+                            </select>
+                            &nbsp;&nbsp;
+                            List 1 column:
+                            <select id="sltList1Col">
+                                <option selected value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                            &nbsp;&nbsp;
+                            List 2 column:
+                            <select id="sltList1Col">
+                                <option value="1">1</option>
+                                <option selected value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="button" onclick="RunMatchingGame()" value="Run Matching Game" />
+                        </div>
+                    </div>
+                    <div id="matchingGameContainer">
+
+                        <div id="matchingGameList1">
+
+                        </div>
+                        <div id="matchingGameList2">
+
+                        </div>
+                    </div>
+                </div>
+
 		      </div>
 		    </section>
 		    <footer class="row">
@@ -117,15 +159,44 @@
 		console.log('shuffle:' + mainDeck.shuffleOnIteration);
 	}
 
-	function run(){
-		mainDeck.Reset();
-		mainDeck.Import($('#txtInput').val());
-	}	
+    function run(){
+        mainDeck.Reset();
+        mainDeck.Import($('#txtInput').val());
+    }   
+
+    function processSkritter(){
+        var lValue = $('#txtInput').val();
+        var aValues = lValue.split(/\n/);
+        var returnText = '';
+
+
+        for (var i = 0; i < aValues.length; i++) {
+
+            var sText = $.trim(aValues[i].replace(',',''));
+            var n = sText.indexOf(' ');
+            sText = sText.substr(0,n) + ',' + sText.substring(n+1, sText.length);
+
+            var m = sText.indexOf(':');
+            sText = sText.substr(0,m) + ',' + sText.substring(m+1, sText.length);
+
+            returnText += sText + '\n';
+        };
+
+        $('#txtInput').val(returnText);
+    }   
 
 	function scale(){
 		mainDeck.ScaleDisplay();
 	}	
 
+
+    function RunMatchingGame(){
+        console.log('matching game started');
+
+        // load from the current list
+        run();
+        
+    }
     </script>
   </body>
 </html>

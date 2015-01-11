@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Canvas",
+				"canvasAnswers"
+			],
+			[
 				"Words",
 				"WordsAdded"
 			],
@@ -283,14 +287,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/C/GitHub/javascript/src/GrooveShark.htm",
-			"settings":
-			{
-				"buffer_size": 3433,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -332,12 +328,30 @@
 	},
 	"file_history":
 	[
-		"/C/GitHub/js-wordSearch/src/js/wordSearch.js",
-		"/C/GitHub/js-wordSearch/src/js/wordSearchDisplay.js",
+		"/C/GitHub/d3-wrappers/src/index.htm",
+		"/C/GitHub/design/src/floorplan.htm",
+		"/C/GitHub/design/src/index.htm",
+		"/C/GitHub/design/src/textalicious.htm",
+		"/C/GitHub/design/src/spa.htm",
+		"/C/GitHub/design/src/longpage.htm",
+		"/C/GitHub/design/src/news.htm",
+		"/C/GitHub/design/src/app.htm",
+		"/C/GitHub/design/src/corporate.htm",
+		"/C/GitHub/design/src/datavis.htm",
+		"/C/GitHub/design/src/drawingboard.htm",
+		"/C/GitHub/design/src/gamified.htm",
+		"/C/GitHub/design/src/geocities.htm",
+		"/C/GitHub/design/src/animated.htm",
+		"/C/GitHub/d3-wrappers/src/js/d3.v3.js",
 		"/C/GitHub/js-wordSearch/src/index.htm",
+		"/C/GitHub/js-wordSearch/src/js/wordSearchDisplay.js",
+		"/C/GitHub/js-xwords/src/js/base64.js",
+		"/C/GitHub/js-xwords/src/js/canvas2image.js",
 		"/C/GitHub/js-xwords/src/js/xWordsDisplay.js",
-		"/C/GitHub/js-xwords/src/js/xWords.js",
 		"/C/GitHub/js-xwords/src/index.htm",
+		"/C/GitHub/javascript/src/GrooveShark.htm",
+		"/C/GitHub/js-wordSearch/src/js/wordSearch.js",
+		"/C/GitHub/js-xwords/src/js/xWords.js",
 		"/C/GitHub/javascript/src/d3DemoMaps.htm",
 		"/C/GitHub/javascript/src/interactive/testzaf.html",
 		"/C/GitHub/javascript/src/interactive/test.html",
@@ -438,6 +452,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"strDownloadMime",
+			"saveAsPNG",
 			"247638636",
 			"console",
 			"QuestionList",
@@ -487,40 +503,6 @@
 	"groups":
 	[
 		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 0,
-					"file": "/C/GitHub/javascript/src/GrooveShark.htm",
-					"settings":
-					{
-						"buffer_size": 3433,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3054,
-								3054
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1031.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
-			]
-		},
-		{
 			"sheets":
 			[
 			]
@@ -543,18 +525,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.5,
 			1.0
 		],
 		"rows":

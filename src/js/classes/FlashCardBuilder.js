@@ -265,6 +265,7 @@ function Deck(){
 
 
 
+
 function Card(lArray){
 
     this.sides = lArray;

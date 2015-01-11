@@ -100,16 +100,16 @@
                             &nbsp;&nbsp;
                             List 1 column:
                             <select id="sltList1Col">
-                                <option selected value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                <option selected value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
                             </select>
                             &nbsp;&nbsp;
                             List 2 column:
                             <select id="sltList1Col">
-                                <option value="1">1</option>
-                                <option selected value="2">2</option>
-                                <option value="3">3</option>
+                                <option value="0">1</option>
+                                <option selected value="1">2</option>
+                                <option value="2">3</option>
                             </select>
                         </div>
                         <div>
@@ -195,7 +195,9 @@
 
         // load from the current list
         run();
-        
+
+        console.log(mainDeck.cards.length);
+        var MG = new MatchingGame(mainDeck.cards,0,1);
     }
     </script>
   </body>

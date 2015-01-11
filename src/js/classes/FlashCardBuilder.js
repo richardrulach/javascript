@@ -264,8 +264,6 @@ function Deck(){
 };
 
 
-
-
 function Card(lArray){
 
     this.sides = lArray;
@@ -303,6 +301,39 @@ function Card(lArray){
     /* INTERNAL FUNCTIONS */
 
 };
+
+
+
+function MatchingGame(lArray, leftIndex, rightIndex){
+
+    var _self = this;
+    this.leftIndex = leftIndex;
+    this.rightIndex = rightIndex;
+    this.gameArray = new Array();
+
+    // ARRAYS OF MATCHINGGAMEITEM
+    this.leftItems = new Array();
+    this.rightItems = new Array();
+
+    for (var i = 0; i < lArray.length; i++) {
+        this.gameArray.push(new Array(lArray[i].sides[leftIndex], lArray[i].sides[rightIndex]));
+    };
+
+    console.log(this.gameArray);
+
+    this.LoadNext = function(iNumberToLoad){
+        console.log('load:' + iNumberToLoad);
+
+    }
+
+    this.LoadNext(5);
+}
+
+function MatchingGameItem(lIndex, lText){
+    this.gameArrayIndex = lIndex;
+    this.displayItem = lText;
+}
+
 
 /**
   * END CLASS DEFINITIONS

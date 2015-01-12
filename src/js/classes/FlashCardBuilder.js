@@ -310,13 +310,16 @@ function MatchingGame(lArray, leftIndex, rightIndex){
     this.leftIndex = leftIndex;
     this.rightIndex = rightIndex;
     this.gameArray = new Array();
+    this.sourceArray = new Array();
+
 
     // ARRAYS OF MATCHINGGAMEITEM
     this.leftItems = new Array();
     this.rightItems = new Array();
 
     for (var i = 0; i < lArray.length; i++) {
-        this.gameArray.push(new Array(lArray[i].sides[leftIndex], lArray[i].sides[rightIndex]));
+        this.gameArray.push(new Array(i, lArray[i].sides[leftIndex], lArray[i].sides[rightIndex]));
+        this.sourceArray.push(new Array(i, lArray[i].sides[leftIndex], lArray[i].sides[rightIndex]));
     };
 
     console.log(this.gameArray);

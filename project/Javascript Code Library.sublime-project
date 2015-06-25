@@ -2,19 +2,7 @@
 	"folders":
 	[
 		{
-			"path": "/C/GitHub/javascript"
-		},
-		{
-			"path": "/C/GitHub/js-wordSearch"
-		},
-		{
-			"path": "/C/GitHub/js-xwords"
-		},
-		{
-			"path": "/C/GitHub/d3-wrappers"
-		},
-		{
-			"path": "/C/GitHub/design"
+			"path": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src"
 		}
 	]
 }

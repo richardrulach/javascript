@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Simple Shapes</title>
+	<script type="text/javascript" src="../_js/raphael/raphael.min.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+	// Creates canvas 320 × 200 at 10, 50
+	var paper = Raphael(10, 50, 320, 500);
+
+	// Creates circle at x = 50, y = 40, with radius 10
+	var circle = paper.circle(50, 40, 10);
+	// Sets the fill attribute of the circle to red (#f00)
+	circle.attr("fill", "#f00");
+
+	// Sets the stroke attribute of the circle to white
+	circle.attr("stroke", "#fff");
+
+	var c = paper.rect(10, 10, 50, 50);
+
+	var c = paper.ellipse(50, 50, 40, 20);
+
+	var t = paper.text(250, 50, "Raphaël\nkicks\nbutt!").rotate(270).attr({"font-size":"20px"});
+
+	var path = paper.path("M100,300L100,20").attr({"stroke-dasharray":"--"});
+
+	var path2 = paper.path("M130,300L130,20").attr({"stroke-width":"5px"});
+	
+	//var txt = paper.print(10, 50, "print", r.getFont("Arial"), 30).attr({fill: "#fff"});
+
+paper.text(200, 180, "Raphaël\nkicks\nbutt!").attr(
+  {"font-family":"Helvetica",
+   "font-style":"bold",
+   "font-size":"30"});
+
+</script>	
+</body>
+</html>

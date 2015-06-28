@@ -1,0 +1,16 @@
+
+.title{
+	padding-bottom: 30px;
+	font-weight: bold;
+	font-size:32px;
+}	
+
+.titleSmall{
+	padding-bottom: 30px;
+	font-weight: bold;
+	font-size:18px;
+}	
+
+div{
+	padding: 10px;
+}

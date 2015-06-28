@@ -3,8 +3,120 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Drag and Drop</title>
+	<script type="text/javascript" src="../_js/raphael/raphael.min.js"></script>
+	<link rel="stylesheet" href="_css/generic.css">
 </head>
 <body>
-	
+	<div class="title">Drag and drop demo</div>
+	<div>
+		<ul>
+			<li>Simple dragging</li>
+			<li>Dragging confined to an area</li>
+			<li>Dragging with an attached object</li>
+			<li>Link objects</li>
+			<li>Dragging and maintaining link</li>
+		</ul>
+	</div>
+
+	<div class="titleSmall">Simple dragging</div>
+	<div id="simple"></div>
+
+	<div class="titleSmall">Dragging confined to an area</div>
+	<div id="confined"></div>
+
+	<div class="titleSmall">Dragging with an attached object</div>
+	<div id="attached"></div>
+
+	<div class="titleSmall">Link objects</div>
+	<div id="linkedObjects"></div>
+
+	<div class="titleSmall">Dragging and maintaining link</div>
+	<div id="maintainLink"></div>
+
+<script type="text/javascript">
+
+window.onload = function() {
+
+	var paper = new Raphael("simple",500,200);
+	var confinedPaper = new Raphael("confined",500,500);
+
+	var circle = paper.circle(50,50,30).attr({"fill":"#66f"});
+
+	var confinedCircle = confinedPaper.circle(150,150,30).attr({"fill":"yellow"});
+
+	var rectangle = paper.rect(150,150,70,10).attr({"fill":"#66f"});
+	var confinedRectangle = confinedPaper.rect(100,100,300,300).attr({"fill":"#66f"});
+	var outerConfinedRectangle = confinedPaper.rect(0,0,500,500).attr({"fill":"green"});
+
+	circle.drag(
+		dragmove,
+		dragstart,
+		dragfinish
+	);
+
+	confinedCircle.drag(
+		dragmove_confined,
+		dragstart_confined,
+		dragfinish_confined
+	);
+
+
+	confinedRectangle.toFront();
+	confinedCircle.toFront();
+
+	rectangle.drag(
+		dragmove,
+		dragstart,
+		dragfinish
+	);
+};
+
+	function dragstart(x,y,e){
+		this.attr({"fill":"orange"});
+		this.current_transform = this.transform();
+	}
+
+	function dragmove(dx,dy,x,y,e){
+		this.transform(this.current_transform+'T'+dx+','+dy);
+	}
+
+	function dragfinish(e){
+		this.attr({"fill":"#66f"});
+		this.current_transform = this.transform();
+	}
+
+
+	function dragstart_confined(x,y,e){
+		this.attr({"fill":"orange"});
+		this.cx = this.attr("cx");
+        this.cy = this.attr("cy");
+		// this.current_transform = this.transform();
+	}
+
+	function dragmove_confined(dx,dy){
+		// this.transform(this.current_transform+'T'+dx+','+dy);
+		var newX = this.cx + dx;
+		var newY = this.cy + dy;
+
+		var rVal = Math.floor(parseInt(this.attr('r')));
+		newX = Math.min(400 - rVal,newX);
+		newY = Math.min(400 - rVal,newY);
+		newX = Math.max(100 + rVal,newX);
+		newY = Math.max(100 + rVal,newY);
+		this.attr({"cx":newX,"cy":newY})
+
+		//console.log(this.current_transform);
+	}
+
+	function dragfinish_confined(e){
+		this.attr({"fill":"yellow"});
+		// this.current_transform = this.transform();
+	}
+
+// DRAGGING WITH AN ATTACHED OBJECT
+
+
+
+</script>
 </body>
 </html>

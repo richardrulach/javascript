@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+		<script type="text/javascript" src="../_js/raphael/raphael.min.js"></script>
+	<link rel="stylesheet" href="_css/generic.css">
+</head>
+<body>
+Drag and drop pink box.<br/>
+Can't move it out of the black box once you enter it.
+<div id="canvas"></div>
+
+<script type="text/javascript">
+	
+window.onload = function() {
+
+	var nowX
+	var nowY
+	var R = Raphael("canvas", 500, 500);
+
+	var c = R.circle(200, 200, 20).attr({"fill":"red"});
+	// .attr({
+	//             fill: "hsb(.8, 1, 1)",
+	//             stroke: "none",
+	//             opacity: .5,
+	//             cursor: "move"
+	//         });
+
+	var j = R.rect(0,0,100,100);
+    // start, move, and up are the drag functions
+
+    // rstart and rmove are the resize functions;
+   c.drag(move, start, up);
+};
+
+
+function start() {
+    // storing original coordinates
+    this.cx = this.attr("cx");
+    this.cy = this.attr("cy");
+    // this.attr({opacity: 1});
+    // if (this.attr("y") < 60 &&  this.attr("x") < 60)
+    //     this.attr({fill: "#000"});        
+}
+
+function move(dx, dy) {
+    // move will be called with dx and dy
+    if (this.attr("cy") > 60 || this.attr("cx") > 60)
+        this.attr({cx: this.cx + dx, cy: this.cy + dy}); 
+    else {
+        nowX = Math.min(60, this.cx + dx);
+        nowY = Math.min(60, this.cy + dy);
+        nowX = Math.max(0, nowX);
+        nowY = Math.max(0, nowY);            
+        this.attr({cx: nowX, cy: nowY });
+        // if (this.attr("fill") != "#000") this.attr({fill: "#000"}); 
+    }
+}
+
+
+function up() {
+    // restoring state
+    // this.attr({opacity: .5});
+    // if (this.attr("y") < 60 && this.attr("x") < 60)
+    //     this.attr({fill: "#AEAEAE"});            
+};   
+
+</script>	
+</body>
+</html>
+
+
+

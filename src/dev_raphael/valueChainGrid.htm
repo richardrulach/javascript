@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Value Chain Grid Demo</title>
+	<script type="text/javascript" src="../_js/raphael/raphael.min.js"></script>
+	<style type="text/css">
+		.title{ padding-bottom: 35px; font-weight:bold; font-size:40px;}
+	</style>
+</head>
+<body>
+	<div class="title">Value Chain Mapping Grid Demo</div>
+	<div id="ValueChainGrid"></div>
+
+<script type="text/javascript">
+
+	var paper = Raphael("ValueChainGrid", 800, 500);
+
+	var t = paper.text(15, 235, "Value Chain").rotate(270).attr({"font-size":"20px"});
+
+	var path = paper.path("M30,0L30,470L800,470").attr({"stroke-width":"3px"});
+
+	paper.path("M222,0L222,470").attr({"stroke-dasharray":"--"});
+	paper.path("M414,0L414,470").attr({"stroke-dasharray":"--"});
+	paper.path("M606,0L606,470").attr({"stroke-dasharray":"--"});
+
+	paper.text(126, 490, "Genesis").attr({
+		"font-family":"Helvetica",
+	   	"font-style":"bold",
+	   	"font-size":"20"}
+   	);
+
+	paper.text(318, 490, "Custom-built").attr({
+		"font-family":"Helvetica",
+	   	"font-style":"bold",
+	   	"font-size":"20"}
+   	);
+
+	paper.text(510, 490, "Product").attr({
+		"font-family":"Helvetica",
+	   	"font-style":"bold",
+	   	"font-size":"20"}
+   	);
+
+	paper.text(702, 490, "Commodity").attr({
+		"font-family":"Helvetica",
+	   	"font-style":"bold",
+	   	"font-size":"20"}
+   	);
+
+
+</script>	
+</body>
+</html>

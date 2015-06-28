@@ -2,9 +2,40 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Drag and Drop</title>
+	<title>Shape animation</title>
+	<script type="text/javascript" src="../_js/raphael/raphael.min.js"></script>
 </head>
 <body>
+	<div class="title">Basic movement</div>
+	<div id="demo_shape_animation"></div>
+	<div class="title">Event driven animation <a href="javascript:eventDrivenAnimation()">ANIMATE</a></div>
+	<div id="demo_shape_animation_by_event"></div>
 	
+	<script type="text/javascript">
+		// Creates canvas 320 × 200 at 10, 50
+		var paper = Raphael('demo_shape_animation', 300, 100);
+		var paper2 = Raphael('demo_shape_animation_by_event', 300, 100);
+
+		// Creates circle at x = 50, y = 40, with radius 10
+		var circle = paper.circle(50, 50, 10).attr({
+			"fill":"#f00",
+			"stroke":"#fff"
+		});
+
+		circle.animate({"cx":280,"cy":50},2000,"easeInOut");
+
+		var circle2 = paper2.circle(50, 50, 10).attr({"fill":"#f00","stroke":"#fff"});
+
+
+		function eventDrivenAnimation(){
+			if (circle2.attr("cx") != 50){
+				circle2.animate({"cx":50,"cy":50},2000,"easeInOut");
+			} else {
+				circle2.animate({"cx":280,"cy":50},2000,"easeInOut");
+			}
+		}
+
+	</script>	
+
 </body>
 </html>

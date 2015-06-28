@@ -16,14 +16,22 @@
 
 	var paper = Raphael("ValueChainGrid", 800, 500);
 
-	var t = paper.text(15, 235, "Value Chain").rotate(270).attr({"font-size":"20px"});
-
+	// DRAW THE X AND Y AXIS
 	var path = paper.path("M30,0L30,470L800,470").attr({"stroke-width":"3px"});
 
+	// ARROW HEADS
+	path = paper.path("M30,0L35,10L25,10Z").attr({"fill":"#000","stroke-width":"3px"});
+	path = paper.path("M798,470L793,465L793,475Z").attr({"fill":"#000","stroke-width":"3px"});
+
+	// SEGMENTS
 	paper.path("M222,0L222,470").attr({"stroke-dasharray":"--"});
 	paper.path("M414,0L414,470").attr({"stroke-dasharray":"--"});
 	paper.path("M606,0L606,470").attr({"stroke-dasharray":"--"});
 
+	// Y AXIS LABEL
+	var t = paper.text(15, 235, "Value Chain Visibility").rotate(270).attr({"font-size":"20px"});
+
+	// X AXIS LABELS
 	paper.text(126, 490, "Genesis").attr({
 		"font-family":"Helvetica",
 	   	"font-style":"bold",

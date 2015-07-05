@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"link",
+				"linkedCRMC"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"padding",
+				"padding-bottom"
+			],
+			[
 				"Canvas",
 				"canvasAnswers"
 			],
@@ -90,10 +102,6 @@
 			[
 				"GRI",
 				"GRID_SIZE"
-			],
-			[
-				"font",
-				"fontSize"
 			],
 			[
 				"HORIZONTAL",
@@ -272,10 +280,6 @@
 				"border-left"
 			],
 			[
-				"padding",
-				"padding-top"
-			],
-			[
 				"border-col",
 				"border-color"
 			],
@@ -287,6 +291,71 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/index.htm",
+			"settings":
+			{
+				"buffer_size": 589,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/simpleShapes.htm",
+			"settings":
+			{
+				"buffer_size": 1737,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/valueChainGrid.htm",
+			"settings":
+			{
+				"buffer_size": 1588,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/_css/generic.css",
+			"settings":
+			{
+				"buffer_size": 172,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/shapeAnimation.htm",
+			"settings":
+			{
+				"buffer_size": 1140,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/shapeDragAndDrop.htm",
+			"settings":
+			{
+				"buffer_size": 6528,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/etc/hosts",
+			"settings":
+			{
+				"buffer_size": 517,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/containedDrag.htm",
+			"settings":
+			{
+				"buffer_size": 1791,
+				"line_ending": "Unix",
+				"name": "html"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -328,6 +397,8 @@
 	},
 	"file_history":
 	[
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/TEMPLATE.htm",
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/_js/raphael/raphael.min.js",
 		"/C/GitHub/d3-wrappers/src/index.htm",
 		"/C/GitHub/design/src/floorplan.htm",
 		"/C/GitHub/design/src/index.htm",
@@ -452,6 +523,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"attached",
+			"title",
+			"li",
+			"Li",
+			"li",
 			"strDownloadMime",
 			"saveAsPNG",
 			"247638636",
@@ -488,11 +564,12 @@
 			"console.log("
 		],
 		"highlight": true,
-		"in_selection": false,
+		"in_selection": true,
 		"preserve_case": false,
 		"regex": false,
 		"replace_history":
 		[
+			"linked"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -505,6 +582,222 @@
 		{
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/index.htm",
+					"settings":
+					{
+						"buffer_size": 589,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								155,
+								155
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/simpleShapes.htm",
+					"settings":
+					{
+						"buffer_size": 1737,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1036,
+								1036
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 153.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/valueChainGrid.htm",
+					"settings":
+					{
+						"buffer_size": 1588,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								521,
+								521
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/_css/generic.css",
+					"settings":
+					{
+						"buffer_size": 172,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								142,
+								142
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/shapeAnimation.htm",
+					"settings":
+					{
+						"buffer_size": 1140,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								972,
+								972
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/shapeDragAndDrop.htm",
+					"settings":
+					{
+						"buffer_size": 6528,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								804,
+								804
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 74.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/etc/hosts",
+					"settings":
+					{
+						"buffer_size": 517,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								314,
+								314
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 153.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/containedDrag.htm",
+					"settings":
+					{
+						"buffer_size": 1791,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1160,
+								1160
+							]
+						],
+						"settings":
+						{
+							"auto_name": "html",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 431.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -541,7 +834,7 @@
 	"menu_visible": true,
 	"replace":
 	{
-		"height": 0.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flash Card Builder</title>
+
+    <!-- Bootstrap -->
+    <link href="/_css/bootstrap.min.css" rel="stylesheet">
+    <link href="/_css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <style>
+    	#outerDisplay{
+    		height:320px;
+    		width:480px;
+    		position:relative;
+        }
+
+    	#mainDisplay{
+    		position:absolute;
+    		height:320px;
+    		width:480px;
+    		background-color:#ddd;
+    		display:table;
+    		padding:0px;
+    		margin: 0px;
+    		max-height:320px;
+        }
+
+    	.middle {
+    		display:table-cell;
+    		vertical-align:middle;
+    		text-align: center;
+    		font-weight:bold;
+    		padding: 0px;
+    		margin: 0px;
+    		max-height:320px;
+
+    	}
+
+    	.cardText {
+    		font-weight: bold;
+    		padding: 0px;
+    		margin: 0px;
+    		max-height:320px;
+    	}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+	    <div class="row">
+		    <header>
+		        <h1>Flash Card Builder</h1>
+		    </header>
+		    <section>
+		      <div class="row">
+	      		<div class="col-lg-12">
+	      			<textarea id="txtInput"></textarea>
+	      		</div>
+	      		<div class="col-lg-12">
+                    <input type="button" onclick="run()" value="RUN!!!" />
+                    <input type="button" onclick="processSkritter()" value="Process Skritter" />
+	      			<input type="button" onclick="scale()" value="scale" />
+	      		</div>
+
+	      		<div id="outerDisplay">
+		      		<div id="mainDisplay">
+		      		</div>
+	      		</div>
+	      		<div>
+	      			<div id="statsLabel">Current Stats:</div>
+	      			<div>
+	      				Cards: <span id="numCards"></span>
+	      				&nbsp;&nbsp;&nbsp;&nbsp;
+	      				Sides: <span id="numSides"></span>
+	      			</div>
+	      			<div>
+	      				<input type="checkbox" id="chkShuffleOnIteration" onclick="chkShuffleOnIteration_click()" /><label for="chkShuffleOnIteration">Shuffle Deck on Iteration</label>
+	      			</div>
+	      		</div>
+                
+                <!-- MATCHING GAME -->
+                <div>
+                    <div id="matchingGameControls">
+                        <div>
+                            Matching Game Type:
+                            <select id="sltMatchingGameType">
+                                <option value="sequencial">Sequencial Sets</option>
+                                <option value="addThree">Add Three Items On Solution</option>
+                                <option value="random">Totally Random</option>
+                            </select>
+                            &nbsp;&nbsp;
+                            List 1 column:
+                            <select id="sltList1Col">
+                                <option selected value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                            </select>
+                            &nbsp;&nbsp;
+                            List 2 column:
+                            <select id="sltList1Col">
+                                <option value="0">1</option>
+                                <option selected value="1">2</option>
+                                <option value="2">3</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="button" onclick="RunMatchingGame()" value="Run Matching Game" />
+                        </div>
+                    </div>
+                    <div id="matchingGameContainer">
+
+                        <div id="matchingGameList1">
+
+                        </div>
+                        <div id="matchingGameList2">
+
+                        </div>
+                    </div>
+                </div>
+
+		      </div>
+		    </section>
+		    <footer class="row">
+		      <small>Flash card builder demonstrates the use of the various flashcardbuilder classes.</small>
+		    </footer>
+	    </div>
+    </div><!-- END CONTAINER CLASS -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="dev_scritter_import/_js/jquery.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="_js/bootstrap/bootstrap.min.js"></script>
+    
+    <!-- JS files for Flash Cards -->
+    <script src="_js/classes/CSV.js"></script>
+    <script src="_js/classes/FlashCardBuilder.js"></script>
+    <script>
+	var mainDeck = new Deck();
+	mainDeck.SetDisplay('mainDisplay');
+	mainDeck.SetCardDisplay('numCards');
+	mainDeck.SetSideDisplay('numSides');
+	mainDeck.ListenForKeystrokes();
+	mainDeck.shuffleOnIteration 
+		= $('#chkShuffleOnIteration').is(':checked');
+
+
+	function chkShuffleOnIteration_click(){
+		mainDeck.shuffleOnIteration 
+			= $('#chkShuffleOnIteration').is(':checked');
+		console.log('shuffle:' + mainDeck.shuffleOnIteration);
+	}
+
+    function run(){
+        mainDeck.Reset();
+        mainDeck.Import($('#txtInput').val());
+    }   
+
+    function processSkritter(){
+        var lValue = $('#txtInput').val();
+        var aValues = lValue.split(/\n/);
+        var returnText = '';
+
+
+        for (var i = 0; i < aValues.length; i++) {
+
+            var sText = $.trim(aValues[i].replace(',',''));
+            var n = sText.indexOf(' ');
+            sText = sText.substr(0,n) + ',' + sText.substring(n+1, sText.length);
+
+            var m = sText.indexOf(':');
+            sText = sText.substr(0,m) + ',' + sText.substring(m+1, sText.length);
+
+            returnText += sText + '\n';
+        };
+
+        $('#txtInput').val(returnText);
+    }   
+
+	function scale(){
+		mainDeck.ScaleDisplay();
+	}	
+
+
+    function RunMatchingGame(){
+        console.log('matching game started');
+
+        // load from the current list
+        run();
+
+        console.log(mainDeck.cards.length);
+        var MG = new MatchingGame(mainDeck.cards,0,1);
+    }
+    </script>
+  </body>
+</html>

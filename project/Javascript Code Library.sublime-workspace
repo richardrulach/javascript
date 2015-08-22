@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"pro",
+				"processedArray"
+			],
+			[
+				"font-",
+				"font-weight"
+			],
+			[
+				"answer",
+				"answerText"
+			],
+			[
+				"Generate",
+				"GenerateQuestion"
+			],
+			[
+				"sele",
+				"selectedGroup"
+			],
+			[
+				"selecte",
+				"selectedItem"
+			],
+			[
+				"selected",
+				"selectedGroup"
+			],
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"sub",
+				"substring"
+			],
+			[
 				"link",
 				"linkedCRMC"
 			],
@@ -292,68 +328,52 @@
 	"buffers":
 	[
 		{
-			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/index.htm",
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/multiQuiz.htm",
 			"settings":
 			{
-				"buffer_size": 589,
+				"buffer_size": 708,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/simpleShapes.htm",
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/_css/multiquery.css",
 			"settings":
 			{
-				"buffer_size": 1737,
+				"buffer_size": 151,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/valueChainGrid.htm",
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/_js/multiquery.js",
 			"settings":
 			{
-				"buffer_size": 1588,
+				"buffer_size": 1648,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/_css/generic.css",
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/importFromTesting.htm",
 			"settings":
 			{
-				"buffer_size": 172,
+				"buffer_size": 529,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/shapeAnimation.htm",
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/acceptance criteria",
 			"settings":
 			{
-				"buffer_size": 1140,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/shapeDragAndDrop.htm",
-			"settings":
-			{
-				"buffer_size": 6528,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/etc/hosts",
-			"settings":
-			{
-				"buffer_size": 517,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/containedDrag.htm",
-			"settings":
-			{
-				"buffer_size": 1791,
+				"buffer_size": 59402,
 				"line_ending": "Unix",
-				"name": "html"
+				"name": "acceptance criteria"
+			}
+		},
+		{
+			"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/_js/importFromTesting.js",
+			"settings":
+			{
+				"buffer_size": 1431,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -397,6 +417,18 @@
 	},
 	"file_history":
 	[
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/_js/jqueryui.js",
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/FlashCardBuilder_training.htm",
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/_js/classes/FlashCardBuilder.js",
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/_js/jquery.js",
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/index.htm",
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/containedDrag.htm",
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/shapeDragAndDrop.htm",
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/shapeAnimation.htm",
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/_css/generic.css",
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/valueChainGrid.htm",
+		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/simpleShapes.htm",
+		"/etc/hosts",
 		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/TEMPLATE.htm",
 		"/var/www/javascript.waystoskinacat.com/public_html/javascript/src/_js/raphael/raphael.min.js",
 		"/C/GitHub/d3-wrappers/src/index.htm",
@@ -580,22 +612,23 @@
 	"groups":
 	[
 		{
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/index.htm",
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/multiQuiz.htm",
 					"settings":
 					{
-						"buffer_size": 589,
+						"buffer_size": 708,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								155,
-								155
+								15,
+								15
 							]
 						],
 						"settings":
@@ -611,72 +644,18 @@
 				},
 				{
 					"buffer": 1,
-					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/simpleShapes.htm",
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/_css/multiquery.css",
 					"settings":
 					{
-						"buffer_size": 1737,
+						"buffer_size": 151,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1036,
-								1036
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 153.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/valueChainGrid.htm",
-					"settings":
-					{
-						"buffer_size": 1588,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								521,
-								521
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/_css/generic.css",
-					"settings":
-					{
-						"buffer_size": 172,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								142,
-								142
+								95,
+								95
 							]
 						],
 						"settings":
@@ -690,19 +669,47 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/shapeAnimation.htm",
+					"buffer": 2,
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/_js/multiquery.js",
 					"settings":
 					{
-						"buffer_size": 1140,
+						"buffer_size": 1648,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								972,
-								972
+								591,
+								591
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 162.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/importFromTesting.htm",
+					"settings":
+					{
+						"buffer_size": 529,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								308,
+								308
 							]
 						],
 						"settings":
@@ -717,83 +724,56 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/shapeDragAndDrop.htm",
+					"buffer": 4,
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/acceptance criteria",
 					"settings":
 					{
-						"buffer_size": 6528,
+						"buffer_size": 59402,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								804,
-								804
+								59144,
+								59144
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 74.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/etc/hosts",
-					"settings":
-					{
-						"buffer_size": 517,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								314,
-								314
-							]
-						],
-						"settings":
-						{
+							"auto_name": "acceptance criteria",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 153.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_raphael/containedDrag.htm",
+					"buffer": 5,
+					"file": "/var/www/javascript.waystoskinacat.com/public_html/javascript/src/dev_scritter_import/_js/importFromTesting.js",
 					"settings":
 					{
-						"buffer_size": 1791,
+						"buffer_size": 1431,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1160,
-								1160
+								318,
+								318
 							]
 						],
 						"settings":
 						{
-							"auto_name": "html",
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 431.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

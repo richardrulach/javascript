@@ -1,0 +1,16 @@
+
+
+#questionArea {
+	margin:20px;
+}
+
+.answerItem {
+	float:left;
+	margin:20px;
+	font-weight: bold;
+}
+
+.correctAnswer{
+	font-weight:normal;
+	margin:10px;
+}

@@ -1,0 +1,18 @@
+<UserScriptConfig>
+	<Script basedir="Jira_Login" checkRemoteUpdates="1" dependhash="885935a58cbf2a085a48df70667e5129f7988983" description="Logs in to jira" enabled="true" filename="Jira_Login.user.js" installTime="1487844891662" modified="1488282724129" name="Jira Login" namespace="jira" noframes="false" runAt="document-end" updateMetaStatus="unknown" uuid="adfb5389-fe03-4b27-a475-fa374669e082" version="1" installurl="file:///C:/Users/rrulach/AppData/Roaming/Mozilla/Firefox/Profiles/cxjczv1p.default/gm_scripts/Jira_Login/Jira_Login.user.js" updateurl="file:///C:/Users/rrulach/AppData/Roaming/Mozilla/Firefox/Profiles/cxjczv1p.default/gm_scripts/Jira_Login/Jira_Login.user.js">
+		<Grant>none</Grant>
+		<Include>http://192.168.145.127:8080/secure/Dashboard.jspa</Include>
+		<Include>http://192.168.145.127:8080/browse/*</Include>
+		<Require filename="jquery.min.js"/>
+	</Script>
+	<Script basedir="App_Form" checkRemoteUpdates="1" dependhash="885935a58cbf2a085a48df70667e5129f7988983" description="" enabled="true" filename="App_Form.user.js" installTime="1488291392526" modified="1488293326585" name="GI Show" namespace="PHL.CONFIG" noframes="false" runAt="document-end" updateMetaStatus="unknown" uuid="88f7c146-f8f9-4527-9018-01224972e95e" version="1" installurl="file:///C:/Users/rrulach/AppData/Roaming/Mozilla/Firefox/Profiles/cxjczv1p.default/gm_scripts/App_Form/App_Form.user.js" updateurl="file:///C:/Users/rrulach/AppData/Roaming/Mozilla/Firefox/Profiles/cxjczv1p.default/gm_scripts/App_Form/App_Form.user.js">
+		<Grant>none</Grant>
+		<Include>http://efo.*.peppergroup.co.uk/Forms/AppForm.aspx</Include>
+		<Require filename="jquery.min.js"/>
+	</Script>
+	<Script basedir="StackOverflow-Clean" checkRemoteUpdates="1" dependhash="e95c9678825ab70cc47ec7ea6b4713853baad85f" description="" enabled="true" filename="StackOverflow-Clean.user.js" installTime="1488446490131" modified="1488446952194" name="StackOverflow-Clean" namespace="com.richardrulach" noframes="false" runAt="document-end" updateMetaStatus="unknown" uuid="9916791e-f9a3-47a0-99f0-00ca740a9251" version="1" installurl="file:///C:/Users/rrulach/AppData/Roaming/Mozilla/Firefox/Profiles/cxjczv1p.default/gm_scripts/StackOverflow-Clean/StackOverflow-Clean.user.js" updateurl="file:///C:/Users/rrulach/AppData/Roaming/Mozilla/Firefox/Profiles/cxjczv1p.default/gm_scripts/StackOverflow-Clean/StackOverflow-Clean.user.js">
+		<Grant>none</Grant>
+		<Include>http://stackoverflow.com/*</Include>
+		<Require filename="jquery.min.js"/>
+	</Script>
+</UserScriptConfig>

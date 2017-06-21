@@ -12,35 +12,41 @@
 
             $('#inputText').text("<rss version='2.0'><channel><title>RSS Title</title></channel><channel><person>mick</person><person name='dave'/></channel></rss>");
 
+
+            /////////////////////////////////////////////////////////////////////////
+            //
+            //  PROCESS THE XML IN THE INPUT TEXT BOX (CONTENT EDITABLE DIV)
+            //
+            /////////////////////////////////////////////////////////////////////////
             $('#btnRunTidy').on('click', function () {
 
                 $('#outputText').html('');
                 NewHTML = '';
 
-                xmlDoc = $.parseXML($('#inputText').text()),
-                $xml = $(xmlDoc);
+                var oParser = new DOMParser();
+                var oDOM = oParser.parseFromString($('#inputText').text(), "text/xml");
 
-                for (var i = 0; i < $xml[0].childNodes.length; i++) {
-                    PrintXMLNode($xml[0].childNodes[i], 0);
+                // HANDLE ERRORS OR PRINT THE FORMATTED DOCUMENT
+                if (oDOM.documentElement.nodeName == 'parsererror') {
+                    $('#errorText').text(oDOM.documentElement.childNodes[0].data);
+                    $('#errorText').slideDown();
+                } else {
+                    $('#errorText').hide();
+                    PrintXMLNode(oDOM.childNodes[0], 0);
                 }
+
                 $('#outputText').html(NewHTML);
-                console.log(NewHTML);
             });
 
         });
 
 
-        function GetSpaces(depth) {
-            var sReturn = '';
-            for (var i = 0; i < depth * 4; i++) {
-                sReturn += '&nbsp;';
-            }
-            return sReturn;
-        }
-
+        /////////////////////////////////////////////////////////////////////////
+        //
+        //  Recursive function to Print Elements and Text Nodes
+        //
+        /////////////////////////////////////////////////////////////////////////
         function PrintXMLNode(xNode, depth) {
-            //console.log(xNode.nodeName);
-            //console.log(xNode.nodeType);
             switch (xNode.nodeType)
             {
                 case xNode.ELEMENT_NODE:
@@ -55,10 +61,14 @@
                     NewHTML += "<div class='xElem textValue'>" + xNode.nodeValue + "</div>";
                     break;
             }
-
         }
 
 
+        /////////////////////////////////////////////////////////////////////////
+        //
+        //  Recursive function to Print Elements and Text Nodes
+        //
+        /////////////////////////////////////////////////////////////////////////
         function OpenTag(xNode, depth) {
             var sReturn = "<div class='xElem'><span class='tagOpenClose'>" + "&lt;" + xNode.nodeName + "</span>" + GetAttributes(xNode);
             if (xNode.childNodes.length > 0) {
@@ -69,6 +79,11 @@
             return sReturn + "<br />";
         }
 
+        /////////////////////////////////////////////////////////////////////////
+        //
+        //  Gets the closing tag and closes off the DIV started in the open tag
+        //
+        /////////////////////////////////////////////////////////////////////////
         function CloseTag(xNode, depth) {
             var sReturn = '';
             if (xNode.childNodes.length > 0) {
@@ -77,6 +92,11 @@
             return sReturn + "</div>";
         }
 
+        /////////////////////////////////////////////////////////////////////////
+        //
+        //  Returns line of attributes with colour formatting.
+        //
+        /////////////////////////////////////////////////////////////////////////
         function GetAttributes(xNode) {
             var sReturn = '';
 
@@ -89,13 +109,15 @@
         }
 
     </script>
-    <link href="_css/custom.css" rel="stylesheet" />
     <style>
+
+        /* GENERAL STYLING */
         body{
             font-family:'Courier New';
             font-weight:bold;
             font-size: 1.2em;
         }
+
         #inputText, #outputText
         {
             max-height:300px;
@@ -111,7 +133,14 @@
             margin-bottom:20px;
         }
 
-        .xElem > .xElem
+        #errorText{
+            color:red;
+            display:none;
+        }
+
+
+        /* XML OUTPUT FORMATTING*/
+        .xElem > .xElem             /* DOESNT APPLY TO TOP LEVEL */
         {
             padding-left:20px;
         }
@@ -152,6 +181,9 @@
         <input id="btnRunTidy" type="button" value="Run Tidy" />
     </div>
 
+    <div id="errorText">
+        sample
+    </div>
     <div id="outputText">
 
     </div>

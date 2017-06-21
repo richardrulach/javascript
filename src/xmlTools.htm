@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>XML Tools</title>
+	<meta charset="utf-8" />
+    <script src="_js/jquery.v2.2.1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    
+        $(document).ready(function () {
+
+            $('#inputText').text("<rss version='2.0'><channel><title>RSS Title</title><channel><person>mick</person><person name='dave'/></channel></channel></rss>");
+
+            $('#btnRunTidy').on('click', function () {
+
+                $('#outputText').text('');
+
+                xmlDoc = $.parseXML($('#inputText').text()),
+                $xml = $(xmlDoc);
+
+                for (var i = 0; i < $xml[0].childNodes.length; i++) {
+                    PrintXMLNode($xml[0].childNodes[i], 0);
+                }
+            });
+
+        });
+
+
+        function GetSpaces(depth) {
+            var sReturn = '';
+            for (var i = 0; i < depth * 4; i++) {
+                sReturn += '&nbsp;';
+            }
+            return sReturn;
+        }
+
+
+        function PrintXMLNode(xNode, depth) {
+            console.log(xNode.nodeName);
+            console.log(xNode.nodeType);
+
+            if (xNode.nodeType == xNode.ELEMENT_NODE) {
+                $('#outputText').append(GetSpaces(depth) + OpenTag(xNode) + "<br />");
+                for (var i = 0; i < xNode.childNodes.length; i++) {
+                    PrintXMLNode(xNode.childNodes[i], depth + 1);
+                }
+                $('#outputText').append(GetSpaces(depth) + CloseTag(xNode.nodeName) + "<br />");
+
+            } else {
+
+            }
+
+        }
+
+
+        function OpenTag(xNode) {
+            return "&lt;" + xNode.nodeName + GetAttributes(xNode) + "&gt;";
+        }
+
+        function CloseTag(s) {
+            return "&lt;&#47;" + s + "&gt;";
+        }
+
+        function GetAttributes(xNode) {
+            var sReturn = '';
+
+            for (var i = 0; i < xNode.attributes.length; i++)
+            {
+                sReturn += xNode.attributes[i].name + "=\"" + xNode.attributes[i].value + "\"";
+            }
+
+            if (sReturn.length > 0) sReturn = ' ' + sReturn;
+            return sReturn;
+        }
+
+    </script>
+    <link href="_css/custom.css" rel="stylesheet" />
+    <style>
+
+        #inputText, #outputText
+        {
+            background-color:lightgrey;
+            max-height:300px;
+            overflow:scroll;
+        }
+
+        div 
+        {
+            margin-bottom:20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>XML Tools</h1>
+
+    <div id="inputText" class="editableDiv" contenteditable="true">
+    enter xml here....
+    </div>
+
+    <div id="tools">
+        <input id="btnRunTidy" type="button" value="Run Tidy" />
+    </div>
+
+    <div id="outputText" class="editableDiv">
+
+    </div>
+</body>
+</html>

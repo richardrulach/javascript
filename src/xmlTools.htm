@@ -6,13 +6,16 @@
     <script src="_js/jquery.v2.2.1.js" type="text/javascript"></script>
     <script type="text/javascript">
     
+        var NewHTML = '';
+
         $(document).ready(function () {
 
-            $('#inputText').text("<rss version='2.0'><channel><title>RSS Title</title><channel><person>mick</person><person name='dave'/></channel></channel></rss>");
+            $('#inputText').text("<rss version='2.0'><channel><title>RSS Title</title></channel><channel><person>mick</person><person name='dave'/></channel></rss>");
 
             $('#btnRunTidy').on('click', function () {
 
-                $('#outputText').text('');
+                $('#outputText').html('');
+                NewHTML = '';
 
                 xmlDoc = $.parseXML($('#inputText').text()),
                 $xml = $(xmlDoc);
@@ -20,6 +23,8 @@
                 for (var i = 0; i < $xml[0].childNodes.length; i++) {
                     PrintXMLNode($xml[0].childNodes[i], 0);
                 }
+                $('#outputText').html(NewHTML);
+                console.log(NewHTML);
             });
 
         });
@@ -33,31 +38,43 @@
             return sReturn;
         }
 
-
         function PrintXMLNode(xNode, depth) {
-            console.log(xNode.nodeName);
-            console.log(xNode.nodeType);
+            //console.log(xNode.nodeName);
+            //console.log(xNode.nodeType);
+            switch (xNode.nodeType)
+            {
+                case xNode.ELEMENT_NODE:
+                    NewHTML += OpenTag(xNode, depth);
+                    for (var i = 0; i < xNode.childNodes.length; i++) {
+                        PrintXMLNode(xNode.childNodes[i], depth + 1);
+                    }
+                    NewHTML += CloseTag(xNode, depth);
+                    break;
 
-            if (xNode.nodeType == xNode.ELEMENT_NODE) {
-                $('#outputText').append(GetSpaces(depth) + OpenTag(xNode) + "<br />");
-                for (var i = 0; i < xNode.childNodes.length; i++) {
-                    PrintXMLNode(xNode.childNodes[i], depth + 1);
-                }
-                $('#outputText').append(GetSpaces(depth) + CloseTag(xNode.nodeName) + "<br />");
-
-            } else {
-
+                case xNode.TEXT_NODE:
+                    NewHTML += "<div class='xElem textValue'>" + xNode.nodeValue + "</div>";
+                    break;
             }
 
         }
 
 
-        function OpenTag(xNode) {
-            return "&lt;" + xNode.nodeName + GetAttributes(xNode) + "&gt;";
+        function OpenTag(xNode, depth) {
+            var sReturn = "<div class='xElem'><span class='tagOpenClose'>" + "&lt;" + xNode.nodeName + "</span>" + GetAttributes(xNode);
+            if (xNode.childNodes.length > 0) {
+                sReturn += "<span class='tagOpenClose'>&gt;</span>"
+            } else {
+                sReturn += " <span class='tagOpenClose'>&#47;&gt;</span>"
+            }
+            return sReturn + "<br />";
         }
 
-        function CloseTag(s) {
-            return "&lt;&#47;" + s + "&gt;";
+        function CloseTag(xNode, depth) {
+            var sReturn = '';
+            if (xNode.childNodes.length > 0) {
+                sReturn = "<span class='tagOpenClose'>&lt;&#47;" + xNode.nodeName + "&gt;</span>"
+            }
+            return sReturn + "</div>";
         }
 
         function GetAttributes(xNode) {
@@ -65,33 +82,68 @@
 
             for (var i = 0; i < xNode.attributes.length; i++)
             {
-                sReturn += xNode.attributes[i].name + "=\"" + xNode.attributes[i].value + "\"";
+                sReturn += " <span class='attName'>" + xNode.attributes[i].name + "</span><span class='equalSign'>=</span><span class='attValue'>\"" + xNode.attributes[i].value + "\"</span>";
             }
 
-            if (sReturn.length > 0) sReturn = ' ' + sReturn;
             return sReturn;
         }
 
     </script>
     <link href="_css/custom.css" rel="stylesheet" />
     <style>
-
+        body{
+            font-family:'Courier New';
+            font-weight:bold;
+            font-size: 1.2em;
+        }
         #inputText, #outputText
         {
-            background-color:lightgrey;
             max-height:300px;
             overflow:scroll;
         }
 
-        div 
+        #inputText {
+            background-color:lightgrey;
+        }
+
+        #inputText, #tools
         {
             margin-bottom:20px;
         }
+
+        .xElem > .xElem
+        {
+            padding-left:20px;
+        }
+
+        .attName {
+            color: #8cf7ac;
+        }
+
+        .attValue {
+            color: #c69451;
+        }
+
+        #outputText, .background {
+            background-color: black;
+        }
+
+        .equalSign {
+            color: #cee2ea;
+        }
+
+        .textValue {
+            color: #d0d8db;
+        }
+
+        .tagOpenClose {
+            color: #62cfe0;
+        }
+
     </style>
 </head>
 <body>
     <h1>XML Tools</h1>
-
     <div id="inputText" class="editableDiv" contenteditable="true">
     enter xml here....
     </div>
@@ -100,7 +152,7 @@
         <input id="btnRunTidy" type="button" value="Run Tidy" />
     </div>
 
-    <div id="outputText" class="editableDiv">
+    <div id="outputText">
 
     </div>
 </body>

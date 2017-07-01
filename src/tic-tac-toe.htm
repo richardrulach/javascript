@@ -5,6 +5,11 @@
 	<meta charset="utf-8" />
     <script src="_js/jquery.v2.2.1.js" type="text/javascript"></script>
     <script type="text/javascript">
+
+    function Player(name, piece){
+        this.name = name;
+        this.piece = piece;
+    }
     
     var GAMESTATUS = {
         "WAITING":0,
@@ -13,6 +18,10 @@
     }
 
     var turn = 0;
+
+    var players = new Array();
+    players.push(new Player("You", "x"));
+    players.push(new Player("Computer", "o"));
 
     var marks = new Array();
     marks.push(new Array('','',''));
@@ -24,11 +33,11 @@
 
 
     function Restart(){
-        if (currentStatus != GAMESTATUS.FINISHED){
-            if (!confirm("Are you sure? The game has not finished yet...")){
-                return;
-            }
-        }
+        // if (currentStatus != GAMESTATUS.FINISHED){
+        //     if (!confirm("Are you sure? The game has not finished yet...")){
+        //         return;
+        //     }
+        // }
 
         currentStatus = GAMESTATUS.IN_PROGRESS;
 
@@ -45,6 +54,8 @@
             }
         }
         $('#message').html('Good Luck!');
+
+        Startup();
     }
 
 
@@ -95,8 +106,8 @@
         var col = Math.floor(numRegex.exec($(e.currentTarget).attr('id'))[0]/4);
 
         if (marks[row][col].length == 0){
-            marks[row][col] = turn == 0 ? 'x' : 'o';
-            playAt(row,col, turn++ == 0 ? 'x' : 'o');
+            marks[row][col] = players[turn].piece;
+            playAt(row,col, players[turn++].piece);
 
             if (IsFinished()){
                 $('#message').html('END OF GAME');
@@ -209,9 +220,39 @@
         $('.col3, .col7').html("|");
         $('.line3, .line7').html("=");
 
+        Startup();
     });
     // END SETUP
     /////////////////////////////////////////////////////////////
+
+    function Startup(){
+        var starter = Math.floor(Math.random() * 2);
+        var piece = Math.floor(Math.random() * 2);
+
+        if (piece == 0){
+            players[0].piece = 'x';
+            players[1].piece = 'o';
+            $('#personTag').css('color','green');
+            $('#computerTag').css('color','red');
+        } else {
+            players[0].piece = 'o';
+            players[1].piece = 'x';
+            $('#personTag').css('color','red');
+            $('#computerTag').css('color','green');
+        }
+
+        $('#personTag').html(players[0].piece);
+        $('#computerTag').html(players[1].piece);
+
+        if (starter == 1){
+            var row = Math.floor(Math.random() * 3);
+            var col = Math.floor(Math.random() * 3);
+            marks[row][col] = players[1].piece;
+            playAt(row,col,players[1].piece);
+        }
+
+        turn = 0;
+    }
 
     </script>
     <style>
@@ -246,6 +287,11 @@
             font-size: 1.1em;
         }
 
+        #personTag, #computerTag {
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
         #info > div {
 
             padding-bottom:20px;
@@ -262,7 +308,9 @@
         </div>
         
         <div>
-            <div>Current status: <span>Your turn</span></div>
+            <div>You: <span id="personTag"></span></div>
+            <div>Computer: <span id="computerTag"></span></div>
+            <div>Current status: <span id="status">Your turn</span></div>
             <div>Result: <span id="message">...</span></div>
         </div>
         <div><a href="javascript:Restart()">RESET</a></div>

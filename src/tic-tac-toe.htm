@@ -34,11 +34,6 @@
     var bully = 0;
 
     function Restart(){
-        // if (currentStatus != GAMESTATUS.FINISHED){
-        //     if (!confirm("Are you sure? The game has not finished yet...")){
-        //         return;
-        //     }
-        // }
 
         currentStatus = GAMESTATUS.IN_PROGRESS;
 
@@ -58,16 +53,16 @@
 
         Startup();
 
-        bully = bully == 0 ? 1 : 0;
+        bully = 1;//bully == 0 ? 1 : 0;
     }
 
 
 
     function ComputerPlay(){
 
-        if (bully == 1){
+        if ((bully==1)&&(Math.floor(Math.random() * 3)==0)){
             for (var i = 0; i < 3; i++){
-                if ((marks[i][0] == '')&&(marks[i][1] == '')&&(marks[i][2] == '')){
+                if (! marks[i][0].concat(marks[i][1],marks[i][2]).includes(players[0].piece)){
                     marks[i][0] = players[1].piece;
                     marks[i][1] = players[1].piece;
                     marks[i][2] = players[1].piece;
@@ -78,7 +73,7 @@
                     return;
                 }
 
-                if ((marks[i][0] == '')&&(marks[i][1] == '')&&(marks[i][2] == '')){
+                if (! marks[0][i].concat(marks[1][i],marks[2][i]).includes(players[0].piece)){
                     marks[0][i] = players[1].piece;
                     marks[1][i] = players[1].piece;
                     marks[2][i] = players[1].piece;
@@ -88,24 +83,25 @@
                     CheckFinish();
                     return;
                 }
+
             }
 
-        } else {
-            var possibilities = new Array();
-            for (var i = 0; i < 3; i++){
-                for (var j = 0; j < 3; j++){
-                    if (marks[i][j] == ''){
-                        possibilities.push(new Array(i,j));
-                    }
+        } 
+
+        var possibilities = new Array();
+        for (var i = 0; i < 3; i++){
+            for (var j = 0; j < 3; j++){
+                if (marks[i][j] == ''){
+                    possibilities.push(new Array(i,j));
                 }
             }
-
-            var nextPlay = Math.floor(Math.random() * possibilities.length);
-
-            marks[possibilities[nextPlay][0]][possibilities[nextPlay][1]] = players[1].piece;
-            playAt(possibilities[nextPlay][0],possibilities[nextPlay][1],players[1].piece);
-            CheckFinish();
         }
+
+        var nextPlay = Math.floor(Math.random() * possibilities.length);
+
+        marks[possibilities[nextPlay][0]][possibilities[nextPlay][1]] = players[1].piece;
+        playAt(possibilities[nextPlay][0],possibilities[nextPlay][1],players[1].piece);
+        CheckFinish();
     }
 
     ////////////////////////////////////////////////////////////////
@@ -176,8 +172,10 @@
         if (IsFinished()){
             if (winner == 0){
                 $('#message').html('YOU WIN!!!');
-            } else {
+            } else if (winner == 1) {
                 $('#message').html('BAD LUCK.... COMPUTER WINS');
+            } else {
+                $('#message').html('WTF?!?!');
             }
         } else {
             turn = turn == 0 ? 1 : 0;

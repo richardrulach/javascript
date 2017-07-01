@@ -12,8 +12,26 @@
         "FINISHED":2
     }
 
+    var turn = 0;
+
+    var marks = new Array();
+    marks.push(new Array('','',''));
+    marks.push(new Array('','',''));
+    marks.push(new Array('','',''));
+
+    var currentStatus = GAMESTATUS.WAITING;
+
+
 
     function Restart(){
+        if (currentStatus != GAMESTATUS.FINISHED){
+            if (!confirm("Are you sure? The game has not finished yet...")){
+                return;
+            }
+        }
+
+        currentStatus = GAMESTATUS.IN_PROGRESS;
+
         for (var i = 0; i < 11; i++){
             for (var j = 0; j < 11; j++){
 
@@ -26,41 +44,75 @@
                 }
             }
         }
+        $('#message').html('Good Luck!');
     }
 
+
+    ////////////////////////////////////////////////////////////////
+    //
+    //  HAS A WINNER BEEN DETERMINED
+    //
     function IsFinished(){
+        var HasEmptyCells = false;
 
+        // CHECK ALL ROWS AND COLUMNS
+        for (var i = 0; i < 3; i++){
+            if ((marks[i][0].length == 1)&&(marks[i][0] == marks[i][1])&&(marks[i][0] == marks[i][2]))
+            {
+                currentStatus = GAMESTATUS.FINISHED;
+            }
+
+            if ((marks[0][i].length == 1)&&(marks[0][i] == marks[1][i])&&(marks[0][i] == marks[2][i]))
+            {
+                currentStatus = GAMESTATUS.FINISHED;
+            }
+
+            for (var j = 0; j < 3; j++){
+                if (marks[i][j].length == 0) HasEmptyCells = true;
+            }
+        }
+
+        // DIAGONALS
+        if ((marks[0][0].length == 1)&&(marks[0][0] == marks[1][1])&&(marks[0][0] == marks[2][2]))
+            currentStatus = GAMESTATUS.FINISHED;
+
+        if ((marks[0][2].length == 1)&&(marks[0][2] == marks[1][1])&&(marks[0][2] == marks[2][0]))
+            currentStatus = GAMESTATUS.FINISHED;
+
+        // SPACES TO PLAY
+        if (!HasEmptyCells) currentStatus = GAMESTATUS.FINISHED;
+
+        return currentStatus == GAMESTATUS.FINISHED ? true: false;
     }
 
-    var turn = 0;
 
+    function Grid_Click(e){
 
-    var marks = new Array();
-    marks.push(new Array('','',''));
-    marks.push(new Array('','',''));
-    marks.push(new Array('','',''));
+        if (currentStatus == GAMESTATUS.FINISHED) return;
 
-    function g_over(e){
         var numRegex = /\d{1,2}/g;
         var row = Math.floor(numRegex.exec($(e.currentTarget).attr('id'))[0]/4);
         var col = Math.floor(numRegex.exec($(e.currentTarget).attr('id'))[0]/4);
-    }
 
-    function g_action(e){
-
-        var numRegex = /\d{1,2}/g;
-        var row = Math.floor(numRegex.exec($(e.currentTarget).attr('id'))[0]/4);
-        var col = Math.floor(numRegex.exec($(e.currentTarget).attr('id'))[0]/4);
-
-        if (marks[row][col] == ''){
+        if (marks[row][col].length == 0){
             marks[row][col] = turn == 0 ? 'x' : 'o';
             playAt(row,col, turn++ == 0 ? 'x' : 'o');
+
+            if (IsFinished()){
+                $('#message').html('END OF GAME');
+            }
+
         }
 
         if (turn == 2) turn = 0;
+
     }
 
 
+    ////////////////////////////////////////////////////////////////
+    //
+    //  DRAWS THE X OR O IN THE CELL ON THE GRID
+    //
     function playAt(row,col,type){
 
         var startRow = row * 4;
@@ -77,27 +129,31 @@
                 for (var i = startRow; i <= startRow + 2; i++){
                     for (var j = startCol; j <= startCol + 2; j++){
                         $('#g' + i + '-' + j).css("color","green");                        
+                        $('#g' + i + '-' + j).css("background-color","white");                        
                     }
                 }
                 break;
 
             case 'o':
                 $('#g' + startRow + '-' + (startCol + 1)).html('_');
-
                 $('#g' + (startRow + 1) + '-' + startCol).html('(');
                 $('#g' + (startRow + 1) + '-' + (startCol + 2)).html(')');
-
                 $('#g' + (startRow + 2) + '-' + (startCol + 1)).html('&#175;');
 
                 for (var i = startRow; i <= startRow + 2; i++){
                     for (var j = startCol; j <= startCol + 2; j++){
                         $('#g' + i + '-' + j).css("color","red");                        
+                        $('#g' + i + '-' + j).css("background-color","white");                        
                     }
                 }
                 break;
         }
     }
 
+    ////////////////////////////////////////////////////////////////
+    //
+    //  RETURNS THE CLASS FOR THE GRID SECTION THAT HAS BEEN CLICKED ON
+    //
     function GetPos(idVal,event){
         var numRegex = /\d{1,2}/g;
         var row = Math.floor(numRegex.exec(idVal)[0]/4);
@@ -107,6 +163,15 @@
         }
     }
 
+
+
+    ////////////////////////////////////////////////////////////////
+    //
+    //  SETUP THE BOARD
+    //      - DRAW THE GRID
+    //      - USE CLASSES TO LOGICALLY IDENTIFY CELLS AND GROUPINGS
+    //      - CONNECT EVENTS
+    //
     $(document).ready(function(){
 
 
@@ -125,8 +190,7 @@
                 $("#line" + i).append('<span id="g' + i + '-' + j + '" class="line' + i + ' col' + j + ' ' + posClass + '"></span>');
 
                 if ((i != 3)&&(i != 7)&&(j != 3)&&(j != 7)){
-                    $('#g' + i + '-' + j).on('click',g_action );
-//                    $('#g' + i + '-' + j).on('click',g_over );
+                    $('#g' + i + '-' + j).on('click',Grid_Click );
                 }
             }
         }
@@ -145,9 +209,9 @@
         $('.col3, .col7').html("|");
         $('.line3, .line7').html("=");
 
-
-
     });
+    // END SETUP
+    /////////////////////////////////////////////////////////////
 
     </script>
     <style>
@@ -155,21 +219,57 @@
         /* GENERAL STYLING */
         body{
             font-family:'Courier New';
-            font-weight:bold;
+            font-size: 1.0em;
+        }
+
+        #board{
+            font-weight: bold;
+            font-size:1.2em;
+        }
+
+        #info{
+            float:left;
+            width:400px;
+        }
+
+        #main{
+            float:left;
+            width:300px;
+        }
+
+        #info > div:first-child {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        #info > div:nth-child(2) > div:first-child {
+            font-weight: bold;
             font-size: 1.1em;
         }
 
+        #info > div {
+
+            padding-bottom:20px;
+        }
 
     </style>
 </head>
 <body>
-    <h1>tic-tac-toe</h1>
+    <div id="info">
+        <div>How about a game of tic-tac-toe?</div>
+        <div>
+            <div class="instructions">Instructions</div>
+            <div>Click inside the grid to play...</div>
+        </div>
+        
+        <div>
+            <div>Current status: <span>Your turn</span></div>
+            <div>Result: <span id="message">...</span></div>
+        </div>
+        <div><a href="javascript:Restart()">RESET</a></div>
+    </div>
 
     <div id="main">
-        <div id="testLine" class="line">
-        </div>
         <div id="board"></div>
-        <div><a href="javascript:Restart()">RESET</a></div>
     </div>
 
 </body>

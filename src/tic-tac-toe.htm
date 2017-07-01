@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>tic-tac-toe</title>
+	<meta charset="utf-8" />
+    <script src="_js/jquery.v2.2.1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    
+    var GAMESTATUS = {
+        "WAITING":0,
+        "IN_PROGRESS":1,
+        "FINISHED":2
+    }
+
+
+    function Restart(){
+        for (var i = 0; i < 11; i++){
+            for (var j = 0; j < 11; j++){
+
+                if ((i < 3)&&(j < 3)){
+                    marks[i][j] = '';
+                }
+
+                if ((i != 3)&&(i != 7)&&(j != 3)&&(j != 7)){
+                    $('#g' + i + '-' + j).html('&nbsp;');
+                }
+            }
+        }
+    }
+
+    function IsFinished(){
+
+    }
+
+    var turn = 0;
+
+
+    var marks = new Array();
+    marks.push(new Array('','',''));
+    marks.push(new Array('','',''));
+    marks.push(new Array('','',''));
+
+    function g_over(e){
+        var numRegex = /\d{1,2}/g;
+        var row = Math.floor(numRegex.exec($(e.currentTarget).attr('id'))[0]/4);
+        var col = Math.floor(numRegex.exec($(e.currentTarget).attr('id'))[0]/4);
+    }
+
+    function g_action(e){
+
+        var numRegex = /\d{1,2}/g;
+        var row = Math.floor(numRegex.exec($(e.currentTarget).attr('id'))[0]/4);
+        var col = Math.floor(numRegex.exec($(e.currentTarget).attr('id'))[0]/4);
+
+        if (marks[row][col] == ''){
+            marks[row][col] = turn == 0 ? 'x' : 'o';
+            playAt(row,col, turn++ == 0 ? 'x' : 'o');
+        }
+
+        if (turn == 2) turn = 0;
+    }
+
+
+    function playAt(row,col,type){
+
+        var startRow = row * 4;
+        var startCol = col * 4;
+
+        switch (type){
+            case 'x':
+                $('#g' + startRow + '-' + startCol).html('\\');
+                $('#g' + (startRow + 2) + '-' + (startCol + 2)).html('\\');
+                $('#g' + (startRow + 2) + '-' + startCol).html('/');
+                $('#g' + (startRow + 1) + '-' + (startCol + 1)).html('/');
+                $('#g' + startRow + '-' + (startCol + 2)).html('/');
+
+                for (var i = startRow; i <= startRow + 2; i++){
+                    for (var j = startCol; j <= startCol + 2; j++){
+                        $('#g' + i + '-' + j).css("color","green");                        
+                    }
+                }
+                break;
+
+            case 'o':
+                $('#g' + startRow + '-' + (startCol + 1)).html('_');
+
+                $('#g' + (startRow + 1) + '-' + startCol).html('(');
+                $('#g' + (startRow + 1) + '-' + (startCol + 2)).html(')');
+
+                $('#g' + (startRow + 2) + '-' + (startCol + 1)).html('&#175;');
+
+                for (var i = startRow; i <= startRow + 2; i++){
+                    for (var j = startCol; j <= startCol + 2; j++){
+                        $('#g' + i + '-' + j).css("color","red");                        
+                    }
+                }
+                break;
+        }
+    }
+
+    function GetPos(idVal,event){
+        var numRegex = /\d{1,2}/g;
+        var row = Math.floor(numRegex.exec(idVal)[0]/4);
+        var col = Math.floor(numRegex.exec(idVal)[0]/4);
+        if ((marks[row][col].length == 0)||(event == 'out')){
+            return '.pos' + row + '-' + col;
+        }
+    }
+
+    $(document).ready(function(){
+
+
+        // SET UP THE BOARD
+        for (var i = 0; i < 11; i++){
+            $('#board').append('<div id="line' + i + '"></div>');
+            for (var j = 0; j < 11; j++){
+
+                // IDENTIFIES WHERE IN THE GRID THE CELL IS
+                var posClass = '';
+
+                if ((i != 3)&&(i != 7)&&(j != 3)&&(j != 7)){
+                    posClass = "pos" + Math.floor(i/4).toString() + '-' + Math.floor(j/4).toString();
+                }
+
+                $("#line" + i).append('<span id="g' + i + '-' + j + '" class="line' + i + ' col' + j + ' ' + posClass + '"></span>');
+
+                if ((i != 3)&&(i != 7)&&(j != 3)&&(j != 7)){
+                    $('#g' + i + '-' + j).on('click',g_action );
+//                    $('#g' + i + '-' + j).on('click',g_over );
+                }
+            }
+        }
+
+        $('.pos0-0, .pos0-1, .pos0-2, ' + 
+            '.pos1-0, .pos1-1, .pos1-2, ' + 
+            '.pos2-0, .pos2-1, .pos2-2').on('mouseover',function(e){$(GetPos($(e.currentTarget).attr('id'),'over')).css('background-color','grey')});
+
+        $('.pos0-0, .pos0-1, .pos0-2, ' + 
+            '.pos1-0, .pos1-1, .pos1-2, ' + 
+            '.pos2-0, .pos2-1, .pos2-2').on('mouseout',function(e){$(GetPos($(e.currentTarget).attr('id'),'out')).css('background-color','white')});
+
+
+        // PLACE THE GRID ELEMENTS
+        $('#board > div > span').html("&nbsp;");
+        $('.col3, .col7').html("|");
+        $('.line3, .line7').html("=");
+
+
+
+    });
+
+    </script>
+    <style>
+
+        /* GENERAL STYLING */
+        body{
+            font-family:'Courier New';
+            font-weight:bold;
+            font-size: 1.1em;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>tic-tac-toe</h1>
+
+    <div id="main">
+        <div id="testLine" class="line">
+        </div>
+        <div id="board"></div>
+        <div><a href="javascript:Restart()">RESET</a></div>
+    </div>
+
+</body>
+</html>

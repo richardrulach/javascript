@@ -19,9 +19,11 @@
             $('#btnRunTidy').on('click', function () {
                 var sList =  $('#inputText').val().split(/\n/g);
                 $('#outputText').html('');
+                $('#outputText').append('<div>in (</div>');
                 for (var i = 0; i < sList.length; i++){
-                    $('#outputText').append('<div>\'' + sList[i] + '\',</div>');
+                    $('#outputText').append('<div>\'' + sList[i] + '\'' + ( i != sList.length - 1 ? ',' : '') + '</div>');
                 }
+                $('#outputText').append('<div>)</div>');
 
             });
 
@@ -36,14 +38,52 @@
 
                     $('#myT').append('<tr></tr>');
                     var dataElems = sList[i].split(/,/g);
-
                     for (var j = 0; j < dataElems.length; j++){
                         $('#myT tr:last-child').append('<td>' + dataElems[j] + '</td>');
+                    }
+                }
+
+            });
+
+            $('#btnRunCSVtoSQLTable').on('click', function () {
+
+                var sList =  $('#inputText').val().split(/\n/g);
+                $('#outputText').html('');
+                $('#outputText2').html('<pre id="FMT_OUT"></pre>');
+
+
+                $('#FMT_OUT').append('<div>CREATE TABLE {TABLE NAME}(</div>');
+
+                $('#FMT_OUT').append('<div>    id           INT                NOT NULL,</div>');
+                $('#FMT_OUT').append('<div>    textId       VARCHAR(50)        NOT NULL,</div>');
+                $('#FMT_OUT').append('<div>    displayText  VARCHAR(200)       NOT NULL</div>');
+                $('#FMT_OUT').append(')');
+
+                $('#FMT_OUT').append('<div>INSERT INTO {TABLE NAME}(id, textId, displayText)</div>');
+
+                $('#FMT_OUT').append('VALUES');
+
+                // SKIP THE FIRST LINE
+                for (var i = 0; i < sList.length; i++){
+
+                    var dataElems = sList[i].split(/,/g);
+
+                    var lastComma = i == sList.length - 1 ? '' : ',';
+
+                    if (dataElems.length >= 7){
+                        $('#FMT_OUT').append('<div>    (' + 
+                                                        dataElems[6] + ',\'' + 
+                                                        dataElems[2] + '\',\'' + 
+                                                        dataElems[3] + '\')' + 
+                                                        lastComma + 
+                                            '</div>');
                     }
 
                 }
 
             });
+
+
 
         });
 
@@ -65,17 +105,22 @@
         #outputText2 {
             padding: 10px;
         }
+
+        #inputBox {
+            padding:10px;
+        }
     </style>
 </head>
 <body>
     <h1>SQL Prep</h1>
-    <div>
-        <textarea id="inputText" rows="5" cols="40"></textarea>
+    <div id="inputBox">
+        <textarea id="inputText" rows="15" cols="70"></textarea>
     </div>
 
     <div id="tools">
         <input id="btnRunTidy" type="button" value="List --> Text" />&nbsp;&nbsp;
-        <input id="btnRunCSVtoTable" type="button" value="CSV --> Table" />
+        <input id="btnRunCSVtoTable" type="button" value="CSV --> Table" />&nbsp;&nbsp;
+        <input id="btnRunCSVtoSQLTable" type="button" value="CSV --> SQL Table" />
     </div>
     <div id="outputText">
     </div>

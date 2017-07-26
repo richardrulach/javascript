@@ -6,7 +6,7 @@
 				Run the script to make the connections
 */
 
-var LOAD_TOTAL = 50
+var LOAD_TOTAL = 290
 var rrRepeater = setInterval(rrRepeater_Run,2000);
 
 function rrRepeater_Run(){
@@ -20,7 +20,10 @@ function rrRepeater_Run(){
 
 		$('button.button-secondary-small').each(function(i,e){
 			// Make the connection until the number of available connections have been made.
-			if (i < LOAD_TOTAL) $(e).trigger('click');
+      if ($(e).find('span:first-child').text() != 'Invite'){
+          console.log('Connect');
+          if (i < LOAD_TOTAL) $(e).trigger('click');
+      }
 		});
 
 		$('html, body').scrollTop( 0 );

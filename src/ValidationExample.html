@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Validation Example</title>
+	<meta charset="utf-8" />
+    <script src="_js/jquery.v2.2.1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+    	$('.testHeader1').on('click', function () {
+    		console.log($('.testDetail1').css('display'));
+    			if ($('.testDetail1').css('display') == 'none'){
+	    			$('.testDetail1').slideDown();
+				} else {
+	    			$('.testDetail1').slideUp();
+				}
+    	});
+
+
+
+    	$('.testHeader2').on('click', function () {
+    		console.log($('.testDetail2').css('display'));
+    			if ($('.testDetail2').css('display') == 'none'){
+	    			$('.testDetail2').slideDown();
+				} else {
+	    			$('.testDetail2').slideUp();
+				}
+    	});
+
+
+
+    	$('.testHeader3').on('click', function () {
+    		console.log($('.testDetail3').css('display'));
+    			if ($('.testDetail3').css('display') == 'none'){
+	    			$('.testDetail3').slideDown();
+				} else {
+	    			$('.testDetail3').slideUp();
+				}
+    	});
+
+
+
+    });
+
+    </script>
+    <style>
+
+        /* GENERAL STYLING */
+        body{
+            font-family:'Courier New';
+            font-weight:bold;
+            font-size: 1.2em;
+        }
+
+ 		.testHeader1 {
+ 			margin-top:20px;
+ 			border: 1px solid black;
+ 			background: lightGreen;
+ 		}
+ 		.testHeader2 {
+ 			margin-top:20px;
+ 			border: 1px solid black;
+ 			background: Red;
+ 		}
+ 		.testHeader3 {
+ 			margin-top:20px;
+ 			border: 1px solid black;
+ 			background: lightGreen;
+ 		}
+
+		.testDetail1 {
+			display:none;
+		}
+
+		.testDetail2 {
+			display:none;
+		}
+
+		.testDetail3 {
+			display:none;
+		}
+
+    </style>
+</head>
+<body>
+    <h1>Report Validation: D2</h1>
+    <div>
+
+		<div id="test1">
+			<div class="testHeader1">Header Page Loan Totals</div>
+			<div class="testDetail1">		
+				<table width="200px">
+					<tr>
+						<td>Parameter 1</td>
+						<td>500</td>
+					</tr>
+					<tr>
+						<td>Parameter 2</td>
+						<td>200</td>
+					</tr>
+					<tr>
+						<td>Parameter 3</td>
+						<td>100</td>
+					</tr>
+				</table>
+			</div>
+			<div class="testHeader2">Strat Totals</div>
+			<div class="testDetail2">		
+				<table width="200px">
+					<tr>
+						<td>Parameter 1</td>
+						<td>300</td>
+					</tr>
+					<tr>
+						<td>Parameter 2</td>
+						<td>100</td>
+					</tr>
+				</table>
+			</div>
+			<div class="testHeader3">Roll Rate Totals</div>
+			<div class="testDetail3">		
+				<table width="200px">
+					<tr>
+						<td>Parameter 1</td>
+						<td>500</td>
+					</tr>
+					<tr>
+						<td>Parameter 2</td>
+						<td>200</td>
+					</tr>
+					<tr>
+						<td>Parameter 3</td>
+						<td>200</td>
+					</tr>
+					<tr>
+						<td>Parameter 4</td>
+						<td>200</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+    </div>
+</body>
+</html>

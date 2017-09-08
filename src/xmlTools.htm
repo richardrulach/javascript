@@ -6,6 +6,37 @@
     <script src="_js/jquery.v2.2.1.js" type="text/javascript"></script>
     <script type="text/javascript">
     
+
+function htmlEncode(value){
+  //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+  //then grab the encoded contents back out.  The div never exists on the page.
+  return $('<div/>').text(value).html();
+}
+
+function htmlDecode(value){
+  return $('<div/>').html(value).text();
+}
+
+        var decodeEntities = (function() {
+          // this prevents any overhead from creating the object each time
+          var element = document.createElement('div');
+
+          function decodeHTMLEntities (str) {
+            if(str && typeof str === 'string') {
+              // strip script/html tags
+              str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+              str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+              element.innerHTML = str;
+              str = element.textContent;
+              element.textContent = '';
+            }
+
+            return str;
+          }
+
+          return decodeHTMLEntities;
+        })();
+
         var NewHTML = '';
 
         $(document).ready(function () {
@@ -58,7 +89,8 @@
                     break;
 
                 case xNode.TEXT_NODE:
-                    NewHTML += "<div class='xElem textValue'>" + xNode.nodeValue + "</div>";
+                    //var TextValue = $('<textarea />').html(xNode.nodeValue).text()
+                    NewHTML += "<div class='xElem textValue'>" + htmlEncode(xNode.nodeValue) + "</div>";
                     break;
             }
         }

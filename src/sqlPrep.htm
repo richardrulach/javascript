@@ -45,6 +45,45 @@
 
             });
 
+
+            $('#btnRunTextToSQLInsert').on('click', function () {
+
+                var sList =  $('#inputText').val().split(/\n/g);
+                $('#outputText').html('');
+                $('#outputText2').html('');
+
+                var sOut = '';
+                for (var i = 0; i < sList.length; i++){
+                    if ((sList[i].length > 0)&&(typeof sList[i] != undefined))
+                        sOut += "(12,getdate(),'" + sList[i] + "'),<br />";
+
+                }
+
+                $('#outputText2').html(sOut);
+
+            });
+
+            $('#btnRunTextToLines').on('click', function () {
+
+                var s = prompt('What is the break?');
+                var sList =  $('#inputText').val().split(s);
+                $('#outputText').html('');
+                $('#outputText2').html('');
+
+                var sOut = '';
+                for (var i = 0; i < sList.length; i++){
+                    if ((sList[i].length > 0)&&(typeof sList[i] != undefined))
+                        sOut += s + sList[i] + "<br />";
+
+                }
+
+                $('#outputText2').html(sOut);
+
+            });
+
+
+
+
             $('#btnRunCSVtoSQLTable').on('click', function () {
 
                 var sList =  $('#inputText').val().split(/\n/g);
@@ -70,23 +109,32 @@
 
                     var lastComma = i == sList.length - 1 ? '' : ',';
 
+                        //console.log(dataElems.length);
                     if (dataElems.length >= 7){
-                        $('#FMT_OUT').append('<div>    (' + 
-                                                        dataElems[6] + ',\'' + 
-                                                        dataElems[2] + '\',\'' + 
-                                                        dataElems[3] + '\')' + 
-                                                        lastComma + 
-                                            '</div>');
+                        if (dataElems[4].toLower() != 'true'){
+                            $('#FMT_OUT').append('<div>    (' + 
+                                                            dataElems[6] + ',\'' + 
+                                                            dataElems[2] + '\',\'' + 
+                                                            dataElems[3] + '\')' + 
+                                                            lastComma + 
+                                                '</div>');
+                        }
                     }
 
                 }
 
             });
 
-
-
         });
 
+
+        String.prototype.toLower = function(){
+            var output = "";
+            for(var i = 0; i < this.length; i++){
+                output += this[i].toLowerCase();
+            }
+            return output;
+        };
     </script>
     <style>
 
@@ -120,7 +168,9 @@
     <div id="tools">
         <input id="btnRunTidy" type="button" value="List --> Text" />&nbsp;&nbsp;
         <input id="btnRunCSVtoTable" type="button" value="CSV --> Table" />&nbsp;&nbsp;
-        <input id="btnRunCSVtoSQLTable" type="button" value="CSV --> SQL Table" />
+        <input id="btnRunCSVtoSQLTable" type="button" value="CSV --> SQL Table" />&nbsp;&nbsp;
+        <input id="btnRunTextToSQLInsert" type="button" value="Text --> SQL Insert" />
+        <input id="btnRunTextToLines" type="button" value="Text --> Lines" />
     </div>
     <div id="outputText">
     </div>

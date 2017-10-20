@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>RDL Parser</title>
+	<meta charset="utf-8" />
+    <script src="_js/jquery.v2.2.1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    
+
+function htmlEncode(value){
+  //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+  //then grab the encoded contents back out.  The div never exists on the page.
+  return $('<div/>').text(value).html();
+}
+
+function htmlDecode(value){
+  return $('<div/>').html(value).text();
+}
+
+        var decodeEntities = (function() {
+          // this prevents any overhead from creating the object each time
+          var element = document.createElement('div');
+
+          function decodeHTMLEntities (str) {
+            if(str && typeof str === 'string') {
+              // strip script/html tags
+              str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+              str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+              element.innerHTML = str;
+              str = element.textContent;
+              element.textContent = '';
+            }
+
+            return str;
+          }
+
+          return decodeHTMLEntities;
+        })();
+
+        var NewHTML = '';
+
+        $(document).ready(function () {
+
+            $('#inputText').text("<rss version='2.0'><channel><title>RSS Title</title></channel><channel><person>mick</person><person name='dave'/></channel></rss>");
+
+
+            /////////////////////////////////////////////////////////////////////////
+            //
+            //  PROCESS THE XML IN THE INPUT TEXT BOX (CONTENT EDITABLE DIV)
+            //
+            /////////////////////////////////////////////////////////////////////////
+            $('#btnRunTidy').on('click', function () {
+
+                $('#outputText').html('');
+                NewHTML = '';
+
+                var oParser = new DOMParser();
+                var oDOM = oParser.parseFromString($('#inputText').text(), "text/xml");
+
+alert($('#inputText').text());                
+
+
+var iterator = oDOM.evaluate(
+        '//person', 
+        oDOM.childNodes[0], 
+        null, 
+        XPathResult.UNORDERED_NODE_ITERATOR_TYPE, 
+        null 
+);
+
+try {
+  var thisNode = iterator.iterateNext();
+  
+  while (thisNode) {
+    alert( thisNode.textContent );
+    thisNode = iterator.iterateNext();
+  } 
+}
+catch (e) {
+  dump( 'Error: Document tree modified during iteration ' + e );
+}
+
+                // HANDLE ERRORS OR PRINT THE FORMATTED DOCUMENT
+                // if (oDOM.documentElement.nodeName == 'parsererror') {
+                //     $('#errorText').text(oDOM.documentElement.childNodes[0].data);
+                //     $('#errorText').slideDown();
+                // } else {
+                //     $('#errorText').hide();
+                //     PrintXMLNode(oDOM.childNodes[0], 0);
+                // }
+
+                $('#outputText').html(NewHTML);
+            });
+
+        });
+
+
+
+
+
+
+        /////////////////////////////////////////////////////////////////////////
+        //
+        //  Recursive function to Print Elements and Text Nodes
+        //
+        /////////////////////////////////////////////////////////////////////////
+        function PrintXMLNode(xNode, depth) {
+            switch (xNode.nodeType)
+            {
+                case xNode.ELEMENT_NODE:
+                    NewHTML += OpenTag(xNode, depth);
+                    for (var i = 0; i < xNode.childNodes.length; i++) {
+                        PrintXMLNode(xNode.childNodes[i], depth + 1);
+                    }
+                    NewHTML += CloseTag(xNode, depth);
+                    break;
+
+                case xNode.TEXT_NODE:
+                    //var TextValue = $('<textarea />').html(xNode.nodeValue).text()
+                    NewHTML += "<div class='xElem textValue'>" + htmlEncode(xNode.nodeValue) + "</div>";
+                    break;
+            }
+        }
+
+
+        /////////////////////////////////////////////////////////////////////////
+        //
+        //  Recursive function to Print Elements and Text Nodes
+        //
+        /////////////////////////////////////////////////////////////////////////
+        function OpenTag(xNode, depth) {
+            var sReturn = "<div class='xElem'><span class='tagOpenClose'>" + "&lt;" + xNode.nodeName + "</span>" + GetAttributes(xNode);
+            if (xNode.childNodes.length > 0) {
+                sReturn += "<span class='tagOpenClose'>&gt;</span>"
+            } else {
+                sReturn += " <span class='tagOpenClose'>&#47;&gt;</span>"
+            }
+            return sReturn + "<br />";
+        }
+
+        /////////////////////////////////////////////////////////////////////////
+        //
+        //  Gets the closing tag and closes off the DIV started in the open tag
+        //
+        /////////////////////////////////////////////////////////////////////////
+        function CloseTag(xNode, depth) {
+            var sReturn = '';
+            if (xNode.childNodes.length > 0) {
+                sReturn = "<span class='tagOpenClose'>&lt;&#47;" + xNode.nodeName + "&gt;</span>"
+            }
+            return sReturn + "</div>";
+        }
+
+        /////////////////////////////////////////////////////////////////////////
+        //
+        //  Returns line of attributes with colour formatting.
+        //
+        /////////////////////////////////////////////////////////////////////////
+        function GetAttributes(xNode) {
+            var sReturn = '';
+
+            for (var i = 0; i < xNode.attributes.length; i++)
+            {
+                sReturn += " <span class='attName'>" + xNode.attributes[i].name + "</span><span class='equalSign'>=</span><span class='attValue'>\"" + xNode.attributes[i].value + "\"</span>";
+            }
+
+            return sReturn;
+        }
+
+    </script>
+    <style>
+
+        /* GENERAL STYLING */
+        body{
+            font-family:'Courier New';
+            font-weight:bold;
+            font-size: 1.2em;
+        }
+
+        #inputText, #outputText
+        {
+            max-height:300px;
+            overflow:scroll;
+        }
+
+        #inputText {
+            background-color:lightgrey;
+        }
+
+        #inputText, #tools
+        {
+            margin-bottom:20px;
+        }
+
+        #errorText{
+            color:red;
+            display:none;
+        }
+
+
+        /* XML OUTPUT FORMATTING*/
+        .xElem > .xElem             /* DOESNT APPLY TO TOP LEVEL */
+        {
+            padding-left:20px;
+        }
+
+        .attName {
+            color: #8cf7ac;
+        }
+
+        .attValue {
+            color: #c69451;
+        }
+
+        #outputText, .background {
+            background-color: black;
+        }
+
+        .equalSign {
+            color: #cee2ea;
+        }
+
+        .textValue {
+            color: #d0d8db;
+        }
+
+        .tagOpenClose {
+            color: #62cfe0;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>RDL Parser</h1>
+    <div id="inputText" class="editableDiv" contenteditable="true">
+    enter xml here....
+    </div>
+
+    <div id="tools">
+        <input id="btnRunTidy" type="button" value="Run Tidy" />
+    </div>
+
+    <div id="errorText">
+        sample
+    </div>
+    <div id="outputText">
+
+    </div>
+</body>
+</html>

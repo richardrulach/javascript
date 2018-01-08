@@ -57,16 +57,26 @@ function htmlDecode(value){
                 var oParser = new DOMParser();
                 var oDOM = oParser.parseFromString($('#inputText').text(), "text/xml");
 
-alert($('#inputText').text());                
+//alert($('#inputText').text());                
+
+
 
 
 var iterator = oDOM.evaluate(
-        '//person', 
+        '//DataSources/DataSource', 
         oDOM.childNodes[0], 
         null, 
         XPathResult.UNORDERED_NODE_ITERATOR_TYPE, 
         null 
 );
+
+alert(oDOM.all);
+
+if (oDOM.documentElement.nodeName == 'parsererror') {
+    $('#errorText').text(oDOM.documentElement.childNodes[0].data);
+    $('#errorText').slideDown();
+}
+                
 
 try {
   var thisNode = iterator.iterateNext();

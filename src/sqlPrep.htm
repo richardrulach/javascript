@@ -81,6 +81,82 @@
 
             });
 
+            $('#btnCommas').on('click', function () {
+                
+                var sList =  $('#inputText').val().split(/\n/g);
+                $('#outputText').html('');
+                $('#outputText2').html('');
+
+                var sOut = '';
+                for (var i = 0; i < sList.length; i++){
+
+                    if (i == 0){
+                        sOut += sList[i];
+                    } else {
+                        sOut += ", " + sList[i];
+                    }
+
+                    if (i % 15 == 14) sOut += "<br />";
+
+                }
+
+                $('#outputText2').html(sOut);
+
+            });
+
+
+            $('#btnRemoveBlanks').on('click', function () {
+                
+                var sList =  $('#inputText').val().split(/\n/g);
+
+                var sOut = '';
+                for (var i = 0; i < sList.length; i++){
+                    if ($.trim(sList[i]).length > 0)
+                        sOut += sList[i] + '\n';
+                }
+
+                $('#inputText').val(sOut);
+
+            });
+
+
+            $('#btnLinesToCSV').on('click', function () {
+                
+                var sList =  $('#inputText').val().split(/\n/g);
+
+                var s = prompt('How many lines per CSV line?');
+
+                var sOut = '';
+                for (var i = 1; i <= sList.length; i++){
+                    sOut += sList[i-1];
+
+                    if (i % s == 0){
+                        sOut += '\n';
+                    } else {
+                        sOut += ',';
+                    }
+                }
+
+                $('#inputText').val(sOut);
+
+            });
+
+
+
+            $('#btnHeaderToSelect').on('click', function () {
+                
+                var sList =  $('#inputText').val().split(/\t/g);
+
+                var sOut = '';
+                for (var i = 0; i <= sList.length; i++){
+                    sOut +=  i == 0 ? ' ' : ',';
+                    sOut +=  '[' + sList[i] + ']\n';
+                }
+
+                $('#inputText').val(sOut);
+
+            });
+
 
 
 
@@ -171,6 +247,10 @@
         <input id="btnRunCSVtoSQLTable" type="button" value="CSV --> SQL Table" />&nbsp;&nbsp;
         <input id="btnRunTextToSQLInsert" type="button" value="Text --> SQL Insert" />
         <input id="btnRunTextToLines" type="button" value="Text --> Lines" />
+        <input id="btnCommas" type="button" value="Lines --> Comma prefixed lines" />
+        <input id="btnRemoveBlanks" type="button" value="Remove Blank Lines" />
+        <input id="btnLinesToCSV" type="button" value="Lines --> CSV" />
+        <input id="btnHeaderToSelect" type="button" value="Header --> Select fields" />
     </div>
     <div id="outputText">
     </div>
